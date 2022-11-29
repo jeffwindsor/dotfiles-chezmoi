@@ -1,0 +1,2 @@
+alias rb='cargo build'
+alias rc='cargo check'
