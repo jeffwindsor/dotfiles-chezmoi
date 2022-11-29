@@ -10,7 +10,7 @@ if status is-interactive
         source $file
     end
 
-    for file in $XDG_CONFIG_HOME/fish/autoloads/*
+    for file in $XDG_CONFIG_HOME/autoloads/*.fish
         source $file
     end
 
