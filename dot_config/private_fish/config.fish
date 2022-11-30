@@ -22,6 +22,6 @@ end
 
 function fish_greeting
     set_color blue
-    fortune $XDG_CONFIG_HOME/fortune
+    fortune
     set_color normal
 end
