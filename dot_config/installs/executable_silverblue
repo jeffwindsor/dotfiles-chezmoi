@@ -71,9 +71,6 @@ dnf_installs(){
   #sudo dnf -y install rmlint
   sudo dnf -y install tealdeer
 
-  # dotfilesF
-  sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply https://github.com/jeffwindsor/dotfiles-chezmoi
-
   #helix editor
   sudo dnf -y copr enable varlad/helix
   sudo dnf -y install helix
