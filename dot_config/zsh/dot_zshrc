@@ -25,13 +25,13 @@ SAVEHIST=10000
 
 #===========================================================
 # autoloads
-for file in $ZDOTDIR/autoloads/*
+for file in $XDG_CONFIG_HOME/shells/autoloads/*.zsh
 do
     source $file
 done
 
 # aliases
-for file in $XDG_CONFIG_HOME/aliases/*
+for file in $XDG_CONFIG_HOME/shells/aliases/*
 do
     source $file
 done

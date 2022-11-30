@@ -4,6 +4,8 @@ README.md
 {{ if ne .chezmoi.os "darwin" }}
 .config/shells/**/cj
 .config/cjdev
+.config/skhd
+.config/alfred
 {{ end }}
 
 #ignore if not linux
