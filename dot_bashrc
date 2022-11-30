@@ -11,17 +11,17 @@ export XDG_DATA_HOME=$HOME/.local/share
 export XDG_CACHE_HOME=$HOME/.cache
 export XDG_CONFIG_HOME=$HOME/.config
 
-for rc in $XDG_CONFIG_HOME/env/*
+for rc in $XDG_CONFIG_HOME/shells/env/*
 do
     source $rc
 done
 
-for rc in $XDG_CONFIG_HOME/bash/autoloads/*
+for rc in $XDG_CONFIG_HOME/shells/autoloads/*
 do
     source $rc
 done
 
-for rc in $XDG_CONFIG_HOME/aliases/*
+for rc in $XDG_CONFIG_HOME/shells/aliases/*
 do
     source $rc
 done
