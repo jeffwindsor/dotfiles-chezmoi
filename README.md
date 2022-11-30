@@ -2,11 +2,17 @@
 
 personal dot files managed via [chezmoi](https://www.chezmoi.io/)
 
-## local config
+## install
 
-* file: `$XDG_CONFIG_HOME/chezmoi/chezmoi.toml`
+```
+sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply https://github.com/jeffwindsor/dotfiles-chezmoi
+```
 
-* sample contents:
+## config 
+
+```
+$XDG_CONFIG_HOME/chezmoi/chezmoi.toml
+```
 
 ```
 [data]
