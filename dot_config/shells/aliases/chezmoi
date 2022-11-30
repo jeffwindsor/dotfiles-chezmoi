@@ -1,4 +1,9 @@
 #!/usr/bin/env bash
 
 alias c='chezmoi'
-
+alias ct='chezmoi chattr +template'
+alias ce='chezmoi edit'
+alias cr='chezmoi forget'
+alias cga='chezmoi git add --all'
+alias cgm='chezmoi git -- commit -m'
+alias cgp='chezmoi git push'
