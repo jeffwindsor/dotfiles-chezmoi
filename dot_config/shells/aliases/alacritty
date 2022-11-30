@@ -1,1 +1,1 @@
-alias theme="$HOME/.local/scripts/alacritty/change_theme"
+alias theme="$XDG_CONFIG_HOME/alacritty/change_theme"

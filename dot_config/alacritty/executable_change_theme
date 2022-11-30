@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
 config=$XDG_CONFIG_HOME/alacritty
-themes=$HOME/.local/themes/alacritty
+themes=$XDG_CONFIG_HOME/alacritty/themes
 
 if [ -z "$1" ]; then
   # select theme

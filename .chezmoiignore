@@ -1,5 +1,16 @@
 README.md
 
+# ignore if not macos/darwin
+{{ if ne .chezmoi.os "darwin" }}
+.config/shells/**/cj
+.config/cjdev
+{{ end }}
+
+#ignore if not linux
+{{ if ne .chezmoi.os "linux" }}
+.config/shells/**/linux
+{{ end }}
+#
 # ignore if not on open suse
 {{- if ne .chezmoi.osRelease.id "openSuse" }}
 .config/shells/**/zypper
@@ -9,13 +20,3 @@ README.md
 {{- if ne .chezmoi.osRelease.id "fedora" }}
 .config/shells/**/dnf
 {{- end }}
-
-# ignore if not macos/darwin
-{{ if ne .chezmoi.os "darwin" }}
-.config/shells/**/cj
-{{ end }}
-
-#ignore if not linux
-{{ if ne .chezmoi.os "linux" }}
-.config/shells/**/linux
-{{ end }}
