@@ -1,0 +1,141 @@
+#!/usr/bin/env bash
+cd "$(dirname "${0}")"
+
+menu(){
+echo -ne "
+
+███████╗██╗██╗    ██╗   ██╗███████╗██████╗ ██████╗ ██╗     ██╗   ██╗███████╗
+██╔════╝██║██║    ██║   ██║██╔════╝██╔══██╗██╔══██╗██║     ██║   ██║██╔════╝
+███████╗██║██║    ██║   ██║█████╗  ██████╔╝██████╔╝██║     ██║   ██║█████╗  
+╚════██║██║██║    ╚██╗ ██╔╝██╔══╝  ██╔══██╗██╔══██╗██║     ██║   ██║██╔══╝  
+███████║██║███████╗╚████╔╝ ███████╗██║  ██║██████╔╝███████╗╚██████╔╝███████╗
+╚══════╝╚═╝╚══════╝ ╚═══╝  ╚══════╝╚═╝  ╚═╝╚═════╝ ╚══════╝ ╚═════╝ ╚══════╝
+
+o) Os-Tree Setup (Reboots)
+u) Userland Setup
+
+Select Step:  "
+  read -r step
+  case $step in
+    o) 
+      rpm_ostree_update
+      rpm_ostree_overlays
+      systemctl reboot
+      ;;
+    u)
+      source ./extras/flatpaks
+      toolbox create
+      dnf_setup
+      dnf_update
+      dnf_installs
+      ;;
+    *)
+      echo "Not a valid option"
+      exit 1
+      ;;
+  esac
+}
+
+rpm_ostree_update(){
+  sudo rpm-ostree upgrade
+}
+
+rpm_ostree_overlays(){
+  rpm-ostree install pop-shell alacritty
+}
+
+dnf_setup(){
+  # update dnf config
+  echo "max_parallel_downloads=10" | sudo tee -a /etc/dnf/dnf.conf
+  echo "defaultyes=True" | sudo tee -a /etc/dnf/dnf.conf
+  echo "fastestmirror=True" | sudo tee -a /etc/dnf/dnf.conf
+
+  # add rpm fusion repositories
+  sudo dnf -y install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
+  sudo dnf -y install https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+}
+
+dnf_update(){
+  sudo dnf -y upgrade
+}
+
+dnf_installs(){
+  # clis
+  sudo dnf -y install bat 
+  sudo dnf -y install exa
+  sudo dnf -y install fd-find
+  sudo dnf -y install fortune-mod
+  sudo dnf -y install fzf
+  sudo dnf -y install hledger
+  sudo dnf -y install ripgrep
+  #sudo dnf -y install rmlint
+  sudo dnf -y install tealdeer
+
+  # dotfilesF
+  sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply https://github.com/jeffwindsor/dotfiles-chezmoi
+
+  #helix editor
+  sudo dnf -y copr enable varlad/helix
+  sudo dnf -y install helix
+
+  # neovim
+  sudo dnf -y install neovim
+  sudo dnf -y install gcc "gcc-c++" glibc-all-langpacks
+
+  # fish
+  sudo dnf -y install fish
+  (./extras/fisher)
+
+  # rust
+  sudo dnf -y install openssl openssl-devel 
+  source ./extras/rust
+
+  source ./extras/keygen
+  source ./extras/gnome-config
+  # keyboard bindings : custom
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings" "[\
+      '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/', \
+      '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/', \
+      '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/', \
+      '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/', \
+      '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/', \
+      '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/', \
+      '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/']"
+
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/binding" "'<Primary><Super>S'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/command" "'systemctl suspend'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/name" "'Suspend'"
+
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/binding" "'<Primary><Super>L'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/command" "'gnome-session-quit --logout --no-prompt'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/name" "'Logout'"
+
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/binding" "'<Primary><Super>R'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/command" "'shutdown -r now'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/name" "'Reboot'"
+
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/binding" "'<Primary><Super>P'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/command" "'shutdown -h now'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/name" "'Power-Off'"
+
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/binding" "'<Super><Shift>b'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/command" "'flatpak run com.google.Chrome'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/name" "'Chrome'"
+
+   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/binding" "'<Super>t'"
+   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/command" "'env WINIT_UNIX_BACKEND=x11 alacritty -e bash -c \"SHELL=/bin/fish toolbox enter\"'"
+   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/name" "'Toolbox'"
+
+   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/binding" "'<Super><Shift>t'"
+   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/command" "'env WINIT_UNIX_BACKEND=x11 alacritty'"
+   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/name" "'OSTree'"
+
+
+  #====================================================================================# 
+  # manual tasks
+  #====================================================================================# 
+  echo "* Login into Lastpass"
+  echo "* Goto Github and add public ssh key"
+}
+
+menu
