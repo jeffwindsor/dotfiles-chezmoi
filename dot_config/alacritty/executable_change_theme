@@ -5,7 +5,7 @@ themes=$XDG_CONFIG_HOME/alacritty/themes
 
 if [ -z "$1" ]; then
   # select theme
-  selected=$(fd . $themes | fzf)
+  selected=$(fd -i . $themes | fzf)
 else
   selected="$themes/$1.yml"
 fi  
