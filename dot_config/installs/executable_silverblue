@@ -133,6 +133,16 @@ dnf_installs(){
   #====================================================================================# 
   echo "* Login into Lastpass"
   echo "* Goto Github and add public ssh key"
+  # echo 'used to display old school icons on the menu bar (ie MEGASync)'
+  # echo 'https://extensions.gnome.org/extension/615/appindicator-support/'
+  # echo 'small tweaks (hide the applications and accessabilty icons'
+  # echo 'https://extensions.gnome.org/extension/3843/just-perfection/'
+  # echo 'for managing podman containers in menu bar'
+  # echo 'https://extensions.gnome.org/extension/4135/espresso/'
+  # echo 'https://extensions.gnome.org/extension/3193/blur-my-shell/'
+  # echo 'https://extensions.gnome.org/extension/750/openweather/'
+  # echo 'https://extensions.gnome.org/extension/4343/simply-workspaces/'
+  # echo 'https://extensions.gnome.org/extension/4812/wallpaper-switcher/'
 }
 
 menu
