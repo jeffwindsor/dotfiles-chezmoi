@@ -16,7 +16,7 @@ do
     source $rc
 done
 
-for rc in $XDG_CONFIG_HOME/shells/autoloads/*
+for rc in $XDG_CONFIG_HOME/shells/autoloads/*.bash
 do
     source $rc
 done
