@@ -2,8 +2,8 @@
 {{ $email := promptString "email" -}}
 
 [data]
-  name  = {{ $name  || quote }}
-  email = {{ $email || quote }}
+  name  = {{ $name  | quote }}
+  email = {{ $email | quote }}
   terminal_font_size  = 12
   terminal_opacity    = 0.98
 
