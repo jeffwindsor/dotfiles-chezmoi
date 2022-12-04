@@ -1,0 +1,12 @@
+[data]
+  # Git
+  name  = "Windsor, Jeff"
+  email = "jwindsor@cj.com"
+
+  # alacritty
+  terminal_font_size  = 12
+  terminal_opacity    = 0.98
+
+[git]
+  # auto commit the github repo
+  autoCommit  = true
