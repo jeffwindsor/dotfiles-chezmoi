@@ -4,13 +4,13 @@
   flatpak remote-add --if-not-exists flathubs https://flathub.org/repo/flathub.flatpakrepo
 
   # installs
-  flatpak install -y "com.valvesoftware.Steam"
+ # flatpak install -y "com.valvesoftware.Steam"
   flatpak install -y "com.github.tchx84.Flatseal"
   flatpak install -y "com.google.Chrome"
   flatpak install -y "com.mattjakeman.ExtensionManager"
   flatpak install -y "com.spotify.Client"
-  flatpak install -y "com.visualstudio.code"
-  flatpak install -y "com.discordapp.Discord"
-  flatpak install -y "io.github.endless_sky.endless_sky" 
-  flatpak install -y "net.sourceforge.Klavaro" 
+ # flatpak install -y "com.visualstudio.code"
+ # flatpak install -y "com.discordapp.Discord"
+ # flatpak install -y "io.github.endless_sky.endless_sky" 
+ # flatpak install -y "net.sourceforge.Klavaro" 
   flatpak install -y "nz.mega.MEGAsync"
