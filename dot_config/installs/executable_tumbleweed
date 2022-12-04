@@ -1,0 +1,134 @@
+#!/usr/bin/env bash
+cd "$(dirname "${0}")"
+
+menu(){
+echo -ne "
+
+████████╗██╗   ██╗███╗   ███╗██████╗ ██╗     ███████╗██╗    ██╗███████╗███████╗██████╗ 
+╚══██╔══╝██║   ██║████╗ ████║██╔══██╗██║     ██╔════╝██║    ██║██╔════╝██╔════╝██╔══██╗
+   ██║   ██║   ██║██╔████╔██║██████╔╝██║     █████╗  ██║ █╗ ██║█████╗  █████╗  ██║  ██║
+   ██║   ██║   ██║██║╚██╔╝██║██╔══██╗██║     ██╔══╝  ██║███╗██║██╔══╝  ██╔══╝  ██║  ██║
+   ██║   ╚██████╔╝██║ ╚═╝ ██║██████╔╝███████╗███████╗╚███╔███╔╝███████╗███████╗██████╔╝
+   ╚═╝    ╚═════╝ ╚═╝     ╚═╝╚═════╝ ╚══════╝╚══════╝ ╚══╝╚══╝ ╚══════╝╚══════╝╚═════╝ 
+  
+"
+  keygen
+  langs
+  clis
+  dotfiles
+  gnome
+  guis
+}
+
+keygen(){
+  if [[ ! -f $HOME/.ssh/github.com ]]; then
+      ssh-keygen -t ed25519 -f $HOME/.ssh/github.com -C "jeff.windsor@gmail.com"
+  fi
+}
+
+dotfiles(){
+  sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply "https://github.com/jeffwindsor/dotfiles-chezmoi"
+}
+
+guis(){
+  sudo zypper install -y alacritty
+  sudo flatpak install -y "com.mattjakeman.ExtensionManager"
+  sudo flatpak install -y "com.github.tchx84.Flatseal"
+  sudo flatpak install -y "com.google.Chrome"
+  sudo flatpak install -y "com.spotify.Client"
+  sudo flatpak install -y "nz.mega.MEGAsync"
+}
+
+clis(){
+  sudo zypper install -y bat 
+  sudo zypper install -y exa
+  sudo zypper install -y fd
+  sudo zypper install -y fish && (./extras/fisher)
+  sudo zypper install -y fortune
+  sudo zypper install -y flatpak
+  sudo zypper install -y fzf
+  sudo zypper install -y git
+  sudo zypper install -y helix
+  sudo zypper install -y hledger
+  sudo zypper install -y neovim
+  sudo zypper install -y ripgrep
+  #sudo zypper install -y rmlint
+  sudo zypper install -y tealdeer
+
+  cargo install cargo-update
+  cargo install topgrade
+}
+
+langs(){
+  # c
+  sudo zypper install -y gcc
+
+  # rust
+  sudo zypper install -y openssl libopenssl-devel 
+  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+
+  # python - default to python 3
+  sudo ln -sf /usr/bin/python3 /usr/bin/python
+}
+
+gnome(){
+  sudo zypper install -y gnome-shell-extension-pop-shell
+
+  source ./extras/gnome-config
+  # keyboard bindings : custom
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings" "[\
+      '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/', \
+      '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/', \
+      '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/', \
+      '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/', \
+      '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/', \
+      '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/', \
+      '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/']"
+
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/binding" "'<Primary><Super>S'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/command" "'systemctl suspend'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/name" "'Suspend'"
+
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/binding" "'<Primary><Super>L'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/command" "'gnome-session-quit --logout --no-prompt'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/name" "'Logout'"
+
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/binding" "'<Primary><Super>R'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/command" "'shutdown -r now'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/name" "'Reboot'"
+
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/binding" "'<Primary><Super>P'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/command" "'shutdown -h now'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/name" "'Power-Off'"
+
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/binding" "'<Super><Shift>b'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/command" "'flatpak run com.google.Chrome'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/name" "'Chrome'"
+
+   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/binding" "'<Super>t'"
+   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/command" "'env WINIT_UNIX_BACKEND=x11 alacritty -e bash -c \"SHELL=/bin/fish toolbox enter\"'"
+   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/name" "'Toolbox'"
+
+   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/binding" "'<Super><Shift>t'"
+   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/command" "'env WINIT_UNIX_BACKEND=x11 alacritty'"
+   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/name" "'OSTree'"
+
+
+  #====================================================================================# 
+  # manual tasks
+  #====================================================================================# 
+  echo "* Login into Lastpass"
+  echo "* Goto Github and add public ssh key"
+  # echo 'used to display old school icons on the menu bar (ie MEGASync)'
+  # echo 'https://extensions.gnome.org/extension/615/appindicator-support/'
+  # echo 'small tweaks (hide the applications and accessabilty icons'
+  # echo 'https://extensions.gnome.org/extension/3843/just-perfection/'
+  # echo 'for managing podman containers in menu bar'
+  # echo 'https://extensions.gnome.org/extension/4135/espresso/'
+  # echo 'https://extensions.gnome.org/extension/3193/blur-my-shell/'
+  # echo 'https://extensions.gnome.org/extension/750/openweather/'
+  # echo 'https://extensions.gnome.org/extension/4343/simply-workspaces/'
+  # echo 'https://extensions.gnome.org/extension/4812/wallpaper-switcher/'
+}
+
+menu
