@@ -1,0 +1,11 @@
+{{ $name := promptString "name" -}}
+{{ $email := promptString "email" -}}
+
+[data]
+  name  = {{ $name  || quote }}
+  email = {{ $email || quote }}
+  terminal_font_size  = 12
+  terminal_opacity    = 0.98
+
+[git]
+  autoCommit  = true
