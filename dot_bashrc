@@ -41,3 +41,5 @@ HISTFILESIZE=2000
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
+alias  ll='exa -lF --group-directories-first --time="changed" --time-style="iso" --git'
+alias  lla='exa -lF --group-directories-first --time="changed" --time-style="iso" --git --all'
