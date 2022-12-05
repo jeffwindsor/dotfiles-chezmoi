@@ -1,0 +1,2 @@
+sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply "https://github.com/jeffwindsor/dotfiles-chezmoi"
+.config/fortune/build.sh
