@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 cd "$(dirname "${0}")"
 
-menu(){
 echo -ne "
 
 ████████╗██╗   ██╗███╗   ███╗██████╗ ██╗     ███████╗██╗    ██╗███████╗███████╗██████╗ 
@@ -12,181 +11,36 @@ echo -ne "
    ╚═╝    ╚═════╝ ╚═╝     ╚═╝╚═════╝ ╚══════╝╚══════╝ ╚══╝╚══╝ ╚══════╝╚══════╝╚═════╝ 
   
 "
-  keygen
-  langs
-  clis
-#  dotfiles
-  gnome
-  guis
-}
 
-keygen(){
-  if [[ ! -f $HOME/.ssh/github.com ]]; then
-      ssh-keygen -t ed25519 -f $HOME/.ssh/github.com -C "jeff.windsor@gmail.com"
-  fi
-}
+source ./extras/keygen
 
-dotfiles(){
-  sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply "https://github.com/jeffwindsor/dotfiles-chezmoi"
-  .config/fortune/build.sh
-}
+sudo zypper install -y gcc
+sudo zypper install -y openssl libopenssl-devel 
+source ./extras/rust
+sudo ln -sf /usr/bin/python3 /usr/bin/python
 
-guis(){
-  sudo zypper install -y alacritty
-  sudo flatpak install -y "com.mattjakeman.ExtensionManager"
-  sudo flatpak install -y "com.github.tchx84.Flatseal"
-  sudo flatpak install -y "com.google.Chrome"
-  sudo flatpak install -y "com.spotify.Client"
-  sudo flatpak install -y "nz.mega.MEGAsync"
-}
+sudo zypper install -y bat 
+sudo zypper install -y exa
+sudo zypper install -y fd
+sudo zypper install -y fish && source ./extras/fisher
+sudo zypper install -y fortune
+sudo zypper install -y flatpak
+sudo zypper install -y fzf
+sudo zypper install -y git
+sudo zypper install -y helix
+sudo zypper install -y hledger
+sudo zypper install -y neovim && git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+sudo zypper install -y ripgrep
+sudo zypper install -y starship
+sudo zypper install -y tealdeer
 
-clis(){
-  sudo zypper install -y bat 
-  sudo zypper install -y exa
-  sudo zypper install -y fd
-  sudo zypper install -y fish && (./extras/fisher)
-  sudo zypper install -y fortune
-  sudo zypper install -y flatpak
-  sudo zypper install -y fzf
-  sudo zypper install -y git
-  sudo zypper install -y helix
-  sudo zypper install -y hledger
-  sudo zypper install -y neovim
-  git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
-  sudo zypper install -y ripgrep
-  #sudo zypper install -y rmlint
-  sudo zypper install -y starship
-  sudo zypper install -y tealdeer
+sudo zypper install -y gnome-shell-extension-pop-shell
+source ./extras/gnome-config
 
-  cargo install cargo-update
-  cargo install topgrade
-}
-
-langs(){
-  # c
-  sudo zypper install -y gcc
-
-  # rust
-  sudo zypper install -y openssl libopenssl-devel 
-  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-
-  # python - default to python 3
-  sudo ln -sf /usr/bin/python3 /usr/bin/python
-}
-
-gnome(){
-  sudo zypper install -y gnome-shell-extension-pop-shell
-
-  # pop shell highlight color
-  dconf write "/org/gnome/shell/extensions/pop-shell/hint-color-rgba" "'rgb(115,206,244)'"
-
-  # interface preferences
-  dconf write "/org/gnome/desktop/interface/clock-format" "'12h'"
-  dconf write "/org/gnome/desktop/interface/clock-show-weekday" "true"
-  dconf write "/org/gnome/desktop/interface/gtk-theme" "'Adwaita-dark'"
-  dconf write "/org/gnome/desktop/interface/text-scaling-factor" "1.25"
-  dconf write "/org/gnome/desktop/peripherals/touchpad/click-method" "'fingers'"
-  dconf write "/org/gnome/desktop/peripherals/touchpad/natural-scroll" "true"
-  dconf write "/org/gnome/desktop/peripherals/touchpad/speed" "0.4"
-  dconf write "/org/gnome/desktop/peripherals/touchpad/two-finger-scrolling-enabled" "true"
-  dconf write "/org/gnome/desktop/wm/preferences/button-layout" "'close:appmenu'"
-  dconf write "/org/gnome/desktop/wm/preferences/num-workspaces" "10"
-  dconf write "/org/gnome/mutter/dynamic-workspaces" "false"
-  dconf write "/org/gtk/settings/file-chooser/clock-format" "'12h'"
-  dconf write "/org/gnome/desktop/datetime/automatic-timezone" "true"
-  dconf write "/org/gnome/desktop/interface/locate-pointer" "true"
-  dconf write "/org/gnome/desktop/calendar/show-weekdate" "true"
-  dconf write "/org/gnome/mutter/workspaces-only-on-primary" "true"
-
-  # keyboard bindings : set
-  dconf write "/org/gnome/desktop/wm/keybindings/close" "['<Super>q']"
-  dconf write "/org/gnome/desktop/wm/keybindings/minimize" "['<Super>w']"
-  dconf write "/org/gnome/desktop/wm/keybindings/move-to-workspace-1" "['<Primary><Super>1']"
-  dconf write "/org/gnome/desktop/wm/keybindings/move-to-workspace-10" "['<Primary><Super>0']"
-  dconf write "/org/gnome/desktop/wm/keybindings/move-to-workspace-2" "['<Primary><Super>2']"
-  dconf write "/org/gnome/desktop/wm/keybindings/move-to-workspace-3" "['<Primary><Super>3']"
-  dconf write "/org/gnome/desktop/wm/keybindings/move-to-workspace-4" "['<Primary><Super>4']"
-  dconf write "/org/gnome/desktop/wm/keybindings/move-to-workspace-5" "['<Primary><Super>5']"
-  dconf write "/org/gnome/desktop/wm/keybindings/move-to-workspace-6" "['<Primary><Super>6']"
-  dconf write "/org/gnome/desktop/wm/keybindings/move-to-workspace-7" "['<Primary><Super>7']"
-  dconf write "/org/gnome/desktop/wm/keybindings/move-to-workspace-8" "['<Primary><Super>8']"
-  dconf write "/org/gnome/desktop/wm/keybindings/move-to-workspace-9" "['<Primary><Super>9']"
-  dconf write "/org/gnome/desktop/wm/keybindings/panel-run-dialog" "['<Primary>space']"
-  dconf write "/org/gnome/desktop/wm/keybindings/switch-to-workspace-1" "['<Super>1']"
-  dconf write "/org/gnome/desktop/wm/keybindings/switch-to-workspace-10" "['<Super>0']"
-  dconf write "/org/gnome/desktop/wm/keybindings/switch-to-workspace-2" "['<Super>2']"
-  dconf write "/org/gnome/desktop/wm/keybindings/switch-to-workspace-3" "['<Super>3']"
-  dconf write "/org/gnome/desktop/wm/keybindings/switch-to-workspace-4" "['<Super>4']"
-  dconf write "/org/gnome/desktop/wm/keybindings/switch-to-workspace-5" "['<Super>5']"
-  dconf write "/org/gnome/desktop/wm/keybindings/switch-to-workspace-6" "['<Super>6']"
-  dconf write "/org/gnome/desktop/wm/keybindings/switch-to-workspace-7" "['<Super>7']"
-  dconf write "/org/gnome/desktop/wm/keybindings/switch-to-workspace-8" "['<Super>8']"
-  dconf write "/org/gnome/desktop/wm/keybindings/switch-to-workspace-9" "['<Super>9']"
-  dconf write "/org/gnome/desktop/wm/keybindings/toggle-fullscreen" "['<Primary><Super>m']"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/area-screenshot" "['<Primary><Super>BackSpace']"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/control-center" "['<Super>comma']"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/next" "['AudioForward']"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/previous" "['AudioRewind']"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/window-screenshot" "['<Super>BackSpace']"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/www" "['<Super>b']"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/home" "['<Super>f']"
-  dconf write "/org/gnome/shell/keybindings/toggle-message-tray" "['<Super>n']"
-
-  # keyboard bindings : custom
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings" "[\
-      '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/', \
-      '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/', \
-      '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/', \
-      '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/', \
-      '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/', \
-      '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/', \
-      '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/']"
-
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/binding" "'<Primary><Super>S'"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/command" "'systemctl suspend'"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/name" "'Suspend'"
-
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/binding" "'<Primary><Super>L'"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/command" "'gnome-session-quit --logout --no-prompt'"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/name" "'Logout'"
-
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/binding" "'<Primary><Super>R'"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/command" "'shutdown -r now'"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/name" "'Reboot'"
-
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/binding" "'<Primary><Super>P'"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/command" "'shutdown -h now'"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/name" "'Power-Off'"
-
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/binding" "'<Super><Shift>b'"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/command" "'flatpak run com.google.Chrome'"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/name" "'Chrome'"
-
-   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/binding" "'<Super>t'"
-   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/command" "'env WINIT_UNIX_BACKEND=x11 alacritty -e fish'"
-   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/name" "'Toolbox'"
-
-   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/binding" "'<Super><Shift>t'"
-   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/command" "'env WINIT_UNIX_BACKEND=x11 alacritty'"
-   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/name" "'OSTree'"
-
-
-  #====================================================================================# 
-  # manual tasks
-  #====================================================================================# 
-  echo "* Login into Lastpass"
-  echo "* Goto Github and add public ssh key"
-  # echo 'used to display old school icons on the menu bar (ie MEGASync)'
-  # echo 'https://extensions.gnome.org/extension/615/appindicator-support/'
-  # echo 'small tweaks (hide the applications and accessabilty icons'
-  # echo 'https://extensions.gnome.org/extension/3843/just-perfection/'
-  # echo 'for managing podman containers in menu bar'
-  # echo 'https://extensions.gnome.org/extension/4135/espresso/'
-  # echo 'https://extensions.gnome.org/extension/3193/blur-my-shell/'
-  # echo 'https://extensions.gnome.org/extension/750/openweather/'
-  # echo 'https://extensions.gnome.org/extension/4343/simply-workspaces/'
-  # echo 'https://extensions.gnome.org/extension/4812/wallpaper-switcher/'
-}
-
-menu
+sudo zypper install -y alacritty
+sudo flatpak install -y "com.mattjakeman.ExtensionManager"
+sudo flatpak install -y "com.github.tchx84.Flatseal"
+sudo flatpak install -y "com.google.Chrome"
+sudo flatpak install -y "com.spotify.Client"
+sudo flatpak install -y "nz.mega.MEGAsync"
 
