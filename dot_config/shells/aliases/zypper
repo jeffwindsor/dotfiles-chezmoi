@@ -2,6 +2,9 @@
 alias zup='sudo zypper up'
 alias zi='sudo zypper install'
 alias zr='sudo zypper remove'
+alias zr='zypper status'
+alias z='zypper'
+alias zlu='zypper list-updates'
 
 # enter overlay shell (like rpm-ostree but a shell), use zypper to install packages
-alias overlay='sudo tukit --continue execute /bin/bash'
+# alias overlay='sudo tukit --continue execute /bin/bash'
