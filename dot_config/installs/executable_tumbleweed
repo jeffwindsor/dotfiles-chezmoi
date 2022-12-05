@@ -44,3 +44,8 @@ sudo flatpak install -y "com.google.Chrome"
 sudo flatpak install -y "com.spotify.Client"
 sudo flatpak install -y "nz.mega.MEGAsync"
 
+# vscode
+sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc && \
+  sudo zypper addrepo https://packages.microsoft.com/yumrepos/vscode vscode && \
+  sudo zypper refresh && \
+  sudo zypper install code
