@@ -31,7 +31,7 @@ do
 done
 
 # aliases
-for file in $XDG_CONFIG_HOME/shells/aliases/*.zsh
+for file in $XDG_CONFIG_HOME/shells/aliases/*
 do
     source $file
 done

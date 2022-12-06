@@ -1,9 +1,8 @@
 {{ if eq .chezmoi.os "darwin" -}}
+
 [credential]
     helper = osxkeychain
 
-Host *
-    UseKeychain yes
 {{ end -}}
 
 [user]
