@@ -19,19 +19,14 @@ return require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
   
   -- caching for fast load times
-  use 'lewis6991/impatient.nvim'
+  --use 'lewis6991/impatient.nvim'
 
-  -- lanuage syntax
-  use 'nvim-treesitter/nvim-treesitter'
-  
   -- fuzzy finders and more
   use{
     'nvim-telescope/telescope.nvim',
     branch   = '0.1.x', 
     requires = { 
       'nvim-lua/plenary.nvim',                        -- helpers
-      'nvim-telescope/telescope-file-browser.nvim',   -- extend telescope with file browser capability
-      'kyazdani42/nvim-web-devicons',
     }
   }
 
@@ -42,21 +37,13 @@ return require('packer').startup(function(use)
   use 'lukas-reineke/indent-blankline.nvim'
   
   -- motion plugin
-  use 'ggandor/leap.nvim'
-  
-  -- lazygit in a centered popup
-  --use 'kdheepak/lazygit.nvim'
+  --use 'ggandor/leap.nvim'
   
   -- display key bindings (like emacs)
   use 'folke/which-key.nvim'
 
   -- buffer and status line 
-  use {
-    'nvim-lualine/lualine.nvim',
-    requires = { 
-      'kyazdani42/nvim-web-devicons'
-    }
-  }
+  use 'nvim-lualine/lualine.nvim'
   
   -- color schemes
   use 'shaunsingh/nord.nvim'
