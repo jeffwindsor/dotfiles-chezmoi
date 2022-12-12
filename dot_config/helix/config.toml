@@ -3,6 +3,7 @@ theme = "ayu_dark"
 [editor]
 line-number = "relative"
 mouse       = true
+shell       = ["fish", "-c"]
 
 [editor.cursor-shape]
 insert = "bar"
