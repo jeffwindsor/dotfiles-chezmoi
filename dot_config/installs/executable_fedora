@@ -50,6 +50,14 @@ source ./extras/rust
 sudo dnf -y install cmake && cargo install starship --version 1.10.3
 
 # guis
+sudo dnf -y install gnome-shell-extension-pop-shell
+sudo dnf -y install gnome-shell-extension-appindicator
+sudo dnf -y install gnome-shell-extension-blur-my-shell
+sudo dnf -y install gnome-shell-extension-caffeine
+sudo dnf -y install gnome-shell-extension-just-perfection
+sudo dnf -y install gnome-shell-extension-launch-new-instance
+sudo dnf -y install gnome-shell-extension-openweather
+
 sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
 sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
 dnf check-update
