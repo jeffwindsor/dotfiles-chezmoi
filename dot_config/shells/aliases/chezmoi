@@ -2,7 +2,7 @@
 
 alias c2t='chezmoi chattr +template'
 alias c='chezmoi'
-alias ca='chezmoi apply'
+alias ca='chezmoi add'
 alias ce='chezmoi edit'
 alias cph='chezmoi git push'
 alias cs='chezmoi status'
