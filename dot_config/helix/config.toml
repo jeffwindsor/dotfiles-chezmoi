@@ -1,6 +1,7 @@
 theme = "gruvbox"
 
 [editor]
+auto-save   = true
 line-number = "relative"
 mouse       = true
 shell       = ["fish", "-c"]
