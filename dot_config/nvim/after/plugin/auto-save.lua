@@ -1,4 +1,1 @@
-
-require("auto-save").setup({
-  enabled = true
-})
+require("auto-save").setup({ enabled = true })
