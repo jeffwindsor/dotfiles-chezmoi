@@ -1,13 +1,11 @@
 -- ----------------------------------------------------------------------------
--- PLUGINS: see `:help load-plugins`
+-- PLUGINS
 -- ----------------------------------------------------------------------------
--- auto-loaded and configured by
---  .config/nvim/lua/packer.lua - which establishes the plugins and dependencies
---  .config/nvim/after/plugin/* - configurations run after plugin load
---  see 
+require('packer-startup')
+-- configs auto-loaded from `.config/nvim/after/plugin/*`, more info @ `:h load-plugins`
 
 -- ----------------------------------------------------------------------------
--- OPTIONS: see `:help vim.o`
+-- OPTIONS: more info @ `:h vim.o`
 -- ----------------------------------------------------------------------------
 vim.cmd 'colorscheme kanagawa'
 
@@ -16,7 +14,9 @@ vim.g.maplocalleader  = " "            -- map local leader to <space>
 vim.o.autoindent      = true
 vim.o.background      = 'dark'
 vim.o.backspace       = 'indent,eol,start'
+vim.o.breakindent     = true          -- Every wrapped line will continue visually indented (same amount of space as the beginning of that line), thus preserving horizontal blocks of text.
 vim.o.clipboard       = 'unnamedplus' 
+vim.o.completeopt     = 'menuone,noselect'  -- completion: menuone=Use the popup menu also when there is only one match. noselect=force the user to select
 vim.o.cursorline      = true            
 vim.o.encoding        = 'UTF-8'
 vim.o.expandtab       = true          -- spaces over tabs
@@ -30,6 +30,7 @@ vim.o.number          = true
 vim.o.relativenumber  = true          -- hybrid number scheme
 vim.o.ruler           = true
 vim.o.shiftwidth      = 2
+vim.o.smartcase       = true          -- Case insensitive searching UNLESS /C or capital in search
 vim.o.smartindent     = true
 vim.o.smarttab        = true
 vim.o.softtabstop     = 2
@@ -39,15 +40,12 @@ vim.o.splitbelow      = true
 vim.o.splitright      = true
 vim.o.tabstop         = 2
 vim.o.termguicolors   = true
-vim.o.wrap            = false
 vim.o.undofile        = true          -- Save undo history
-vim.o.breakindent     = true          -- Every wrapped line will continue visually indented (same amount of space as the beginning of that line), thus preserving horizontal blocks of text.
-vim.o.smartcase       = true          -- Case insensitive searching UNLESS /C or capital in search
+vim.o.wrap            = false
 vim.wo.signcolumn     = 'yes'         -- always
-vim.o.completeopt     = 'menuone,noselect'  -- completion: menuone=Use the popup menu also when there is only one match. noselect=force the user to select
 
 -- ----------------------------------------------------------------------------
--- AUTOCOMMANDS
+-- AUTOCOMMANDS: more info @ `:h autocommands`
 -- ----------------------------------------------------------------------------
 -- Highlight on yank
 vim.api.nvim_create_autocmd("TextYankPost",
@@ -59,7 +57,8 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, { pattern = { "*.txt", 
 
 
 -- ----------------------------------------------------------------------------
--- KEY MAPPINGS: note <leader> key maps moved to WHICH KEY plugin lua file
+-- KEY MAPPINGS: 
+--    <leader> key maps moved to WHICH KEY plugin config
 -- ----------------------------------------------------------------------------
 local noremap = { noremap = true }                -- protects from remapping by other configs
 local silent  = { noremap = true, silent = true } -- silent does not show bound command in bottom row / command output
@@ -92,6 +91,4 @@ vim.api.nvim_set_keymap('v', ';', ':', noremap)
 
 --  yank acts like other capitol letters (normal mode)
 vim.api.nvim_set_keymap('n', 'Y', 'y$', noremap)
-
-
 
