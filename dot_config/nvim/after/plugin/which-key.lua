@@ -1,133 +1,114 @@
---
--- Location of all <leader> based key bindings
--- Non-Leader based are in the ./lua/mapping.lua file
---
--- display "message" in the bottom row / the command output
-local function echo(message)
-  return '<Cmd>echo "' .. message .. '"<CR>'
-end
-
--- makes "action" a VIM command.  example = <Cmd>action<CR> which is the same as :action<CR>
-local function command(action)
-  return '<Cmd>' .. action .. '<CR>'
-end
-
----- makes "action" a Telescope command. example = <Cmd>Telescope action<CR>
-local function telescope(action)
-  return command('Telescope ' .. action)
-end
-
 -- re-used commands
-local buffer_next = command('bnext')
-local load_config = command('luafile %')
+local buffer_next = ':bnext<CR>'
+local load_config = ':luafile %<CR>'
 
 -- which key configuration
 local wk = require('which-key')
 wk.setup()
 wk.register({
-  ["<leader>"] = { telescope('spell_suggest'), 'spelling'},
-  ["."] = { load_config .. echo('Configuration Re-Loaded'), 'load config'}, 
+  ["<leader>"] = { ':Telescope spell_suggest<CR>', 'spelling'},
+  ["."] = { load_config .. ':echo "Configuration Re-Loaded"<CR>', 'load config'}, 
   [","] = { 
     name = 'commands',
-    [","] = { telescope('commands'),'commands'},
-    a = { telescope('autocommands'), 'auto commands' },
-    h = { telescope('command_history'),'command history'},
-    p = { telescope('builtin'),'pickers'},
+    [","] = { ':Telescope commands<CR>','search commands'},
+    a = { ':Telescope autocommands<CR>', 'search auto commands' },
+    h = { ':Telescope command_history<CR>','search command history'},
+    p = { ':Telescope builtin<CR>','pickers'},
   },
   b = { 
     name = 'buffers',
-    b = { telescope('buffers'),'buffers'},
-    c = { command('bdelete'),'close'},
-    j = { command('bprev'),'previous'},
+    b = { ':Telescope buffers<CR>','buffers'},
+    c = { ':bdelete<CR>','close'},
+    j = { ':bprev<CR>','previous'},
     k = { buffer_next,'next'},
-    n = { command('enew'),'new'},
-    s = { telescope('current_buffer_fuzzy_find'), 'search text'},
-    t = { telescope('current_buffer_tags'), 'search tags' },
+    n = { ':enew<CR>','new'},
+    s = { ':Telescope current_buffer_fuzzy_find<CR>', 'search text'},
+    t = { ':Telescope current_buffer_tags<CR>', 'search tags' },
   },
   c = {
     name = 'color schemes',
-    c = { telescope('colorscheme'),'color schemes'},
-    d = { command('set background=dark'),'dark'},
-    l = { command('set background=light'),'light'},
-    m = { command(':lua require("material.functions").find_style()'), 'material' },
-    o = { command('colorscheme OceanNext'), 'ocean next' },
-    k = { command('colorscheme kanagawa'), 'kanagawa' },
-    n = { command('colorscheme nord'), 'nord' },
+    c = { ':Telescope colorscheme<CR>','color schemes'},
+    d = { ':set background=dark<CR>','dark'},
+    l = { ':set background=light<CR>','light'},
+    m = { ':lua require("material.functions").find_style()<CR>', 'material' },
+    o = { ':colorscheme OceanNext<CR>', 'ocean next' },
+    k = { ':colorscheme kanagawa<CR>', 'kanagawa' },
+    n = { ':colorscheme nord<CR>', 'nord' },
     t = { 
       name = 'tokyo night',
-      n = { command('colorscheme tokyonight-night'), 'night' },
-      s = { command('colorscheme tokyonight-storm'), 'storm' },
-      d = { command('colorscheme tokyonight-day'), 'day' },
-      m = { command('colorscheme tokyonight-moon'), 'moon' },
+      n = { ':colorscheme tokyonight-night<CR>', 'night' },
+      s = { ':colorscheme tokyonight-storm<CR>', 'storm' },
+      d = { ':colorscheme tokyonight-day<CR>', 'day' },
+      m = { ':colorscheme tokyonight-moon<CR>', 'moon' },
     },
-    ["1"] = { command('colorscheme onedark'), 'one dark' },
+    ["1"] = { ':colorscheme onedark<CR>', 'one dark' },
   },
   f = { 
     name = 'files',
-    b = { telescope('file_browser'),'via browser'},
-    c = { telescope('find_files cwd=$XDG_CONFIG_HOME'),'in config directory'},
-    d = { telescope('find_files cwd=$DOTFILES'),'in dotfiles directory'},
-    f = { telescope('find_files'),'in current directory'},
-    g = { telescope('find_files cwd=$SRC'),'in git repos'},
-    h = { telescope('find_files cwd=$HOME'),'in home directory'},
-    i = { telescope('find_files cwd=$INSTALLS'),'in install files directory'},
-    p = { telescope('project_files'),'in project'},
-    s = { telescope('live_grep'),'grep'},
-    t = { telescope('filetypes'),'set file type'},
+    b = { ':Telescope file_browser<CR>','via browser'},
+    c = { ':Telescope find_files cwd=$XDG_CONFIG_HOME<CR>','in config directory'},
+    d = { ':Telescope find_files cwd=$DOTFILES<CR>','in dotfiles directory'},
+    f = { ':Telescope find_files<CR>','in current directory'},
+    g = { ':Telescope find_files cwd=$SRC<CR>','in git repos'},
+    h = { ':Telescope find_files cwd=$HOME<CR>','in home directory'},
+    i = { ':Telescope find_files cwd=$INSTALLS<CR>','in install files directory'},
+    p = { ':Telescope project_files<CR>','in project'},
+    s = { ':Telescope live_grep<CR>','grep'},
+    t = { ':Telescope filetypes<CR>','set file type'},
   },
   g = { 
     name = 'git',
-    b = { telescope('git_branches'),'branches'},
-    c = { telescope('git_commits'),'commits'},
-    f = { telescope('git_files'),'files'},
-    s = { telescope('git_status'),'status'},
+    b = { ':Telescope git_branches<CR>','branches'},
+    c = { ':Telescope git_commits<CR>','commits'},
+    f = { ':Telescope git_files<CR>','files'},
+    s = { ':Telescope git_status<CR>','status'},
   },
   h = {
     name = 'help',
-    h = { telescope('help_tags'),'topics'},
-    m = { telescope('help_tags'),'man-pages'},
+    h = { ':Telescope help_tags<CR>','topics'},
+    m = { ':Telescope help_tags<CR>','man-pages'},
   },
-  j = { telescope('jumplist'), 'jump lists'},
-  k = { telescope('keymaps'), 'key maps'},
+  j = { ':Telescope jumplist<CR>', 'jump lists'},
+  k = { ':Telescope keymaps<CR>', 'key maps'},
   l = {
     name = 'lsp',
-    d = { telescope('lsp_definitions'),'definition'},
-    i = { telescope('lsp_implementations'),'implementations'},
-    r = { telescope('lsp_references'),'references'},
-    t = { telescope('lsp_type_definitions'),'type'},
+    d = { ':Telescope lsp_definitions<CR>','definition'},
+    i = { ':Telescope lsp_implementations<CR>','implementations'},
+    r = { ':Telescope lsp_references<CR>','references'},
+    t = { ':Telescope lsp_type_definitions<CR>','type'},
   },
   p = { 
     name = 'packer',
-    c = {load_config .. command('PackerClean') .. echo('Packages Cleaned'),'clean'},
-    s = {load_config .. command('PackerSync') .. echo('Pacakges Synced'),'sync'},
+    c = {load_config .. ':PackerClean<CR>' .. ':echo "Packages Cleaned"<CR>','clean'},
+    s = {load_config .. ':PackerSync<CR>' .. ':echo "Pacakges Synced"<CR>','sync'},
   },
-  q = { command('q'),'quit'},
-  r = { telescope('registers'),'registers'},
+  q = { ':q<CR>','quit'},
+  r = { ':Telescope registers<CR>','registers'},
   t = { 
     name = 'tabs',
-    c = { command('tabclose'),'close'},
-    j = { command('tabprevious'),'previous'},
-    k = { command('tabnext'),'next'},
-    n = { command('tabnew'),'new'},
+    c = { ':tabclose<CR>','close'},
+    j = { ':tabprevious<CR>','previous'},
+    k = { ':tabnext<CR>','next'},
+    n = { ':tabnew<CR>','new'},
   },
   w = { 
     name = 'windows',
-    c = { command('close'),'close'},
+    c = { ':close<CR>','close'},
     h = {'<C-W><left>','left'},
     j = {'<C-W><down>','down'},
     k = {'<C-W><up>','up'},
     l = {'<C-W><right>','right'},
-    s = { command('split') .. buffer_next,'split down'},
-    v = { command('vsplit') .. buffer_next,'split right'},
+    s = { ':split<CR>' .. buffer_next,'split down'},
+    v = { ':vsplit<CR>' .. buffer_next,'split right'},
     x = {
       name = 'resize',
-      h = { command('vertical resize -5'),'left'},
-      j = { command('resize -5'),'down'},
-      k = { command('resize +5'),'up'},
-      l = { command('vertical resize +5'),'right'},
+      h = { ':vertical resize -5<CR>','left'},
+      j = { ':resize -5<CR>','down'},
+      k = { ':resize +5<CR>','up'},
+      l = { ':vertical resize +5<CR>','right'},
     },
   },
-  x = { command('q!'), 'force quit'},
+  x = { ':q!<CR>', 'force quit'},
 }, 
 { prefix = '<leader>'}
 );
