@@ -1,53 +1,54 @@
--- ============================================================================
--- PLUGINS : explicit loading. 
---  for auto loading, move source files to .config/nvim/after/plugin/*.lua 
---  see :help load-plugins for more info
--- ============================================================================
-require 'plugins.packer' -- done first by design
+-- ----------------------------------------------------------------------------
+-- PLUGINS: see `:help load-plugins`
+-- ----------------------------------------------------------------------------
+-- auto-loaded and configured by
+--  .config/nvim/lua/packer.lua - which establishes the plugins and dependencies
+--  .config/nvim/after/plugin/* - configurations run after plugin load
+--  see 
 
-require 'plugins.auto-save'
-require 'plugins.indent-blankline'
-require 'plugins.lualine'
-require 'plugins.material-nvim'
-require 'plugins.nvim-treesitter'
-require 'plugins.telescope'
-require 'plugins.which-key'
+-- ----------------------------------------------------------------------------
+-- OPTIONS: see `:help vim.o`
+-- ----------------------------------------------------------------------------
+vim.cmd 'colorscheme kanagawa'
 
--- ============================================================================
--- OPTIONS
--- ============================================================================
-vim.opt.autoindent      = true
-vim.opt.background      = 'dark'
-vim.opt.backspace       = 'indent,eol,start'
-vim.opt.clipboard       = 'unnamedplus' 
-vim.opt.cursorline      = true            
-vim.opt.encoding        = 'UTF-8'
-vim.opt.expandtab       = true          -- spaces over tabs
-vim.opt.hidden          = true          -- allow background buffers 
-vim.opt.hlsearch        = true          -- highlight found searches
-vim.opt.ignorecase      = true        
-vim.opt.inccommand      = 'split'        -- get preview of replacements
-vim.opt.incsearch       = true           -- show match while typing
-vim.opt.mouse           = 'a'           -- turn on mouse usage
-vim.opt.number          = true
-vim.opt.relativenumber  = true          -- hybrid number scheme
-vim.opt.ruler           = true
-vim.opt.shiftwidth      = 2
-vim.opt.smartindent     = true
-vim.opt.smarttab        = true
-vim.opt.softtabstop     = 2
-vim.opt.spell           = false
-vim.opt.spelllang       = 'en_us'
-vim.opt.splitbelow      = true
-vim.opt.splitright      = true
-vim.opt.tabstop         = 2
-vim.opt.termguicolors   = true
-vim.opt.wrap            = false
+vim.g.mapleader       = " "            -- map leader to <space> 
+vim.g.maplocalleader  = " "            -- map local leader to <space> 
+vim.o.autoindent      = true
+vim.o.background      = 'dark'
+vim.o.backspace       = 'indent,eol,start'
+vim.o.clipboard       = 'unnamedplus' 
+vim.o.cursorline      = true            
+vim.o.encoding        = 'UTF-8'
+vim.o.expandtab       = true          -- spaces over tabs
+vim.o.hidden          = true          -- allow background buffers 
+vim.o.hlsearch        = true          -- highlight found searches
+vim.o.ignorecase      = true        
+vim.o.inccommand      = 'split'       -- get preview of replacements
+vim.o.incsearch       = true          -- show match while typing
+vim.o.mouse           = 'a'           -- turn on mouse usage
+vim.o.number          = true
+vim.o.relativenumber  = true          -- hybrid number scheme
+vim.o.ruler           = true
+vim.o.shiftwidth      = 2
+vim.o.smartindent     = true
+vim.o.smarttab        = true
+vim.o.softtabstop     = 2
+vim.o.spell           = false
+vim.o.spelllang       = 'en_us'
+vim.o.splitbelow      = true
+vim.o.splitright      = true
+vim.o.tabstop         = 2
+vim.o.termguicolors   = true
+vim.o.wrap            = false
+vim.o.undofile        = true          -- Save undo history
+vim.o.breakindent     = true          -- Every wrapped line will continue visually indented (same amount of space as the beginning of that line), thus preserving horizontal blocks of text.
+vim.o.smartcase       = true          -- Case insensitive searching UNLESS /C or capital in search
+vim.wo.signcolumn     = 'yes'         -- always
+vim.o.completeopt     = 'menuone,noselect'  -- completion: menuone=Use the popup menu also when there is only one match. noselect=force the user to select
 
-
--- ============================================================================
+-- ----------------------------------------------------------------------------
 -- AUTOCOMMANDS
--- ============================================================================
+-- ----------------------------------------------------------------------------
 -- Highlight on yank
 vim.api.nvim_create_autocmd("TextYankPost",
   { callback = function() vim.highlight.on_yank({ higroup = 'IncSearch', timeout = 100 }) end })
@@ -57,9 +58,9 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, { pattern = { "*.txt", 
   command = "setlocal spell" })
 
 
--- ============================================================================
+-- ----------------------------------------------------------------------------
 -- KEY MAPPINGS: note <leader> key maps moved to WHICH KEY plugin lua file
--- ============================================================================
+-- ----------------------------------------------------------------------------
 local noremap = { noremap = true }                -- protects from remapping by other configs
 local silent  = { noremap = true, silent = true } -- silent does not show bound command in bottom row / command output
 
@@ -94,4 +95,3 @@ vim.api.nvim_set_keymap('n', 'Y', 'y$', noremap)
 
 
 
-vim.cmd 'colorscheme kanagawa'

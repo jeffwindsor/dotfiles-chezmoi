@@ -2,9 +2,6 @@
 -- Location of all <leader> based key bindings
 -- Non-Leader based are in the ./lua/mapping.lua file
 --
--- map leader to <space> 
-vim.g.mapleader = " "           
-
 -- display "message" in the bottom row / the command output
 local function echo(message)
   return '<Cmd>echo "' .. message .. '"<CR>'
