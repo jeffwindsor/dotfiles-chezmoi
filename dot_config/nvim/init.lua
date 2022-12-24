@@ -76,10 +76,10 @@ vim.api.nvim_set_keymap("n", "<C-j>", "bprev", silent)
 vim.api.nvim_set_keymap("n", "<C-k>", "bnext", silent)
 
 --  first character in line
-vim.api.nvim_set_keymap("n", "H", "^", silent)
+vim.api.nvim_set_keymap("n", "gh", "^", silent)
 
 --  last character in line
-vim.api.nvim_set_keymap("n", "L", "$", silent)
+vim.api.nvim_set_keymap("n", "gl", "$", silent)
 
 --  return removes search highlights
 vim.api.nvim_set_keymap("n", "<CR>", ":noh<CR><CR>", silent)
