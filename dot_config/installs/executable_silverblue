@@ -19,7 +19,14 @@ Select Step:  "
   case $step in
     o) 
       sudo rpm-ostree upgrade
+
       rpm-ostree install pop-shell alacritty
+
+      source ./extras/gnome-config
+
+      flathub
+      source ./extras/flatpaks
+
       toolbox create
       systemctl reboot
       ;;
@@ -27,8 +34,6 @@ Select Step:  "
       dnf_setup
       clis
       source ./extras/keygen
-      source ./extras/gnome-config
-      source ./extras/flatpaks
       ;;
     *)
       echo "Not a valid option"
@@ -81,6 +86,25 @@ clis(){
 
   # lang servers
   sudo dnf -y install pylsp rust-analyzer 
+}
+
+flathub(){
+  #Enable the flathub remote
+  flatpak remote-modify --no-filter --enable flathub
+  
+  # If it doesn’t exist, run
+  flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+  
+  # Changing remotes of applications
+  # Run this command to reinstall fedora flatpak repo applications with ones from flathub
+  flatpak install --reinstall flathub $(flatpak list --app-runtime=org.fedoraproject.Platform --columns=application | tail -n +1 )
+  
+  # Remove the fedora flatpak repo.
+  flatpak remote-delete fedora
+  
+  # Make sure that the only thing prompted for removal is the runtime, if any other application is listed, run
+  # flatpak install --reinstall flathub name.of.application
+  #Otherwise, just hit y
 }
 
 menu
