@@ -72,7 +72,7 @@ clis(){
 
   # lazygit
   sudo dnf copr enable atim/lazygit -y
-  sudo dnf install lazygit
+  sudo dnf -y install lazygit
 
   # rust
   sudo dnf -y install openssl openssl-devel 
