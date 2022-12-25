@@ -1,2 +1,10 @@
+#!/usr/bin/env bash
+
+echo "installing and configuring dotfiles"
 sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply "https://github.com/jeffwindsor/dotfiles-chezmoi"
-.config/fortune/build.sh
+
+# move executable to PATH
+sudo mv $HOME/bin/chezmoi /usr/local/bin/ 
+
+echo "re-build fortune dats" 
+$HOME/.config/fortune/build.sh
