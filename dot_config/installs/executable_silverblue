@@ -12,28 +12,32 @@ echo -ne "
 ╚══════╝╚═╝╚══════╝ ╚═══╝  ╚══════╝╚═╝  ╚═╝╚═════╝ ╚══════╝ ╚═════╝ ╚══════╝
 
 o) Os-Tree Setup (Reboots)
+c) Os-Tree Customize (Reboots)
 u) Userland Setup
+t) Toolbox Setup (must be in toolbox)
+
 
 Select Step:  "
   read -r step
   case $step in
     o) 
       sudo rpm-ostree upgrade
-
+      systemctl reboot
+      ;;
+    c)
       rpm-ostree install pop-shell alacritty
-
-      source ./extras/gnome-config
-
-      flathub
-      source ./extras/flatpaks
-
-      toolbox create
       systemctl reboot
       ;;
     u)
+      source ./extras/keygen
+      source ./extras/gnome-config
+      flathub
+      source ./extras/flatpaks
+      toolbox create
+      ;;
+    t)
       dnf_setup
       clis
-      source ./extras/keygen
       ;;
     *)
       echo "Not a valid option"
@@ -97,7 +101,7 @@ flathub(){
   
   # Changing remotes of applications
   # Run this command to reinstall fedora flatpak repo applications with ones from flathub
-  flatpak install --reinstall flathub $(flatpak list --app-runtime=org.fedoraproject.Platform --columns=application | tail -n +1 )
+  flatpak install -y --reinstall flathub $(flatpak list --app-runtime=org.fedoraproject.Platform --columns=application | tail -n +1 )
   
   # Remove the fedora flatpak repo.
   flatpak remote-delete fedora

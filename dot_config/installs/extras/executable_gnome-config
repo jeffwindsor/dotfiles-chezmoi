@@ -1,7 +1,41 @@
 #!/usr/bin/env bash
 
+# keyboard bindings : unset
+dconf write "/org/gnome/desktop/wm/keybindings/begin-move" "@as []"
+dconf write "/org/gnome/desktop/wm/keybindings/begin-resize" "@as []"
+dconf write "/org/gnome/desktop/wm/keybindings/cycle-group" "@as []"
+dconf write "/org/gnome/desktop/wm/keybindings/cycle-group-backward" "@as []"
+dconf write "/org/gnome/desktop/wm/keybindings/cycle-windows" "@as []"
+dconf write "/org/gnome/desktop/wm/keybindings/cycle-windows-backward" "@as []"
+dconf write "/org/gnome/desktop/wm/keybindings/move-to-workspace-last" "@as []"
+dconf write "/org/gnome/desktop/wm/keybindings/switch-input-source" "@as []"
+dconf write "/org/gnome/desktop/wm/keybindings/switch-input-source-backward" "@as []"
+dconf write "/org/gnome/desktop/wm/keybindings/switch-to-workspace-last" "@as []"
+dconf write "/org/gnome/shell/keybindings/focus-active-notification" "@as []"
+dconf write "/org/gnome/mutter/keybindings/toggle-tiled-left" "@as []"
+dconf write "/org/gnome/mutter/keybindings/toggle-tiled-right" "@as []"
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/area-screenshot-clip" "@as []"
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/logout" "@as []"
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/magnifier" "@as []"
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/screencast" "@as []"
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/screenreader" "@as []"
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/screenshot-clip" "@as []"
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/window-screenshot-clip" "@as []"
+dconf write "/org/gnome/shell/extensions/pop-shell/activate-launcher" "@as []"
+dconf write "/org/gnome/shell/extensions/pop-shell/pop-monitor-down" "@as []"
+dconf write "/org/gnome/shell/extensions/pop-shell/pop-monitor-left" "@as []"
+dconf write "/org/gnome/shell/extensions/pop-shell/pop-monitor-right" "@as []"
+dconf write "/org/gnome/shell/extensions/pop-shell/pop-monitor-up" "@as []"
+dconf write "/org/gnome/shell/extensions/pop-shell/pop-workspace-down" "@as []"
+dconf write "/org/gnome/shell/extensions/pop-shell/pop-workspace-up" "@as []"
+dconf write "/org/gnome/shell/extensions/pop-shell/toggle-floating" "@as []"
+dconf write "/org/gnome/shell/extensions/pop-shell/toggle-stacking" "@as []"
+dconf write "/org/gnome/shell/extensions/pop-shell/toggle-stacking-global" "@as []"
+dconf write "/org/gnome/shell/extensions/pop-shell/toggle-tiling" "@as []"
+  
   # pop shell highlight color
   dconf write "/org/gnome/shell/extensions/pop-shell/hint-color-rgba" "'rgb(115,206,244)'"
+  dconf write "/org/gnome/desktop/interface/color-scheme" "'prefer-dark'"
 
   # interface preferences
   dconf write "/org/gnome/desktop/interface/clock-format" "'12h'"
@@ -86,7 +120,7 @@
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/name" "'Chrome'"
 
    dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/binding" "'<Super>t'"
-   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/command" "'env WINIT_UNIX_BACKEND=x11 alacritty -e fish \"toolbox enter\"'"
+   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/command" "'env WINIT_UNIX_BACKEND=x11 alacritty -e fish -c \"toolbox enter\"'"
    dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/name" "'Toolbox'"
 
    dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/binding" "'<Super><Shift>t'"
@@ -94,53 +128,16 @@
    dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/name" "'OSTree'"
 
 # extensions
-  # echo 'used to display old school icons on the menu bar (ie MEGASync)'
-  # echo 'https://extensions.gnome.org/extension/615/appindicator-support/'
-  # echo 'small tweaks (hide the applications and accessabilty icons'
-  # echo 'https://extensions.gnome.org/extension/3843/just-perfection/'
-  # echo 'for managing podman containers in menu bar'
-  # echo 'https://extensions.gnome.org/extension/1500/containers/'
-  # echo 'https://extensions.gnome.org/extension/4135/espresso/'
-  # echo 'https://extensions.gnome.org/extension/3193/blur-my-shell/'
-  # echo 'https://extensions.gnome.org/extension/750/openweather/'
-  # echo 'https://extensions.gnome.org/extension/906/sound-output-device-chooser/'
-  # echo 'https://extensions.gnome.org/extension/21/workspace-indicator/'
-  # echo 'https://extensions.gnome.org/extension/4812/wallpaper-switcher/'
+# Simply Workspaces
+# Blur My Shell
+# AppIndicator
+# Espresso
+# Open Weather
+# Wallpaper Switcher
+# Just Perfection
+# Containers (MAYBE)
+# Sound Output Device Chooser (OUT OF DATE)
 
-# keyboard bindings : unset
-dconf write "/org/gnome/desktop/wm/keybindings/begin-move" "@as []"
-dconf write "/org/gnome/desktop/wm/keybindings/begin-resize" "@as []"
-dconf write "/org/gnome/desktop/wm/keybindings/close" "@as []"
-dconf write "/org/gnome/desktop/wm/keybindings/cycle-group" "@as []"
-dconf write "/org/gnome/desktop/wm/keybindings/cycle-group-backward" "@as []"
-dconf write "/org/gnome/desktop/wm/keybindings/cycle-windows" "@as []"
-dconf write "/org/gnome/desktop/wm/keybindings/cycle-windows-backward" "@as []"
-dconf write "/org/gnome/desktop/wm/keybindings/move-to-workspace-last" "@as []"
-dconf write "/org/gnome/desktop/wm/keybindings/switch-input-source" "@as []"
-dconf write "/org/gnome/desktop/wm/keybindings/switch-input-source-backward" "@as []"
-dconf write "/org/gnome/desktop/wm/keybindings/switch-to-workspace-last" "@as []"
-dconf write "/org/gnome/shell/keybindings/focus-active-notification" "@as []"
-dconf write "/org/gnome/mutter/keybindings/toggle-tiled-left" "@as []"
-dconf write "/org/gnome/mutter/keybindings/toggle-tiled-right" "@as []"
-dconf write "/org/gnome/settings-daemon/plugins/media-keys/area-screenshot-clip" "@as []"
-dconf write "/org/gnome/settings-daemon/plugins/media-keys/logout" "@as []"
-dconf write "/org/gnome/settings-daemon/plugins/media-keys/magnifier" "@as []"
-dconf write "/org/gnome/settings-daemon/plugins/media-keys/screencast" "@as []"
-dconf write "/org/gnome/settings-daemon/plugins/media-keys/screenreader" "@as []"
-dconf write "/org/gnome/settings-daemon/plugins/media-keys/screenshot-clip" "@as []"
-dconf write "/org/gnome/settings-daemon/plugins/media-keys/window-screenshot-clip" "@as []"
-dconf write "/org/gnome/shell/extensions/pop-shell/activate-launcher" "@as []"
-dconf write "/org/gnome/shell/extensions/pop-shell/pop-monitor-down" "@as []"
-dconf write "/org/gnome/shell/extensions/pop-shell/pop-monitor-left" "@as []"
-dconf write "/org/gnome/shell/extensions/pop-shell/pop-monitor-right" "@as []"
-dconf write "/org/gnome/shell/extensions/pop-shell/pop-monitor-up" "@as []"
-dconf write "/org/gnome/shell/extensions/pop-shell/pop-workspace-down" "@as []"
-dconf write "/org/gnome/shell/extensions/pop-shell/pop-workspace-up" "@as []"
-dconf write "/org/gnome/shell/extensions/pop-shell/toggle-floating" "@as []"
-dconf write "/org/gnome/shell/extensions/pop-shell/toggle-stacking" "@as []"
-dconf write "/org/gnome/shell/extensions/pop-shell/toggle-stacking-global" "@as []"
-dconf write "/org/gnome/shell/extensions/pop-shell/toggle-tiling" "@as []"
-  
 # load gnome terminal profiles
   # dconf load /org/gnome/terminal/legacy/profiles:/ < ./configs/gnome-terminal-profiles.dconf
 
