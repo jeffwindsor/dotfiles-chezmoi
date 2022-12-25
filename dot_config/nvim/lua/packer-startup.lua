@@ -65,7 +65,7 @@ require('packer').startup(function(use)
   use 'lewis6991/gitsigns.nvim'             -- git gutter markers
   use 'nvim-lualine/lualine.nvim'           -- Fancier statusline
   use 'lukas-reineke/indent-blankline.nvim' -- Add indentation guides even on blank lines
-  use 'numToStr/Comment.nvim'               -- "gc" to comment visual regions/lines
+  --use {'numToStr/Comment.nvim', tag = 'v0.7.0'}               -- "gc" to comment visual regions/lines
   use 'tpope/vim-sleuth'                    -- Detect tabstop and shiftwidth automatically
 
   -- if first time install then sync the plugins
