@@ -20,6 +20,7 @@ Select Step:  "
     o) 
       sudo rpm-ostree upgrade
       rpm-ostree install pop-shell alacritty
+      toolbox create
       systemctl reboot
       ;;
     u)
@@ -28,7 +29,6 @@ Select Step:  "
       source ./extras/keygen
       source ./extras/gnome-config
       source ./extras/flatpaks
-      toolbox create
       ;;
     *)
       echo "Not a valid option"
@@ -55,7 +55,7 @@ clis(){
   sudo dnf -y install bat 
   sudo dnf -y install exa
   sudo dnf -y install fd-find
-  sudo dnf -y install fish && source ./extras/fisher
+  sudo dnf -y install fish
   sudo dnf -y install fortune-mod
   sudo dnf -y install fzf
   sudo dnf -y install hledger
@@ -70,10 +70,17 @@ clis(){
   sudo dnf -y install gcc "gcc-c++" glibc-all-langpacks
   sudo dnf -y install neovim && git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 
+  # lazygit
+  sudo dnf copr enable atim/lazygit -y
+  sudo dnf install lazygit
+
   # rust
   sudo dnf -y install openssl openssl-devel 
   source ./extras/rust
   sudo dnf -y install cmake && cargo install starship --version 1.10.3
+
+  # lang servers
+  sudo dnf -y install pylsp rust-analyzer 
 }
 
 menu
