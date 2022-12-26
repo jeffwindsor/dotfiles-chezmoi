@@ -11,8 +11,9 @@ export XDG_DATA_HOME=$HOME/.local/share
 export XDG_CACHE_HOME=$HOME/.cache
 export XDG_CONFIG_HOME=$HOME/.config
 
+shopt -s nullglob
 for rc in $XDG_CONFIG_HOME/shells/env/*
-do
+do 
     source $rc
 done
 
@@ -40,6 +41,3 @@ HISTFILESIZE=2000
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
-
-alias  ll='exa -lF --group-directories-first --time="changed" --time-style="iso" --git'
-alias  lla='exa -lF --group-directories-first --time="changed" --time-style="iso" --git --all'
