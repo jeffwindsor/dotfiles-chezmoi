@@ -24,7 +24,7 @@ Select Step:  "
       systemctl reboot
       ;;
     c)
-      rpm-ostree install pop-shell alacritty
+      rpm-ostree install alacritty
       systemctl reboot
       ;;
     u)
@@ -72,6 +72,7 @@ clis(){
   # clis
   sudo dnf -y install bat 
   sudo dnf -y install exa
+  sudo dnf -y install entr
   sudo dnf -y install fd-find
   sudo dnf -y install fish
   sudo dnf -y install fortune-mod
