@@ -137,7 +137,7 @@ dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/cu
 dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/name" "'Reboot'"
 
 dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/binding" "'<Primary><Super>P'"
-dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/command" "'systemctl shutdown'"
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/command" "'systemctl poweroff'"
 dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/name" "'Power-Off'"
 
 dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/binding" "'<Super><Shift>b'"
