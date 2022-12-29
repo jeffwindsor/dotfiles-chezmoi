@@ -1,4 +1,4 @@
-theme = "gruvbox_dark_hard"
+theme = "kanagawa2"
 
 [editor]
 auto-save = true
@@ -27,10 +27,32 @@ mode.normal = "N"
 mode.insert = "I"
 mode.select = "S"
 
+# key remaps ##################################################################
+
 [keys.normal]
-C-u = ["kill_to_line_start"]                              # like insert mode
-C-k = ["kill_to_line_end"]                                # like insert mode
+C-u = ["kill_to_line_start"]
+C-k = ["kill_to_line_end"] 
 esc = ["collapse_selection", "keep_primary_selection"]
+
+[keys.normal.space]
+q = ":quit"
+
+[keys.normal.space.b]        #buffers
+b = "buffer_picker"
+a = ":buffer-close-all"
+c = ":buffer-close"
+h = ":buffer-previous"
+l = ":buffer-next"
+n = ":new"
+
+[keys.normal.space.c]        #config
+c = ":config-open"
+r = [":write", ":config-reload"]
+
+[keys.normal.space.t]        #themes  
+k = ":theme kanagawa2" 
+n = ":theme nord" 
+t = ":theme tokyonight_storm"
 
 [keys.insert]
 esc = ["collapse_selection", "normal_mode"]
