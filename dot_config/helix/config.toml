@@ -1,7 +1,9 @@
+# appearance and behavior ########################################################
 theme = "kanagawa2"
 
 [editor]
 auto-save = true
+bufferline = "always"
 line-number = "absolute"
 mouse = true
 shell = ["fish", "-c"]
@@ -10,25 +12,23 @@ shell = ["fish", "-c"]
 insert = "bar"
 
 [editor.file-picker]
-hidden = false
+hidden     = false
 git-ignore = true
 git-global = true
 
 [editor.indent-guides]
-render = true
+render    = true
 character = "|"
 
 [editor.statusline]
-left = ["mode", "spinner", "file-name"]
-# center = ["file-name"]
-right = ["diagnostics", "selections", "position", "file-encoding", "file-line-ending", "file-type"]
-separator = " : "
-mode.normal = "N"
-mode.insert = "I"
-mode.select = "S"
+left   = ["mode", "spinner"]
+center = ["position", "selections"]
+right  = ["diagnostics", "file-encoding", "file-line-ending", "file-type"]
+mode.normal = "NORMAL"
+mode.insert = "INSERT"
+mode.select = "SELECT"
 
-# key remaps ##################################################################
-
+# key maps ##################################################################
 [keys.normal]
 C-u = ["kill_to_line_start"]
 C-k = ["kill_to_line_end"] 
@@ -36,6 +36,7 @@ esc = ["collapse_selection", "keep_primary_selection"]
 
 [keys.normal.space]
 q = ":quit"
+w = ":write"
 
 [keys.normal.space.b]        #buffers
 b = "buffer_picker"
@@ -47,7 +48,7 @@ n = ":new"
 
 [keys.normal.space.c]        #config
 c = ":config-open"
-r = [":write", ":config-reload"]
+r = ":config-reload"
 
 [keys.normal.space.t]        #themes  
 k = ":theme kanagawa2" 
