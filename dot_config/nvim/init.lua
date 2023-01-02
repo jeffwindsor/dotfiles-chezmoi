@@ -7,7 +7,7 @@ require('packer-startup')
 -- ----------------------------------------------------------------------------
 -- OPTIONS: more info @ `:h vim.o`
 -- ----------------------------------------------------------------------------
-vim.cmd 'colorscheme kanagawa'
+vim.cmd 'colorscheme nord'
 
 vim.g.mapleader       = " "            -- map leader to <space> 
 vim.g.maplocalleader  = " "            -- map local leader to <space> 
