@@ -4,3 +4,4 @@
   source "$HOME/.cargo/env"
   cargo install cargo-update
   cargo install topgrade
+  cargo install --locked zellij
