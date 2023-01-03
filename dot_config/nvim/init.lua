@@ -1,7 +1,23 @@
 -- ----------------------------------------------------------------------------
 -- PLUGINS
 -- ----------------------------------------------------------------------------
-require('packer-startup')               -- package manager
+require("bootstrap.lazy")
+require("lazy").setup({
+  'pocco81/auto-save.nvim',                  -- auto save on return to normal mode
+  'nvim-lua/plenary.nvim',
+  'nvim-telescope/telescope.nvim',           -- Fuzzy Finder (files, lsp, etc)
+  'folke/which-key.nvim',                    -- display key bindings (like emacs)
+  'lukas-reineke/indent-blankline.nvim',     -- Add indentation guides even on blank lines
+  {'numToStr/Comment.nvim', lazy = true},    -- "gc" to comment visual regions/lines
+
+  -- color schemes
+  {'folke/tokyonight.nvim', lazy = true},
+  {'joshdick/onedark.vim', lazy = true},
+  {'marko-cerovac/material.nvim', lazy = true},
+  {'mhartington/oceanic-next', lazy = true},
+  {'rebelot/kanagawa.nvim', lazy = true},
+  {'shaunsingh/nord.nvim', lazy = true},
+})
 -- package configs
 require('plugin.auto-save')
 require('plugin.comment')
@@ -10,10 +26,13 @@ require('plugin.which-key')
 require('plugin.telescope')
 
 -- ----------------------------------------------------------------------------
--- OPTIONS: more info @ `:h vim.o`
+-- COLORSCHEME
 -- ----------------------------------------------------------------------------
 vim.cmd 'colorscheme kanagawa'
 
+-- ----------------------------------------------------------------------------
+-- OPTIONS: more info @ `:h vim.o`
+-- ----------------------------------------------------------------------------
 vim.g.mapleader       = " "            -- map leader to <space> 
 vim.g.maplocalleader  = " "            -- map local leader to <space> 
 vim.o.autoindent      = true
