@@ -77,6 +77,7 @@ clis(){
   sudo dnf -y install fish
   sudo dnf -y install fortune-mod
   sudo dnf -y install fzf
+  sudo dnf -y install gitui
   sudo dnf -y install hledger
   sudo dnf -y install ripgrep
   sudo dnf -y install tealdeer
@@ -88,10 +89,6 @@ clis(){
   # neovim
   sudo dnf -y install gcc "gcc-c++" glibc-all-langpacks
   sudo dnf -y install neovim && git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
-
-  # lazygit
-  sudo dnf copr enable atim/lazygit -y
-  sudo dnf -y install lazygit
 
   # rust
   sudo dnf -y install openssl openssl-devel 
