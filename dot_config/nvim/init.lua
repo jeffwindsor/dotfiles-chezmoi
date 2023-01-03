@@ -1,13 +1,18 @@
 -- ----------------------------------------------------------------------------
 -- PLUGINS
 -- ----------------------------------------------------------------------------
-require('packer-startup')
--- configs auto-loaded from `.config/nvim/after/plugin/*`, more info @ `:h load-plugins`
+require('packer-startup')               -- package manager
+-- package configs
+require('plugin.auto-save')
+require('plugin.comment')
+require('plugin.indent-blankline')
+require('plugin.which-key')
+require('plugin.telescope')
 
 -- ----------------------------------------------------------------------------
 -- OPTIONS: more info @ `:h vim.o`
 -- ----------------------------------------------------------------------------
-vim.cmd 'colorscheme nord'
+vim.cmd 'colorscheme kanagawa'
 
 vim.g.mapleader       = " "            -- map leader to <space> 
 vim.g.maplocalleader  = " "            -- map local leader to <space> 
