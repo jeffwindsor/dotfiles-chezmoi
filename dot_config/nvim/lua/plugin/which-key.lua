@@ -77,11 +77,7 @@ wk.register({
     r = { ':Telescope lsp_references<CR>','references'},
     t = { ':Telescope lsp_type_definitions<CR>','type'},
   },
-  p = { 
-    name = 'packer',
-    c = {load_config .. ':PackerClean<CR>' .. ':echo "Packages Cleaned"<CR>','clean'},
-    s = {load_config .. ':PackerSync<CR>' .. ':echo "Pacakges Synced"<CR>','sync'},
-  },
+  p = { ':Lazy<CR>', 'package manager'},
   q = { ':q<CR>','quit'},
   r = { ':Telescope registers<CR>','registers'},
   t = { 

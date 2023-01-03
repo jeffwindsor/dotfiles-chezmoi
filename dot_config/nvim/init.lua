@@ -8,6 +8,7 @@ require("lazy").setup({
   'nvim-telescope/telescope.nvim',           -- Fuzzy Finder (files, lsp, etc)
   'folke/which-key.nvim',                    -- display key bindings (like emacs)
   'lukas-reineke/indent-blankline.nvim',     -- Add indentation guides even on blank lines
+  {'ryanoasis/vim-devicons', lazy = true},
   {'numToStr/Comment.nvim', lazy = true},    -- "gc" to comment visual regions/lines
 
   -- color schemes
