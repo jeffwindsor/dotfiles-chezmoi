@@ -3,21 +3,46 @@
 -- ----------------------------------------------------------------------------
 require("bootstrap.lazy")
 require("lazy").setup({
+  -- ----------------------------------------------------------------------------------------------
+  -- personal workflow
+  -- ----------------------------------------------------------------------------------------------
   'pocco81/auto-save.nvim',                  -- auto save on return to normal mode
   'nvim-lua/plenary.nvim',
   'nvim-telescope/telescope.nvim',           -- Fuzzy Finder (files, lsp, etc)
   'folke/which-key.nvim',                    -- display key bindings (like emacs)
-  'lukas-reineke/indent-blankline.nvim',     -- Add indentation guides even on blank lines
-  {'ryanoasis/vim-devicons', lazy = true},
-  {'numToStr/Comment.nvim', lazy = true},    -- "gc" to comment visual regions/lines
+--  {'ryanoasis/vim-devicons', lazy = true},
+  'numToStr/Comment.nvim',                   -- "gc" to comment visual regions/lines
+  'nvim-lualine/lualine.nvim',
 
+  -- ----------------------------------------------------------------------------------------------
   -- color schemes
+  -- ----------------------------------------------------------------------------------------------
   {'folke/tokyonight.nvim', lazy = true},
   {'joshdick/onedark.vim', lazy = true},
   {'marko-cerovac/material.nvim', lazy = true},
   {'mhartington/oceanic-next', lazy = true},
   {'rebelot/kanagawa.nvim', lazy = true},
   {'shaunsingh/nord.nvim', lazy = true},
+
+  -- ----------------------------------------------------------------------------------------------
+  -- development
+  -- ----------------------------------------------------------------------------------------------
+  'lukas-reineke/indent-blankline.nvim',     -- Add indentation guides even on blank lines
+
+  { 'neovim/nvim-lspconfig',              -- LSP Configuration & Plugins
+    dependencies = {
+      'williamboman/mason.nvim',              -- Automatically install LSPs to stdpath for neovim
+      'williamboman/mason-lspconfig.nvim',
+      'j-hui/fidget.nvim',                    -- Useful status updates for LSP
+      'folke/neodev.nvim',                    -- Additional lua configuration, makes nvim stuff amazing
+    }},
+  { 'hrsh7th/nvim-cmp',                   -- Autocompletion
+    dependencies = { 
+      'hrsh7th/cmp-nvim-lsp', 
+      'L3MON4D3/LuaSnip', 
+      'saadparwaiz1/cmp_luasnip' 
+    }},
+  'nvim-treesitter/nvim-treesitter',    -- Highlight, edit, and navigate code
 })
 -- package configs
 require('plugin.auto-save')
@@ -25,11 +50,17 @@ require('plugin.comment')
 require('plugin.indent-blankline')
 require('plugin.which-key')
 require('plugin.telescope')
+require('plugin.fidget')
+require('plugin.lualine')
+require('plugin.mason')
+require('plugin.neodev')
+require('plugin.nvim-cmp')
+require('plugin.nvim-treesitter')
 
 -- ----------------------------------------------------------------------------
 -- COLORSCHEME
 -- ----------------------------------------------------------------------------
-vim.cmd 'colorscheme kanagawa'
+vim.cmd 'colorscheme tokyonight-storm'
 
 -- ----------------------------------------------------------------------------
 -- OPTIONS: more info @ `:h vim.o`
