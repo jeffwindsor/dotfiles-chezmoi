@@ -1,14 +1,16 @@
 #!/usr/bin/env bash
 
 install_flatpaks(){
+
   flatpak install -y "com.github.tchx84.Flatseal"
   flatpak install -y "com.google.Chrome"
   flatpak install -y "com.mattjakeman.ExtensionManager"
   flatpak install -y "com.spotify.Client"
-  flatpak install -y "com.visualstudio.code"
-  flatpak install -y "nz.mega.MEGAsync"
-  flatpak install -y "net.sourceforge.Klavaro" 
+  flatpak install -y "com.discordapp.Discord"
 
+  # flatpak install -y "nz.mega.MEGAsync"
+  # flatpak install -y "net.sourceforge.Klavaro" 
+  # flatpak install -y "com.visualstudio.code"
   # flatpak install -y "com.valvesoftware.Steam"
   # flatpak install -y "com.discordapp.Discord"
   # flatpak install -y "io.github.endless_sky.endless_sky" 
