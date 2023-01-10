@@ -2,11 +2,11 @@
 theme = "kanagawa2"
 
 [editor]
-auto-save = true
-bufferline = "always"
-line-number = "absolute"
-mouse = true
-shell = ["fish", "-c"]
+auto-save   = true
+bufferline  = "always"
+line-number = "relative" #"absolute"
+mouse       = true
+shell       = ["fish", "-c"]
 
 [editor.cursor-shape]
 insert = "bar"
@@ -24,9 +24,11 @@ character = "|"
 left   = ["mode", "spinner"]
 center = ["position", "selections"]
 right  = ["diagnostics", "file-encoding", "file-line-ending", "file-type"]
-mode.normal = "NORMAL"
-mode.insert = "INSERT"
-mode.select = "SELECT"
+
+[editor.statusline.mode]
+normal = "NORMAL"
+insert = "INSERT"
+select = "SELECT"
 
 # key maps ##################################################################
 [keys.normal]
