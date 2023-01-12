@@ -50,7 +50,6 @@ n = ":new"
 
 [keys.normal.space.c]        #config
 c = ":config-open"
-l = ":o ~/.config/helix/languages.toml"
 r = ":config-reload"
 
 [keys.normal.space.t]        #themes  
