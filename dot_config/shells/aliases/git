@@ -31,6 +31,4 @@ alias gsync="git checkout master && git pull --rebase && git checkout - && git r
 
 # lazygit
 alias lg=lazygit
-
-# gitui
 alias gu=gitui
