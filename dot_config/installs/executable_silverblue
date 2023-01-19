@@ -24,7 +24,7 @@ Select Step:  "
       systemctl reboot
       ;;
     c)
-      rpm-ostree install alacritty
+      rpm-ostree install alacritty virt-manager
       systemctl reboot
       ;;
     u)
