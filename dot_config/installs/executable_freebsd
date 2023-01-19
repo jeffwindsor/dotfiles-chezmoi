@@ -60,22 +60,20 @@ ssh_keygen(){
 
 install_user_software(){
   pkg install -y bat 
-  pkg install -y chromium 
+  pkg install -y chromium firefox
   pkg install -y exa
   pkg install -y fd-find
-  pkg install -y firefox
   pkg install -y fish
   pkg install -y fortune-mod-freebsd-classic
   pkg install -y fzf
+  pkg install -y helix
   pkg install -y lazygit
   pkg install -y neovim
   pkg install -y megacmd
   pkg install -y ripgrep
   pkg install -y starship
-  pkg install -y stow
   pkg install -y tealdeer
   pkg install -y topgrade
-  pkg install -y vscode
 }
 
 install_gnome(){
