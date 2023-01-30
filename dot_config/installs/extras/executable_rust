@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 
-  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-  source "$HOME/.cargo/env"
-  cargo install cargo-update
-  cargo install topgrade
-  cargo install --locked zellij
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+source "$HOME/.cargo/env"
+cargo install cargo-update
+cargo install topgrade              # upgrade all things
+cargo install --locked zellij       # tmux++
+cargo install kalker                # terminal based calculator
+cargo install bottom                # system monitor (like htop)  
+cargo install ddh                   # duplicate file finder

@@ -1,5 +1,13 @@
+#!/usr/bin/env bash
+
 alias h='hx'
+alias exo='hx ~/portable/exocortex'
+
 alias configs='hx $XDG_CONFIG_HOME'
 alias dots='hx $DOTFILES'
 alias ins='hx $INSTALLS'
-alias exo='hx ~/portable/exocortex'
+
+# direct to helix (old way)
+# alias configs='hx $XDG_CONFIG_HOME'
+# alias dots='hx $DOTFILES'
+# alias ins='hx $INSTALLS'
