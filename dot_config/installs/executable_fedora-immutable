@@ -1,0 +1,117 @@
+#!/usr/bin/env bash
+cd "$(dirname "${0}")"
+
+menu(){
+echo -ne "
+
+███████╗███████╗██████╗  ██████╗ ██████╗  █████╗                           
+██╔════╝██╔════╝██╔══██╗██╔═══██╗██╔══██╗██╔══██╗                          
+█████╗  █████╗  ██║  ██║██║   ██║██████╔╝███████║                          
+██╔══╝  ██╔══╝  ██║  ██║██║   ██║██╔══██╗██╔══██║                          
+██║     ███████╗██████╔╝╚██████╔╝██║  ██║██║  ██║                          
+╚═╝     ╚══════╝╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝                          
+                                                                           
+██╗███╗   ███╗███╗   ███╗██╗   ██╗████████╗ █████╗ ██████╗ ██╗     ███████╗
+██║████╗ ████║████╗ ████║██║   ██║╚══██╔══╝██╔══██╗██╔══██╗██║     ██╔════╝
+██║██╔████╔██║██╔████╔██║██║   ██║   ██║   ███████║██████╔╝██║     █████╗  
+██║██║╚██╔╝██║██║╚██╔╝██║██║   ██║   ██║   ██╔══██║██╔══██╗██║     ██╔══╝  
+██║██║ ╚═╝ ██║██║ ╚═╝ ██║╚██████╔╝   ██║   ██║  ██║██████╔╝███████╗███████╗
+╚═╝╚═╝     ╚═╝╚═╝     ╚═╝ ╚═════╝    ╚═╝   ╚═╝  ╚═╝╚═════╝ ╚══════╝╚══════╝
+                                                                           
+
+o) Os-Tree Setup (Reboots)
+c) Os-Tree Customize (Reboots)
+u) Userland Setup
+s) Gnome Customize 
+k) KDE Customize
+t) Toolbox Setup (must be in toolbox)
+
+Select Step:  "
+  read -r step
+  case $step in
+    o) 
+      sudo rpm-ostree upgrade
+      systemctl reboot
+      ;;
+    c)
+      rpm-ostree install alacritty virt-manager
+      systemctl reboot
+      ;;
+    u)
+      flathub
+      source ./extras/flatpaks
+      toolbox create
+      source ./extras/keygen
+      source ./extras/git-clones
+      ;;
+    s)
+      source ./extras/gnome-config
+      source ./extras/gnome-os-tree-custom-keys
+      ;;
+    k)
+      echo "nothing yet"
+      ;;
+    t)
+      dnf_setup
+      clis
+      source ./extras/fisher
+      ;;
+    *)
+      echo "Not a valid option"
+      exit 1
+      ;;
+  esac
+}
+
+flathub(){
+  flatpak remote-modify --no-filter --enable flathub
+  flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+  flatpak install -y --reinstall flathub $(flatpak list --app-runtime=org.fedoraproject.Platform --columns=application | tail -n +1 )
+  flatpak remote-delete fedora
+}
+
+dnf_setup(){
+  # update dnf config
+  echo "max_parallel_downloads=10" | sudo tee -a /etc/dnf/dnf.conf
+  echo "defaultyes=True" | sudo tee -a /etc/dnf/dnf.conf
+  echo "fastestmirror=True" | sudo tee -a /etc/dnf/dnf.conf
+
+  # add rpm fusion repositories
+  sudo dnf -y install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
+  sudo dnf -y install https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+
+  sudo dnf -y upgrade
+}
+
+clis(){
+  # clis
+  sudo dnf -y install bat 
+  sudo dnf -y install exa
+  sudo dnf -y install entr
+  sudo dnf -y install fd-find
+  sudo dnf -y install fish
+  sudo dnf -y install fortune-mod
+  sudo dnf -y install fzf
+  sudo dnf -y install gitui
+  sudo dnf -y install hledger
+  sudo dnf -y install ripgrep
+  sudo dnf -y install tealdeer
+
+  #helix editor
+  sudo dnf -y copr enable varlad/helix
+  sudo dnf -y install helix
+
+  # neovim
+  sudo dnf -y install gcc "gcc-c++" glibc-all-langpacks
+  sudo dnf -y install neovim && git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+
+  # rust
+  sudo dnf -y install openssl openssl-devel 
+  source ./extras/rust
+  sudo dnf -y install cmake && cargo install starship --version 1.10.3
+
+  # lang servers
+  sudo dnf -y install pylsp rust-analyzer 
+}
+
+menu
