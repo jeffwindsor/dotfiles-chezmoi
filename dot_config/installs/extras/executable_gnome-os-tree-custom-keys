@@ -1,0 +1,40 @@
+# 
+# OS_TREE GNOME
+#
+# keyboard bindings : custom
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings" "[\
+    '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/', \
+    '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/', \
+    '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/', \
+    '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/', \
+    '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/', \
+    '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/', \
+    '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/']"
+
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/binding" "'<Primary><Super>S'"
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/command" "'systemctl suspend'"
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/name" "'Suspend'"
+
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/binding" "'<Primary><Super>L'"
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/command" "'gnome-session-quit --logout --no-prompt'"
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/name" "'Logout'"
+
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/binding" "'<Primary><Super>R'"
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/command" "'systemctl reboot'"
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/name" "'Reboot'"
+
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/binding" "'<Primary><Super>P'"
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/command" "'systemctl poweroff'"
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/name" "'Power-Off'"
+
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/binding" "'<Super><Shift>b'"
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/command" "'flatpak run com.google.Chrome'"
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/name" "'Chrome'"
+
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/binding" "'<Super>t'"
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/command" "'env WINIT_UNIX_BACKEND=x11 alacritty -e bash -c \"SHELL=/bin/fish toolbox enter\"'"
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/name" "'Toolbox'"
+
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/binding" "'<Super><Shift>t'"
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/command" "'env WINIT_UNIX_BACKEND=x11 alacritty --config-file /var/home/mid/.config/alacritty/alacritty-ostree.yml'"
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/name" "'OSTree'"
