@@ -4,13 +4,13 @@ echo "
 ===========================================================================
  INSTALL FOLLWING GNOME EXTENSIONS PRIOR TO CONTINUING
 ===========================================================================
-  * AppIndicator
-  * Blur My Shell
-  * Caffiene
+  * AppIndicator (dnf)
+  * Blur My Shell (dnf)
+  * Caffiene (dnf)
   * Containers (MAYBE)
   * Forge
-  * Just Perfection
-  * Open Weather
+  * Just Perfection (dnf)
+  * Open Weather (dnf)
   * Simply Workspaces
   * Wallpaper Switcher
 ===========================================================================
