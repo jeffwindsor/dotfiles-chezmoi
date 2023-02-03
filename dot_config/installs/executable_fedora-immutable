@@ -2,7 +2,7 @@
 cd "$(dirname "${0}")"
 
 menu(){
-echo -ne "
+  echo -ne "
 
 ███████╗███████╗██████╗  ██████╗ ██████╗  █████╗                           
 ██╔════╝██╔════╝██╔══██╗██╔═══██╗██╔══██╗██╔══██╗                          
@@ -10,64 +10,95 @@ echo -ne "
 ██╔══╝  ██╔══╝  ██║  ██║██║   ██║██╔══██╗██╔══██║                          
 ██║     ███████╗██████╔╝╚██████╔╝██║  ██║██║  ██║                          
 ╚═╝     ╚══════╝╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝                          
-                                                                           
-██╗███╗   ███╗███╗   ███╗██╗   ██╗████████╗ █████╗ ██████╗ ██╗     ███████╗
-██║████╗ ████║████╗ ████║██║   ██║╚══██╔══╝██╔══██╗██╔══██╗██║     ██╔════╝
-██║██╔████╔██║██╔████╔██║██║   ██║   ██║   ███████║██████╔╝██║     █████╗  
-██║██║╚██╔╝██║██║╚██╔╝██║██║   ██║   ██║   ██╔══██║██╔══██╗██║     ██╔══╝  
-██║██║ ╚═╝ ██║██║ ╚═╝ ██║╚██████╔╝   ██║   ██║  ██║██████╔╝███████╗███████╗
-╚═╝╚═╝     ╚═╝╚═╝     ╚═╝ ╚═════╝    ╚═╝   ╚═╝  ╚═╝╚═════╝ ╚══════╝╚══════╝
-                                                                           
 
-o) Os-Tree Setup (Reboots)
-c) Os-Tree Customize (Reboots)
-u) Userland Setup
-s) Gnome Customize 
-k) KDE Customize
-t) Toolbox Setup (must be in toolbox)
+g) Gnome
+k) Kde
+s) Silverblue (Gnome)
+i) Kinoite (Kde)
 
-Select Step:  "
-  read -r step
-  case $step in
-    o) 
-      sudo rpm-ostree upgrade
-      systemctl reboot
-      ;;
-    c)
-      rpm-ostree install alacritty virt-manager
-      systemctl reboot
-      ;;
-    u)
-      flathub
-      source ./extras/flatpaks
-      toolbox create
-      source ./extras/keygen
-      source ./extras/git-clones
-      ;;
-    s)
-      source ./extras/gnome-config
-      source ./extras/gnome-os-tree-custom-keys
-      ;;
-    k)
-      echo "nothing yet"
-      ;;
-    t)
+  Select Version:"
+  read -r version
+  case $version in
+    g) 
+      echo "====  GNOME  ===="
       dnf_setup
       clis
-      source ./extras/fisher
+      userland
+      sudo dnf install -y alacritty
+      # gnome
+      sudo dnf -y install gnome-shell-extension-appindicator
+      sudo dnf -y install gnome-shell-extension-blur-my-shell
+      sudo dnf -y install gnome-shell-extension-caffeine
+      sudo dnf -y install gnome-shell-extension-just-perfection
+      sudo dnf -y install gnome-shell-extension-launch-new-instance
+      sudo dnf -y install gnome-shell-extension-openweather
+      ./extras/gnome-config
+      ./extras/gnome-config-custom-keys
       ;;
-    *)
-      echo "Not a valid option"
-      exit 1
+    k)
+      echo "==== KDE ===="
+      dnf_setup
+      clis
+      userland
+      sudo dnf install -y alacritty
+      sudo dnf install -y bismuth
+      
+      ;;
+    s)
+      echo "==== SILVERBLUE ===="
+      echo -ne "
+      o) Os-Tree Setup (Reboots)
+      c) Os-Tree Customize (Reboots)
+      u) Userland Setup
+      t) Toolbox Setup (must be in toolbox)
+      
+      Select Step:"
+      read -r step
+      case $step in
+        o) 
+          sudo rpm-ostree upgrade
+          systemctl reboot
+          ;;
+        c)
+          rpm-ostree install alacritty virt-manager
+          systemctl reboot
+          ;;
+        u)
+          userland
+          ./extras/gnome-config
+          ./extras/gnome-config-custom-keys-ostree
+          toolbox create
+          ;;
+        t)
+          dnf_setup
+          clis
+          ./extras/fisher
+          ;;
+        *)
+          echo "Not a valid option"
+          exit 1
+          ;;
+      esac
+      ;;
+    i) 
+      echo "==== KINOITE ===="
+      echo "Nothing Yet"
       ;;
   esac
-}
 
-flathub(){
+
+
+
+userland(){
+  # replace fedora flapk repo with flathub
   flatpak remote-modify --no-filter --enable flathub
   flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
   flatpak install -y --reinstall flathub $(flatpak list --app-runtime=org.fedoraproject.Platform --columns=application | tail -n +1 )
   flatpak remote-delete fedora
+  
+  source ./extras/flatpaks
+  source ./extras/keygen
+  source ./extras/git-clones
 }
 
 dnf_setup(){
@@ -112,6 +143,8 @@ clis(){
 
   # lang servers
   sudo dnf -y install pylsp rust-analyzer 
+
+  ./extras/fisher
 }
 
 menu
