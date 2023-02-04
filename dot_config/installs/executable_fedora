@@ -59,31 +59,37 @@ i) Kinoite (Kde)
           sudo rpm-ostree upgrade
           systemctl reboot
           ;;
+          
         c)
           rpm-ostree install alacritty virt-manager
           systemctl reboot
           ;;
+          
         u)
           userland
           ./extras/gnome-config
           ./extras/gnome-config-custom-keys-ostree
           toolbox create
           ;;
+          
         t)
           dnf_setup
           clis
           ./extras/fisher
           ;;
+          
         *)
           echo "Not a valid option"
           exit 1
           ;;
       esac
       ;;
+      
     i) 
       echo "==== KINOITE ===="
       echo "Nothing Yet"
       ;;
+      
   esac
 }
 
