@@ -85,7 +85,7 @@ i) Kinoite (Kde)
       echo "Nothing Yet"
       ;;
   esac
-
+}
 
 
 
