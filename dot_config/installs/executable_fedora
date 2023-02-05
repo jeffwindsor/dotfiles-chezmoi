@@ -11,114 +11,38 @@ menu(){
 ██║     ███████╗██████╔╝╚██████╔╝██║  ██║██║  ██║                          
 ╚═╝     ╚══════╝╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝                          
 
+c) Command line tools
+d) Dnf setup
+f) Flatpaks
 g) Gnome
+h) Gnome (OS-Tree)
+i) Fisher
 k) Kde
-s) Silverblue (Gnome)
-i) Kinoite (Kde)
-
+o) Os-Tree Update
+p) Os-Tree Layers
+r) Git Repos
+s) Ssh Keygen
+  
   Select Version:"
   read -r version
   case $version in
-    g) 
-      echo "====  GNOME  ===="
-      dnf_setup
-      clis
-      userland
-      sudo dnf install -y alacritty
-      # gnome
-      sudo dnf -y install gnome-shell-extension-appindicator
-      sudo dnf -y install gnome-shell-extension-blur-my-shell
-      sudo dnf -y install gnome-shell-extension-caffeine
-      sudo dnf -y install gnome-shell-extension-just-perfection
-      sudo dnf -y install gnome-shell-extension-launch-new-instance
-      sudo dnf -y install gnome-shell-extension-openweather
-      ./extras/gnome-config
-      ./extras/gnome-config-custom-keys
-      ;;
-    k)
-      echo "==== KDE ===="
-      dnf_setup
-      clis
-      userland
-      sudo dnf install -y alacritty
-      sudo dnf install -y bismuth
-      
-      ;;
-    s)
-      echo "==== SILVERBLUE ===="
-      echo -ne "
-      o) Os-Tree Setup (Reboots)
-      c) Os-Tree Customize (Reboots)
-      u) Userland Setup
-      t) Toolbox Setup (must be in toolbox)
-      
-      Select Step:"
-      read -r step
-      case $step in
-        o) 
-          sudo rpm-ostree upgrade
-          systemctl reboot
-          ;;
-          
-        c)
-          rpm-ostree install alacritty virt-manager
-          systemctl reboot
-          ;;
-          
-        u)
-          userland
-          ./extras/gnome-config
-          ./extras/gnome-config-custom-keys-ostree
-          toolbox create
-          ;;
-          
-        t)
-          dnf_setup
-          clis
-          ./extras/fisher
-          ;;
-          
-        *)
-          echo "Not a valid option"
-          exit 1
-          ;;
-      esac
-      ;;
-      
-    i) 
-      echo "==== KINOITE ===="
-      echo "Nothing Yet"
-      ;;
-      
+    c) cli ;;
+    d) dnf_setup ;;
+    f) ./extras/flatpaks ;;
+    g) gnome ;;
+    h) gnome-ostree  ;;
+    i) ./extras/fisher ;;
+    k) kde ;;
+    o) sudo rpm-ostree upgrade ;;
+    p) rpm-ostree install alacritty virt-manager ;;
+    r) ./extras/git-clones ;;
+    s) ./extras/keygen ;;
+    *) echo "Not a valid option"
+       exit 1
+       ;;
   esac
 }
 
-
-
-userland(){
-  # replace fedora flapk repo with flathub
-  flatpak remote-modify --no-filter --enable flathub
-  flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-  flatpak install -y --reinstall flathub $(flatpak list --app-runtime=org.fedoraproject.Platform --columns=application | tail -n +1 )
-  flatpak remote-delete fedora
-  
-  source ./extras/flatpaks
-  source ./extras/keygen
-  source ./extras/git-clones
-}
-
-dnf_setup(){
-  # update dnf config
-  echo "max_parallel_downloads=10" | sudo tee -a /etc/dnf/dnf.conf
-  echo "defaultyes=True" | sudo tee -a /etc/dnf/dnf.conf
-  echo "fastestmirror=True" | sudo tee -a /etc/dnf/dnf.conf
-
-  # add rpm fusion repositories
-  sudo dnf -y install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
-  sudo dnf -y install https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-
-  sudo dnf -y upgrade
-}
 
 clis(){
   # clis
@@ -150,8 +74,40 @@ clis(){
 
   # lang servers
   sudo dnf -y install pylsp rust-analyzer 
+}
 
-  ./extras/fisher
+dnf_setup(){
+  # update dnf config
+  echo "max_parallel_downloads=10" | sudo tee -a /etc/dnf/dnf.conf
+  echo "defaultyes=True" | sudo tee -a /etc/dnf/dnf.conf
+  echo "fastestmirror=True" | sudo tee -a /etc/dnf/dnf.conf
+  # add rpm fusion repositories
+  sudo dnf -y install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
+  sudo dnf -y install https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+  sudo dnf -y upgrade
+}
+
+gnome(){
+  sudo dnf -y install gnome-shell-extension-appindicator
+  sudo dnf -y install gnome-shell-extension-blur-my-shell
+  sudo dnf -y install gnome-shell-extension-caffeine
+  sudo dnf -y install gnome-shell-extension-just-perfection
+  sudo dnf -y install gnome-shell-extension-launch-new-instance
+  sudo dnf -y install gnome-shell-extension-openweather
+  ./extras/gnome-config
+  ./extras/gnome-config-custom-keys
+  sudo dnf install -y alacritty
+}
+
+gnome-ostree(){
+  toolbox create
+  ./extras/gnome-config
+  ./extras/gnome-config-custom-keys-ostree
+}
+
+kde(){
+  sudo dnf install -y alacritty
+  sudo dnf install -y bismuth
 }
 
 menu
