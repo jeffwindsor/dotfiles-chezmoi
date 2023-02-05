@@ -26,7 +26,7 @@ s) Ssh Keygen
   Select Version:"
   read -r version
   case $version in
-    c) cli ;;
+    c) clis ;;
     d) dnf_setup ;;
     f) ./extras/flatpaks ;;
     g) gnome ;;
