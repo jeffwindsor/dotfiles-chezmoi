@@ -97,6 +97,7 @@ gnome(){
   ./extras/gnome-config
   ./extras/gnome-config-custom-keys
   sudo dnf install -y alacritty
+  sudo dnf install -y virt-manager
 }
 
 gnome-ostree(){
@@ -108,6 +109,7 @@ gnome-ostree(){
 kde(){
   sudo dnf install -y alacritty
   sudo dnf install -y bismuth
+  sudo dnf install -y qt-virt-manager
 }
 
 menu

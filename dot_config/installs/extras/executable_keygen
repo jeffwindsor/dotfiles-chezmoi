@@ -1,23 +1,14 @@
 #!/usr/bin/env bash
 
-  if [[ ! -f $HOME/.ssh/github.com ]]; then
-      ssh-keygen -t ed25519 -f $HOME/.ssh/github.com -C "jeff.windsor@gmail.com"
+keygen(){
+  if [[ ! -f $1 ]]; then
+    ssh-keygen -t ed25519 -f $1 -C "jeff.windsor@gmail.com"
+    ssh-agent -s
+    echo "== added ssh key: $1"
+    cat $1.pub
   fi
+}
 
-echo "
-===========================================================================
-* Install Lastpass
-* Add the below ssh key to Github
-"
-cat $HOME/.ssh/github.com.pub
-
-echo "
-===========================================================================
-Enter any key to continue:"
-read  -n 1
-echo ""
-
-#  if [[ ! -f $HOME/.ssh/gitlab.gnome.org ]]; then
-#      ssh-keygen -t ed25519 -f $HOME/.ssh/gitlab.gnome.org -C "jeff.windsor+gnome@gmail.com"
-#      xdg-open https://gitlab.gnome.org/-/profile/keys/ &
-#  fi
+keygen $HOME/.ssh/github.com 
+#keygen $HOME/.ssh/gitlab.com 
+#keygen $HOME/.ssh/gitlab.gnome.com 
