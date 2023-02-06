@@ -22,6 +22,7 @@ o) Os-Tree Update
 p) Os-Tree Layers
 r) Git Repos
 s) Ssh Keygen
+v) Virtualization
   
   Select Version:"
   read -r version
@@ -37,6 +38,7 @@ s) Ssh Keygen
     p) rpm-ostree install alacritty virt-manager ;;
     r) ./extras/git-clones ;;
     s) ./extras/keygen ;;
+    v) virt ;;
     *) echo "Not a valid option"
        exit 1
        ;;
@@ -97,7 +99,6 @@ gnome(){
   ./extras/gnome-config
   ./extras/gnome-config-custom-keys
   sudo dnf install -y alacritty
-  sudo dnf install -y virt-manager
 }
 
 gnome-ostree(){
@@ -109,7 +110,12 @@ gnome-ostree(){
 kde(){
   sudo dnf install -y alacritty
   sudo dnf install -y bismuth
-  sudo dnf install -y qt-virt-manager
+}
+
+virt(){
+  sudo dnf install @virtualization
+  sudo systemctl start libvirtd
+  sudo systemctl enable libvirtd
 }
 
 menu
