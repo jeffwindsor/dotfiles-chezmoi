@@ -11,18 +11,17 @@ menu(){
 ██║     ███████╗██████╔╝╚██████╔╝██║  ██║██║  ██║                          
 ╚═╝     ╚══════╝╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝                          
 
-c) Command Line Tools
-d) Dnf Setup
-f) Flatpak Setup and Installs
+c) Command line tools
+d) Dnf setup
+f) Flatpaks
 g) Gnome
 h) Gnome (OS-Tree)
-i) Add Fisher packages
+i) Fisher
 k) Kde
 o) Os-Tree Update
 p) Os-Tree Layers
-r) Add Git Repos
+r) Git Repos
 s) Ssh Keygen
-v) Add Virtualization
   
   Select Version:"
   read -r version
@@ -38,7 +37,6 @@ v) Add Virtualization
     p) rpm-ostree install alacritty virt-manager ;;
     r) ./extras/git-clones ;;
     s) ./extras/keygen ;;
-    v) virtualization ;;
     *) echo "Not a valid option"
        exit 1
        ;;
@@ -112,12 +110,6 @@ kde(){
   sudo dnf install -y alacritty
   sudo dnf install -y bismuth
   sudo dnf install -y qt-virt-manager
-}
-
-virtualization(){
-  sudo dnf install @virtualization
-  sudo systemctl start libvirtd
-  sudo systemctl enable libvirtd
 }
 
 menu
