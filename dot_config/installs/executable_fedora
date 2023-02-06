@@ -2,47 +2,51 @@
 cd "$(dirname "${0}")"
 
 menu(){
-  echo -ne "
+  while :
+  do
+    clear
+    echo -ne "
 
-███████╗███████╗██████╗  ██████╗ ██████╗  █████╗                           
-██╔════╝██╔════╝██╔══██╗██╔═══██╗██╔══██╗██╔══██╗                          
-█████╗  █████╗  ██║  ██║██║   ██║██████╔╝███████║                          
-██╔══╝  ██╔══╝  ██║  ██║██║   ██║██╔══██╗██╔══██║                          
-██║     ███████╗██████╔╝╚██████╔╝██║  ██║██║  ██║                          
-╚═╝     ╚══════╝╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝                          
+    ███████╗███████╗██████╗  ██████╗ ██████╗  █████╗                           
+    ██╔════╝██╔════╝██╔══██╗██╔═══██╗██╔══██╗██╔══██╗                          
+    █████╗  █████╗  ██║  ██║██║   ██║██████╔╝███████║                          
+    ██╔══╝  ██╔══╝  ██║  ██║██║   ██║██╔══██╗██╔══██║                          
+    ██║     ███████╗██████╔╝╚██████╔╝██║  ██║██║  ██║                          
+    ╚═╝     ╚══════╝╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝                          
 
-c) Command line tools
-d) Dnf setup
-f) Flatpaks
-g) Gnome
-h) Gnome (OS-Tree)
-i) Fisher
-k) Kde
-o) Os-Tree Update
-p) Os-Tree Layers
-r) Git Repos
-s) Ssh Keygen
-v) Virtualization
+    c) Command line tools
+    d) Dnf setup
+    f) Flatpaks
+    g) Gnome
+    h) Gnome (OS-Tree)
+    i) Fisher
+    k) Kde
+    o) Os-Tree Update
+    p) Os-Tree Layers
+    r) Git Repos
+    s) Ssh Keygen
+    v) Virtualization
   
-  Select Version:"
-  read -r version
-  case $version in
-    c) clis ;;
-    d) dnf_setup ;;
-    f) ./extras/flatpaks ;;
-    g) gnome ;;
-    h) gnome-ostree  ;;
-    i) ./extras/fisher ;;
-    k) kde ;;
-    o) sudo rpm-ostree upgrade ;;
-    p) rpm-ostree install alacritty virt-manager ;;
-    r) ./extras/git-clones ;;
-    s) ./extras/keygen ;;
-    v) virt ;;
-    *) echo "Not a valid option"
-       exit 1
-       ;;
-  esac
+    Select Version:"
+    read -r version
+    case $version in
+      c) clis ;;
+      d) dnf_setup ;;
+      f) ./extras/flatpaks ;;
+      g) gnome ;;
+      h) gnome-ostree  ;;
+      i) ./extras/fisher ;;
+      k) kde ;;
+      o) sudo rpm-ostree upgrade ;;
+      p) rpm-ostree install alacritty virt-manager ;;
+      r) ./extras/git-clones ;;
+      s) ./extras/keygen ;;
+      v) virt ;;
+      *) echo "Not a valid option"
+         exit 1
+         ;;
+    esac
+  done
 }
 
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-
 cd "$(dirname "${0}")"
+
 menu(){
   while :
   do
@@ -13,29 +13,22 @@ menu(){
 ██║     ██║  ██║███████╗███████╗██████╔╝███████║██████╔╝
 ╚═╝     ╚═╝  ╚═╝╚══════╝╚══════╝╚═════╝ ╚══════╝╚═════╝ 
                                                         
-u) #Update (Reboots)
+d) Developer Software
+g) Git Repos
+k) Kde
 s) Add SSH Keys
-g) Install Gnome
-c) Configure Gnome
-i) Install User Software
-
-f) First Time Setup (Reboot)
+u) User Software
+0) Update All (needs reboot)
 
 Select Step:  "
     read -r step
     case $step in
-      u) update_all;;
-      s) ssh_keygen;; 
-      g) install_gnome;; 
-      c) configure_gnome;;
-      i) install_user_software;;
-      f) 
-        install_gnome
-        configure_gnome
-        install_user_software
-        ssh_keygen
-        update_all
-        ;;
+      u) user_software ;;
+      d) developer_software ;;
+      g) ./extras/git-clones ;;
+      k) kde ;;
+      s) ./extras/keygen ;;
+      0) update_all;;
       *)
         echo "Not a valid option"
         exit 1
@@ -44,21 +37,24 @@ Select Step:  "
   done
 }
 
+developer_software(){
+  pkg install -y rust rust-analyzer
+  pkg install -y lazygit gitui
+  pkg install -y zeal
+}
+
+kde(){
+  echo "Nothing Yet"
+}
+
 update_all(){
   freebsd-update fetch install
   pkg update
   pkg upgrade -y
-  reboot
 }
 
-ssh_keygen(){
-  if [[ ! -f $HOME/.ssh/github.com ]]; then
-      ssh-keygen -t ed25519 -f $HOME/.ssh/github.com -C "jeff.windsor@gmail.com"
-      xdg-open https://github.com/settings/keys/ &
-  fi
-}
-
-install_user_software(){
+user_software(){
+  pkg install -y alacritty 
   pkg install -y bat 
   pkg install -y chromium firefox
   pkg install -y exa
@@ -67,56 +63,14 @@ install_user_software(){
   pkg install -y fortune-mod-freebsd-classic
   pkg install -y fzf
   pkg install -y helix
-  pkg install -y lazygit
-  pkg install -y neovim
+  # pkg install -y neovim
   pkg install -y megacmd
   pkg install -y ripgrep
   pkg install -y starship
+  pkg install -y spotify-tui
   pkg install -y tealdeer
   pkg install -y topgrade
-}
-
-install_gnome(){
-  pkg install gnome
-}
-configure_gnome(){
-  # keyboard bindings : custom
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings" "[\
-      '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/', \
-      '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/', \
-      '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/', \
-      '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/', \
-      '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/', \
-      '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/', \
-      '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/']"
-
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/binding" "'<Primary><Super>S'"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/command" "'systemctl suspend'"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/name" "'Suspend'"
-
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/binding" "'<Primary><Super>L'"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/command" "'gnome-session-quit --logout --no-prompt'"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/name" "'Logout'"
-
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/binding" "'<Primary><Super>R'"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/command" "'shutdown -r now'"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/name" "'Reboot'"
-
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/binding" "'<Primary><Super>P'"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/command" "'shutdown -h now'"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/name" "'Power-Off'"
-
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/binding" "'<Super>t'"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/command" "'env WINIT_UNIX_BACKEND=x11 alacritty -e bash -c \"SHELL=/bin/fish toolbox enter\"'"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/name" "'Toolbox'"
-
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/binding" "'<Super><Shift>t'"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/command" "'env WINIT_UNIX_BACKEND=x11 alacritty --config-file /var/home/mid/.config/alacritty/alacritty-ostree.yml'"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/name" "'OSTree'"
-
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/binding" "'<Super><Shift>b'"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/command" "'flatpak run com.google.Chrome'"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/name" "'Chrome'"
+  ./extras/fisher
 }
 
 menu
