@@ -64,6 +64,7 @@ clis(){
   sudo dnf -y install megacmd
   sudo dnf -y install ripgrep
   sudo dnf -y install tealdeer
+  sudo dnf -y install jetbrains-mono-fonts
 
   #helix editor
   sudo dnf -y copr enable varlad/helix
