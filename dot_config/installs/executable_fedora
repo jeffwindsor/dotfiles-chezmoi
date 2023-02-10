@@ -14,18 +14,20 @@ menu(){
     ██║     ███████╗██████╔╝╚██████╔╝██║  ██║██║  ██║                          
     ╚═╝     ╚══════╝╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝                          
 
-    c) Command line tools
     d) Dnf setup
+    c) Command line tools
     f) Flatpaks
-    g) Gnome
-    h) Gnome (OS-Tree)
     i) Fisher
-    k) Kde
-    o) Os-Tree Update
-    p) Os-Tree Layers
     r) Git Repos
     s) Ssh Keygen
     v) Virtualization
+    
+    g) Gnome
+    k) Kde
+    
+    o) Os-Tree Update
+    p) Os-Tree Layers
+    h) Gnome (OS-Tree)
   
     Select Version:"
     read -r version
@@ -37,6 +39,7 @@ menu(){
       h) gnome-ostree  ;;
       i) ./extras/fisher ;;
       k) kde ;;
+      n) snapper_with_dnf ;;
       o) sudo rpm-ostree upgrade ;;
       p) rpm-ostree install alacritty virt-manager ;;
       r) ./extras/git-clones ;;
@@ -115,6 +118,24 @@ gnome-ostree(){
 kde(){
   sudo dnf install -y alacritty
   sudo dnf install -y bismuth
+}
+
+snapper_with_dnf(){
+  sudo dnf install -y snapper python3-dnf-plugin-snapper
+
+  echo "=== PRE CONFIG"
+  sudo btrfs subvolume list /
+  sudo snapper -c root create-config /
+  
+  echo "=== POST CONFIG"
+  sudo btrfs subvolume list /
+  
+  echo "=== REMOVE UNMOUNTED SUBVOLUME"
+  sudo btrfs subvolume delete /.snapshots/
+  
+  sudo mkdir /.snapshots
+  sudo mkdir /mnt/btrfs
+  
 }
 
 virt(){
