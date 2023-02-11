@@ -23,6 +23,7 @@ menu(){
     s) Ssh Keygen
     v) Virtualization
     i) Fisher
+    q) Rust
     
     g) Gnome
     k) Kde
@@ -45,6 +46,7 @@ menu(){
       k) kde ;;
       o) sudo rpm-ostree upgrade ;;
       p) rpm-ostree install alacritty virt-manager ;;
+      q) rust ;;
       r) git-clones ;;
       s) keygen $HOME/.ssh/github.com 
          #keygen $HOME/.ssh/gitlab.com 
@@ -96,10 +98,12 @@ clis(){
   #helix editor
   sudo dnf -y copr enable varlad/helix
   sudo dnf -y install helix
+}
 
+rust(){}
   # neovim
-  sudo dnf -y install gcc "gcc-c++" glibc-all-langpacks
-  sudo dnf -y install neovim && git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+  #sudo dnf -y install gcc "gcc-c++" glibc-all-langpacks
+  #sudo dnf -y install neovim && git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 
   # rust
   sudo dnf -y install openssl openssl-devel 

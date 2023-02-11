@@ -18,6 +18,7 @@ if status is-interactive
         source $file
     end
 
+    fish_ssh_agent
 end
 
 function fish_greeting
