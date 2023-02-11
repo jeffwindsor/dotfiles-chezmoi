@@ -15,13 +15,14 @@ menu(){
     ╚═╝     ╚══════╝╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝                          
 
     d) Dnf setup
+    t) dotfiles
     c) Command line tools
     e) Flatpak - Use Flathub 
     f) Flatpak - Install
-    i) Fisher
     r) Git Repos
     s) Ssh Keygen
     v) Virtualization
+    i) Fisher
     
     g) Gnome
     k) Kde
@@ -33,13 +34,14 @@ menu(){
     Select Version: "
     read -r version
     case $version in
+      a) dotfiles ;;
       c) clis ;;
       d) dnf_setup ;;
       e) use_flathub ;;
       f) flatpaks ;;
       g) gnome ;;
       h) gnome-ostree  ;;
-      i) ./extras/fisher ;;
+      i) source fisher ;;
       k) kde ;;
       o) sudo rpm-ostree upgrade ;;
       p) rpm-ostree install alacritty virt-manager ;;
@@ -54,6 +56,17 @@ menu(){
          ;;
     esac
   done
+}
+
+dotfiles(){
+  # dotfiles from chezmoi
+  sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply "https://github.com/jeffwindsor/dotfiles-chezmoi"
+
+  # move executable to PATH
+  sudo mv ./bin/chezmoi /usr/local/bin/ 
+
+  # re-build fortune dats 
+  $HOME/.config/fortune/build.sh
 }
 
 git-clones(){
