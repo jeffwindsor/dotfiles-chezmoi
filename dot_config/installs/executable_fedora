@@ -100,7 +100,7 @@ clis(){
   sudo dnf -y install helix
 }
 
-rust(){}
+rust(){
   # neovim
   #sudo dnf -y install gcc "gcc-c++" glibc-all-langpacks
   #sudo dnf -y install neovim && git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
