@@ -6,3 +6,4 @@ fisher install PatrickF1/fzf.fish
 fisher install gazorby/fish-exa
 fisher install jorgebucaran/nvm.fish
 fisher install reitzig/sdkman-for-fish@v1.4.0
+fisher install ivakyb/fish_ssh_agent
