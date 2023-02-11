@@ -16,7 +16,8 @@ menu(){
 
     d) Dnf setup
     c) Command line tools
-    f) Flatpaks
+    e) Flatpak - Use Flathub 
+    f) Flatpak - Install
     i) Fisher
     r) Git Repos
     s) Ssh Keygen
@@ -29,21 +30,24 @@ menu(){
     p) Os-Tree Layers
     h) Gnome (OS-Tree)
   
-    Select Version:"
+    Select Version: "
     read -r version
     case $version in
       c) clis ;;
       d) dnf_setup ;;
-      f) ./extras/flatpaks ;;
+      e) use_flathub ;;
+      f) flatpaks ;;
       g) gnome ;;
       h) gnome-ostree  ;;
       i) ./extras/fisher ;;
       k) kde ;;
-      n) snapper_with_dnf ;;
       o) sudo rpm-ostree upgrade ;;
       p) rpm-ostree install alacritty virt-manager ;;
-      r) ./extras/git-clones ;;
-      s) ./extras/keygen ;;
+      r) git-clones ;;
+      s) keygen $HOME/.ssh/github.com 
+         #keygen $HOME/.ssh/gitlab.com 
+         #keygen $HOME/.ssh/gitlab.gnome.com 
+         ;;
       v) virt ;;
       *) echo "Not a valid option"
          exit 1
@@ -52,6 +56,13 @@ menu(){
   done
 }
 
+git-clones(){
+  mkdir -p $HOME/Source
+  mkdir -p $HOME/Source/gitlab.com/
+  mkdir -p $HOME/Source/github.com/
+
+  git clone git@github.com:jeffwindsor/startpage.git $HOME/Source/github.com/jeffwindsor/startpage
+}
 
 clis(){
   # clis
@@ -64,7 +75,7 @@ clis(){
   sudo dnf -y install fzf
   sudo dnf -y install gitui
   sudo dnf -y install hledger
-  sudo dnf -y install megacmd
+  sudo dnf -y install megatools
   sudo dnf -y install ripgrep
   sudo dnf -y install tealdeer
   sudo dnf -y install jetbrains-mono-fonts
@@ -79,7 +90,14 @@ clis(){
 
   # rust
   sudo dnf -y install openssl openssl-devel 
-  source ./extras/rust
+  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+  source "$HOME/.cargo/env"
+  cargo install cargo-update
+  cargo install topgrade              # upgrade all things
+  cargo install --locked zellij       # tmux++
+  cargo install kalker                # terminal based calculator
+  cargo install bottom                # system monitor (like htop)  
+  cargo install ddh                   # duplicate file finder
   sudo dnf -y install cmake && cargo install starship --version 1.10.3
 
   # lang servers
@@ -97,18 +115,6 @@ dnf_setup(){
   sudo dnf -y upgrade
 }
 
-gnome(){
-  sudo dnf -y install gnome-shell-extension-appindicator
-  sudo dnf -y install gnome-shell-extension-blur-my-shell
-  sudo dnf -y install gnome-shell-extension-caffeine
-  sudo dnf -y install gnome-shell-extension-just-perfection
-  sudo dnf -y install gnome-shell-extension-launch-new-instance
-  sudo dnf -y install gnome-shell-extension-openweather
-  ./extras/gnome-config
-  ./extras/gnome-config-custom-keys
-  sudo dnf install -y alacritty
-}
-
 gnome-ostree(){
   toolbox create
   ./extras/gnome-config
@@ -120,28 +126,182 @@ kde(){
   sudo dnf install -y bismuth
 }
 
-snapper_with_dnf(){
-  sudo dnf install -y snapper python3-dnf-plugin-snapper
-
-  echo "=== PRE CONFIG"
-  sudo btrfs subvolume list /
-  sudo snapper -c root create-config /
-  
-  echo "=== POST CONFIG"
-  sudo btrfs subvolume list /
-  
-  echo "=== REMOVE UNMOUNTED SUBVOLUME"
-  sudo btrfs subvolume delete /.snapshots/
-  
-  sudo mkdir /.snapshots
-  sudo mkdir /mnt/btrfs
-  
-}
-
 virt(){
   sudo dnf install @virtualization
   sudo systemctl start libvirtd
   sudo systemctl enable libvirtd
+}
+
+keygen(){
+  if [[ ! -f $1 ]]; then
+    ssh-keygen -t ed25519 -f $1 -C "jeff.windsor@gmail.com"
+    ssh-agent -s
+    ssh-add -k $1
+    echo "== added ssh key: $1"
+    cat $1.pub
+  fi
+}
+
+flatpaks(){
+  flatpak install -y "com.github.tchx84.Flatseal"
+  flatpak install -y "com.google.Chrome"
+  flatpak install -y "com.mattjakeman.ExtensionManager"
+  flatpak install -y "com.spotify.Client"
+  flatpak install -y "com.discordapp.Discord"
+  flatpak install -y "org.zealdocs.Zeal"
+  flatpak install -y "net.sourceforge.Klavaro" 
+  flatpak install -y "com.valvesoftware.Steam"
+  flatpak install -y "com.discordapp.Discord"
+  # flatpak install -y "io.github.endless_sky.endless_sky" 
+}
+
+use_flathub(){
+  # replace fedora flatpak repo with flathub
+  flatpak remote-modify --no-filter --enable flathub
+  flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+  flatpak install --reinstall flathub $(flatpak list --app-runtime=org.fedoraproject.Platform --columns=application | tail -n +1 )
+  flatpak remote-delete fedora
+} 
+
+gnome(){
+  # favorite terminal
+  sudo dnf install -y alacritty
+
+  # make fish default shell
+  sudo lchsh $(which fish)
+  
+  # extensions
+  sudo dnf -y install gnome-shell-extension-appindicator
+  sudo dnf -y install gnome-shell-extension-blur-my-shell
+  sudo dnf -y install gnome-shell-extension-caffeine
+  sudo dnf -y install gnome-shell-extension-just-perfection
+  sudo dnf -y install gnome-shell-extension-launch-new-instance
+  sudo dnf -y install gnome-shell-extension-openweather
+  #===========================================================================
+  # ALSO INSTALL THROUGH EXTENSION MANAGER LATER:
+  #  * Forge
+  #  * Simply Workspaces
+  #  * Wallpaper Switcher
+  #===========================================================================
+  
+  # clear unwanted settings
+  dconf write "/org/gnome/desktop/wm/keybindings/begin-move" "@as []"
+  dconf write "/org/gnome/desktop/wm/keybindings/begin-resize" "@as []"
+  dconf write "/org/gnome/desktop/wm/keybindings/cycle-group" "@as []"
+  dconf write "/org/gnome/desktop/wm/keybindings/cycle-group-backward" "@as []"
+  dconf write "/org/gnome/desktop/wm/keybindings/cycle-windows" "@as []"
+  dconf write "/org/gnome/desktop/wm/keybindings/cycle-windows-backward" "@as []"
+  dconf write "/org/gnome/desktop/wm/keybindings/move-to-workspace-last" "@as []"
+  dconf write "/org/gnome/desktop/wm/keybindings/switch-input-source" "@as []"
+  dconf write "/org/gnome/desktop/wm/keybindings/switch-input-source-backward" "@as []"
+  dconf write "/org/gnome/desktop/wm/keybindings/switch-to-workspace-last" "@as []"
+  dconf write "/org/gnome/mutter/keybindings/toggle-tiled-left" "@as []"
+  dconf write "/org/gnome/mutter/keybindings/toggle-tiled-right" "@as []"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/area-screenshot-clip" "@as []"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/logout" "@as []"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/magnifier" "@as []"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/screencast" "@as []"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/screenreader" "@as []"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/screenshot-clip" "@as []"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/window-screenshot-clip" "@as []"
+  dconf write "/org/gnome/shell/keybindings/focus-active-notification" "@as []"
+  
+  # interface preferences
+  dconf write "/org/gnome/desktop/calendar/show-weekdate" "true"
+  dconf write "/org/gnome/desktop/datetime/automatic-timezone" "true"
+  dconf write "/org/gnome/desktop/interface/clock-format" "'12h'"
+  dconf write "/org/gnome/desktop/interface/clock-show-weekday" "true"
+  dconf write "/org/gnome/desktop/interface/color-scheme" "'prefer-dark'"
+  dconf write "/org/gnome/desktop/interface/gtk-theme" "'Adwaita-dark'"
+  dconf write "/org/gnome/desktop/interface/locate-pointer" "true"
+  dconf write "/org/gnome/desktop/interface/text-scaling-factor" "1.25"
+  dconf write "/org/gnome/desktop/peripherals/touchpad/click-method" "'fingers'"
+  dconf write "/org/gnome/desktop/peripherals/touchpad/natural-scroll" "true"
+  dconf write "/org/gnome/desktop/peripherals/touchpad/speed" "0.4"
+  dconf write "/org/gnome/desktop/peripherals/touchpad/two-finger-scrolling-enabled" "true"
+  dconf write "/org/gnome/desktop/wm/preferences/button-layout" "'close:appmenu'"
+  dconf write "/org/gnome/desktop/wm/preferences/num-workspaces" "10"
+  dconf write "/org/gnome/mutter/dynamic-workspaces" "false"
+  dconf write "/org/gnome/mutter/workspaces-only-on-primary" "true"
+  dconf write "/org/gtk/settings/file-chooser/clock-format" "'12h'"
+
+  # extension preferences
+  dconf write "/org/gnome/shell/extensions/just-perfection/activities-button" "false"
+  dconf write "/org/gnome/shell/extensions/just-perfection/app-menu-label" "false"
+  dconf write "/org/gnome/shell/extensions/just-perfection/startup-status" "0"
+  dconf write "/org/gnome/shell/extensions/openweather/actual-city" "2"
+  dconf write "/org/gnome/shell/extensions/openweather/city" "'30.2711286,-97.7436995>Austin, Travis County, Texas, United States>0 && 39.7392364,-104.984862>Denver, Colorado, United States>0 && 34.2783355,-119.293174>Ventura, Ventura County, CAL Fire Southern Region, California, United States>0'"
+  dconf write "/org/gnome/shell/extensions/WallpaperSwitcher/frequency" "1200"
+  dconf write "/org/gnome/shell/extensions/WallpaperSwitcher/wallpaper-path" "'/var/home/mid/portable/wallpapers/desktop'"
+
+  # keyboard bindings
+  dconf write "/org/gnome/desktop/wm/keybindings/close" "['<Super>q']"
+  dconf write "/org/gnome/desktop/wm/keybindings/minimize" "['<Super>w']"
+  dconf write "/org/gnome/desktop/wm/keybindings/move-to-workspace-10" "['<Primary><Super>0']"
+  dconf write "/org/gnome/desktop/wm/keybindings/move-to-workspace-1" "['<Primary><Super>1']"
+  dconf write "/org/gnome/desktop/wm/keybindings/move-to-workspace-2" "['<Primary><Super>2']"
+  dconf write "/org/gnome/desktop/wm/keybindings/move-to-workspace-3" "['<Primary><Super>3']"
+  dconf write "/org/gnome/desktop/wm/keybindings/move-to-workspace-4" "['<Primary><Super>4']"
+  dconf write "/org/gnome/desktop/wm/keybindings/move-to-workspace-5" "['<Primary><Super>5']"
+  dconf write "/org/gnome/desktop/wm/keybindings/move-to-workspace-6" "['<Primary><Super>6']"
+  dconf write "/org/gnome/desktop/wm/keybindings/move-to-workspace-7" "['<Primary><Super>7']"
+  dconf write "/org/gnome/desktop/wm/keybindings/move-to-workspace-8" "['<Primary><Super>8']"
+  dconf write "/org/gnome/desktop/wm/keybindings/move-to-workspace-9" "['<Primary><Super>9']"
+  dconf write "/org/gnome/desktop/wm/keybindings/panel-run-dialog" "['<Primary>space']"
+  dconf write "/org/gnome/desktop/wm/keybindings/switch-to-workspace-10" "['<Super>0']"
+  dconf write "/org/gnome/desktop/wm/keybindings/switch-to-workspace-1" "['<Super>1']"
+  dconf write "/org/gnome/desktop/wm/keybindings/switch-to-workspace-2" "['<Super>2']"
+  dconf write "/org/gnome/desktop/wm/keybindings/switch-to-workspace-3" "['<Super>3']"
+  dconf write "/org/gnome/desktop/wm/keybindings/switch-to-workspace-4" "['<Super>4']"
+  dconf write "/org/gnome/desktop/wm/keybindings/switch-to-workspace-5" "['<Super>5']"
+  dconf write "/org/gnome/desktop/wm/keybindings/switch-to-workspace-6" "['<Super>6']"
+  dconf write "/org/gnome/desktop/wm/keybindings/switch-to-workspace-7" "['<Super>7']"
+  dconf write "/org/gnome/desktop/wm/keybindings/switch-to-workspace-8" "['<Super>8']"
+  dconf write "/org/gnome/desktop/wm/keybindings/switch-to-workspace-9" "['<Super>9']"
+  dconf write "/org/gnome/desktop/wm/keybindings/toggle-fullscreen" "['<Primary><Super>m']"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/area-screenshot" "['<Primary><Super>BackSpace']"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/control-center" "['<Super>comma']"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/home" "['<Super>f']"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/next" "['AudioForward']"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/previous" "['AudioRewind']"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/window-screenshot" "['<Super>BackSpace']"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/www" "['<Super>b']"
+  dconf write "/org/gnome/shell/keybindings/toggle-message-tray" "['<Super>n']"
+
+  # # load gnome terminal profiles
+  # dconf load /org/gnome/terminal/legacy/profiles:/ < ./configs/gnome-terminal-profiles.dconf
+
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings" "[\
+      '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/', \
+      '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/', \
+      '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/', \
+      '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/', \
+      '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/', \
+      '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/']"
+
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/binding" "'<Primary><Super>S'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/command" "'systemctl suspend'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/name" "'Suspend'"
+
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/binding" "'<Primary><Super>L'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/command" "'gnome-session-quit --logout --no-prompt'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/name" "'Logout'"
+
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/binding" "'<Primary><Super>R'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/command" "'systemctl reboot'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/name" "'Reboot'"
+
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/binding" "'<Primary><Super>P'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/command" "'systemctl poweroff'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/name" "'Power-Off'"
+
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/binding" "'<Super><Shift>b'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/command" "'flatpak run com.google.Chrome'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/name" "'Chrome'"
+
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/binding" "'<Super>t'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/command" "'env WINIT_UNIX_BACKEND=x11 alacritty'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/name" "'Terminal'"
 }
 
 menu
