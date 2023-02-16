@@ -18,4 +18,7 @@ with import <nixpkgs> {}; [
   tealdeer
   topgrade
   zellij
+  zsh-history-substring-search
+  zsh-autosuggestions
+  zsh-syntax-highlighting
 ]
