@@ -1,0 +1,2 @@
+chezmoi init jeffwindsor/dotfiles-chezmoi
+chezmoi apply
