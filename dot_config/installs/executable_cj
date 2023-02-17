@@ -43,6 +43,7 @@ brew install zsh-syntax-highlighting
 
 brew install aws-cdk
 brew install awscli
+brew install colima docker
 #brew install cassandra
 #brew install clojure
 #brew install kafka
