@@ -2,19 +2,19 @@ with import <nixpkgs> {}; [
   alacritty
   bat
   bottom
-  #chrome
+  # chrome
   exa
   fd
   fish
   fzf
   jetbrains-mono
-  #jetbrains-toolbox
-  #jetbrains-intellij
+  # jetbrains-toolbox
+  # jetbrains-intellij
   helix
-  neovim
-  megacmd
+  # neovim
+  # megacmd
   ripgrep
-  starship
+  # starship
   tealdeer
   topgrade
   zellij
