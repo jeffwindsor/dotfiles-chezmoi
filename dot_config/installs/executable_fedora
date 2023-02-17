@@ -6,7 +6,7 @@ menu(){
   do
     clear
     echo -ne "
-
+\033[0;34m
     ███████╗███████╗██████╗  ██████╗ ██████╗  █████╗                           
     ██╔════╝██╔════╝██╔══██╗██╔═══██╗██╔══██╗██╔══██╗                          
     █████╗  █████╗  ██║  ██║██║   ██║██████╔╝███████║                          
@@ -15,24 +15,24 @@ menu(){
     ╚═╝     ╚══════╝╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝                          
 
     d) Dnf setup
-    t) dotfiles
+    a) dotfiles
     c) Command line tools
     e) Flatpak - Use Flathub 
     f) Flatpak - Install
     r) Git Repos
     s) Ssh Keygen
     v) Virtualization
-    i) Fisher
     q) Rust
-    
     g) Gnome
     k) Kde
-    
+\033[0;36m
     o) Os-Tree Update
     p) Os-Tree Layers
-    h) Gnome (OS-Tree)
-  
-    Select Version: "
+\033[0;35m
+    i) Fisher
+\033[0;34m
+    x) exit
+    Select Version: \033[0m"
     read -r version
     case $version in
       a) dotfiles ;;
@@ -45,7 +45,10 @@ menu(){
       i) source fisher ;;
       k) kde ;;
       o) sudo rpm-ostree upgrade ;;
-      p) rpm-ostree install alacritty virt-manager ;;
+      p) rpm-ostree install alacritty virt-manager
+         toolbox create 
+         ;;
+      
       q) rust ;;
       r) git-clones ;;
       s) keygen $HOME/.ssh/github.com 
@@ -80,6 +83,8 @@ git-clones(){
 }
 
 clis(){
+  sudo dnf install -y alacritty
+
   # clis
   sudo dnf -y install bat 
   sudo dnf -y install exa
@@ -132,12 +137,6 @@ dnf_setup(){
   sudo dnf -y upgrade
 }
 
-gnome-ostree(){
-  toolbox create
-  ./extras/gnome-config
-  ./extras/gnome-config-custom-keys-ostree
-}
-
 kde(){
   sudo dnf install -y alacritty
   sudo dnf install -y bismuth
@@ -180,27 +179,34 @@ use_flathub(){
   flatpak remote-delete fedora
 } 
 
-gnome(){
+#gnome_extensions(){
   # favorite terminal
-  sudo dnf install -y alacritty
 
   # make fish default shell
-  sudo lchsh $(which fish)
+  #sudo lchsh $(which fish)
   
   # extensions
-  sudo dnf -y install gnome-shell-extension-appindicator
-  sudo dnf -y install gnome-shell-extension-blur-my-shell
-  sudo dnf -y install gnome-shell-extension-caffeine
-  sudo dnf -y install gnome-shell-extension-just-perfection
-  sudo dnf -y install gnome-shell-extension-launch-new-instance
-  sudo dnf -y install gnome-shell-extension-openweather
+  # sudo dnf -y install gnome-shell-extension-appindicator
+  # sudo dnf -y install gnome-shell-extension-blur-my-shell
+  # sudo dnf -y install gnome-shell-extension-caffeine
+  # sudo dnf -y install gnome-shell-extension-just-perfection
+  # sudo dnf -y install gnome-shell-extension-launch-new-instance
+  # sudo dnf -y install gnome-shell-extension-openweather
   #===========================================================================
   # ALSO INSTALL THROUGH EXTENSION MANAGER LATER:
   #  * Forge
   #  * Simply Workspaces
   #  * Wallpaper Switcher
+  #  * AppIndicator
+  #  * Blur My SHell
+  #  * Caffeine
+  #  * Just Perfection
+  #  * Launch New Instance
+  #  * Open Weather
   #===========================================================================
-  
+#}
+
+gnome(){
   # clear unwanted settings
   dconf write "/org/gnome/desktop/wm/keybindings/begin-move" "@as []"
   dconf write "/org/gnome/desktop/wm/keybindings/begin-resize" "@as []"
