@@ -6,6 +6,7 @@ menu(){
   do
     clear
     echo -ne "
+
 ███████╗██████╗ ███████╗███████╗██████╗ ███████╗██████╗ 
 ██╔════╝██╔══██╗██╔════╝██╔════╝██╔══██╗██╔════╝██╔══██╗
 █████╗  ██████╔╝█████╗  █████╗  ██████╔╝███████╗██║  ██║
@@ -15,19 +16,20 @@ menu(){
                                                         
 d) Developer Software
 g) Git Repos
-k) Kde
+k) Desktop Installer
 s) Add SSH Keys
 u) User Software
-0) Update All (needs reboot)
+
+0) Update All (reboots)
 
 Select Step:  "
     read -r step
     case $step in
       u) user_software ;;
       d) developer_software ;;
-      g) ./extras/git-clones ;;
-      k) kde ;;
-      s) ./extras/keygen ;;
+      g) git-clones ;;
+      k) desktop-installer ;;
+      s) keygen ;;
       0) update_all;;
       *)
         echo "Not a valid option"
@@ -37,26 +39,53 @@ Select Step:  "
   done
 }
 
+# snapshot(){ 
+#   beadm create $1
+#   beadm activate $1
+# }
+
+git-clones(){
+  mkdir -p $HOME/Source
+  mkdir -p $HOME/Source/gitlab.com/
+  mkdir -p $HOME/Source/github.com/
+
+  git clone git@github.com:jeffwindsor/startpage.git $HOME/Source/github.com/jeffwindsor/startpage
+}
+
 developer_software(){
   pkg install -y rust rust-analyzer
   pkg install -y lazygit gitui
   pkg install -y zeal
 }
 
-kde(){
-  pkg install --quiet --yes kde5 plasma5-sddm-kcm sddm xorg
-  sysrc dbus_enable="YES" && service dbus start
-  sysrc sddm_enable="YES" && service sddm start
+# kde(){
+#   pkg install --quiet --yes kde5 plasma5-sddm-kcm sddm xorg
+#   sysrc dbus_enable="YES" && service dbus start
+#   sysrc sddm_enable="YES" && service sddm start
+# }
+
+keygen(){
+  if [[ ! -f $1 ]]; then
+    ssh-keygen -t ed25519 -f $1 -C "jeff.windsor@gmail.com"
+    ssh-agent -s
+    ssh-add -k $1
+    echo "== added ssh key: $1"
+    cat $1.pub
+  fi
 }
 
 update_all(){
   freebsd-update fetch install
   pkg update
   pkg upgrade -y
+  pkg install -y beadm
+  reboot
 }
 
 user_software(){
+  pkg install -y desktop-installer
   pkg install -y alacritty 
+  
   pkg install -y bat 
   pkg install -y chromium firefox
   pkg install -y exa
