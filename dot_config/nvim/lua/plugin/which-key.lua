@@ -7,15 +7,15 @@ local wk = require('which-key')
 wk.setup()
 wk.register({
   ["<leader>"] = { ':Telescope spell_suggest<CR>', 'spelling'},
-  ["."] = { load_config .. ':echo "Configuration Re-Loaded"<CR>', 'load config'}, 
-  [","] = { 
+  ["."] = { load_config .. ':echo "Configuration Re-Loaded"<CR>', 'load config'},
+  [","] = {
     name = 'commands',
     [","] = { ':Telescope commands<CR>','search commands'},
     a = { ':Telescope autocommands<CR>', 'search auto commands' },
     h = { ':Telescope command_history<CR>','search command history'},
     p = { ':Telescope builtin<CR>','pickers'},
   },
-  b = { 
+  b = {
     name = 'buffers',
     b = { ':Telescope buffers<CR>','buffers'},
     c = { ':bdelete<CR>','close'},
@@ -34,7 +34,7 @@ wk.register({
     o = { ':colorscheme OceanNext<CR>', 'ocean next' },
     k = { ':colorscheme kanagawa<CR>', 'kanagawa' },
     n = { ':colorscheme nord<CR>', 'nord' },
-    t = { 
+    t = {
       name = 'tokyo night',
       n = { ':colorscheme tokyonight-night<CR>', 'night' },
       s = { ':colorscheme tokyonight-storm<CR>', 'storm' },
@@ -43,7 +43,7 @@ wk.register({
     },
     ["1"] = { ':colorscheme onedark<CR>', 'one dark' },
   },
-  f = { 
+  f = {
     name = 'files',
     b = { ':Telescope file_browser<CR>','via browser'},
     c = { ':Telescope find_files cwd=$XDG_CONFIG_HOME<CR>','in config directory'},
@@ -56,7 +56,7 @@ wk.register({
     s = { ':Telescope live_grep<CR>','grep'},
     t = { ':Telescope filetypes<CR>','set file type'},
   },
-  g = { 
+  g = {
     name = 'git',
     b = { ':Telescope git_branches<CR>','branches'},
     c = { ':Telescope git_commits<CR>','commits'},
@@ -77,17 +77,32 @@ wk.register({
     r = { ':Telescope lsp_references<CR>','references'},
     t = { ':Telescope lsp_type_definitions<CR>','type'},
   },
+  m = {
+    name = 'mini nvim',
+    a = {
+      name = 'align <TBD>',
+    },
+    c = {
+      name = 'comment',
+      l = {'gcc','toggle line (gcc)'},
+    },
+    t = {
+      name = 'trim whitespace',
+      l = { ':lua MiniTrailspace.trim_last_lines()', 'trailing' },
+      w = { ':lua MiniTrailspace.trim()', 'last lines' },
+    },
+  },
   p = { ':Lazy<CR>', 'package manager'},
   q = { ':q<CR>','quit'},
   r = { ':Telescope registers<CR>','registers'},
-  t = { 
+  t = {
     name = 'tabs',
     c = { ':tabclose<CR>','close'},
     j = { ':tabprevious<CR>','previous'},
     k = { ':tabnext<CR>','next'},
     n = { ':tabnew<CR>','new'},
   },
-  w = { 
+  w = {
     name = 'windows',
     c = { ':close<CR>','close'},
     h = {'<C-W><left>','left'},
@@ -105,6 +120,6 @@ wk.register({
     },
   },
   x = { ':q!<CR>', 'force quit'},
-}, 
+},
 { prefix = '<leader>'}
 );

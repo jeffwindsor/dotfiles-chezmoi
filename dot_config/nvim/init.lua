@@ -7,12 +7,10 @@ require("lazy").setup({
   -- personal workflow
   -- ----------------------------------------------------------------------------------------------
   'pocco81/auto-save.nvim',                  -- auto save on return to normal mode
+  {'echasnovski/mini.nvim', version = '*', lazy = true},
   'nvim-lua/plenary.nvim',
   'nvim-telescope/telescope.nvim',           -- Fuzzy Finder (files, lsp, etc)
-  'folke/which-key.nvim',                    -- display key bindings (like emacs)
---  {'ryanoasis/vim-devicons', lazy = true},
-  'numToStr/Comment.nvim',                   -- "gc" to comment visual regions/lines
-  'nvim-lualine/lualine.nvim',
+  {'folke/which-key.nvim', lazy = true},     -- display key bindings (like emacs)
 
   -- ----------------------------------------------------------------------------------------------
   -- color schemes
@@ -24,38 +22,36 @@ require("lazy").setup({
   {'rebelot/kanagawa.nvim', lazy = true},
   {'shaunsingh/nord.nvim', lazy = true},
 
-  -- ----------------------------------------------------------------------------------------------
-  -- development
-  -- ----------------------------------------------------------------------------------------------
-  'lukas-reineke/indent-blankline.nvim',     -- Add indentation guides even on blank lines
-
-  { 'neovim/nvim-lspconfig',              -- LSP Configuration & Plugins
-    dependencies = {
-      'williamboman/mason.nvim',              -- Automatically install LSPs to stdpath for neovim
-      'williamboman/mason-lspconfig.nvim',
-      'j-hui/fidget.nvim',                    -- Useful status updates for LSP
-      'folke/neodev.nvim',                    -- Additional lua configuration, makes nvim stuff amazing
-    }},
-  { 'hrsh7th/nvim-cmp',                   -- Autocompletion
-    dependencies = { 
-      'hrsh7th/cmp-nvim-lsp', 
-      'L3MON4D3/LuaSnip', 
-      'saadparwaiz1/cmp_luasnip' 
-    }},
-  'nvim-treesitter/nvim-treesitter',    -- Highlight, edit, and navigate code
 })
--- package configs
-require('plugin.auto-save')
-require('plugin.comment')
-require('plugin.indent-blankline')
+
+
+-- plugin setups
+require("auto-save").setup({ enabled = true })
+--require('plugin.lualine')
+
+require('mini.ai').setup()
+require('mini.align').setup()
+-- require('mini.base16').setup()	      -- supply palette instead of color schemes?
+-- require('mini.basics').setup()     	-- leran from these settings or just use?
+require('mini.comment').setup()
+require('mini.completion').setup()
+require('mini.cursorword').setup()      -- highlight word under cursor matches
+require('mini.indentscope').setup()
+require('mini.jump2d').setup()          -- leap like jumps / finds
+require('mini.move').setup()
+require('mini.statusline').setup()
+require('mini.surround').setup()        -- surrond object with ({', etc
+require('mini.tabline').setup()
+require('mini.trailspace').setup()      -- highlights trailing whitespace
+
+require('telescope').setup{
+  defaults = {
+    layout_strategy = 'vertical',
+    layout_config = { prompt_position = 'top' },
+    sorting_strategy = 'ascending',
+  },
+}
 require('plugin.which-key')
-require('plugin.telescope')
-require('plugin.fidget')
-require('plugin.lualine')
-require('plugin.mason')
-require('plugin.neodev')
-require('plugin.nvim-cmp')
-require('plugin.nvim-treesitter')
 
 -- ----------------------------------------------------------------------------
 -- COLORSCHEME
@@ -65,20 +61,20 @@ vim.cmd 'colorscheme tokyonight-storm'
 -- ----------------------------------------------------------------------------
 -- OPTIONS: more info @ `:h vim.o`
 -- ----------------------------------------------------------------------------
-vim.g.mapleader       = " "            -- map leader to <space> 
-vim.g.maplocalleader  = " "            -- map local leader to <space> 
+vim.g.mapleader       = " "            -- map leader to <space>
+vim.g.maplocalleader  = " "            -- map local leader to <space>
 vim.o.autoindent      = true
 vim.o.background      = 'dark'
 vim.o.backspace       = 'indent,eol,start'
 vim.o.breakindent     = true          -- Every wrapped line will continue visually indented (same amount of space as the beginning of that line), thus preserving horizontal blocks of text.
-vim.o.clipboard       = 'unnamedplus' 
+vim.o.clipboard       = 'unnamedplus'
 vim.o.completeopt     = 'menuone,noselect'  -- completion: menuone=Use the popup menu also when there is only one match. noselect=force the user to select
-vim.o.cursorline      = true            
+vim.o.cursorline      = true
 vim.o.encoding        = 'UTF-8'
 vim.o.expandtab       = true          -- spaces over tabs
-vim.o.hidden          = true          -- allow background buffers 
+vim.o.hidden          = true          -- allow background buffers
 vim.o.hlsearch        = true          -- highlight found searches
-vim.o.ignorecase      = true        
+vim.o.ignorecase      = true
 vim.o.inccommand      = 'split'       -- get preview of replacements
 vim.o.incsearch       = true          -- show match while typing
 vim.o.mouse           = 'a'           -- turn on mouse usage
@@ -113,7 +109,7 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, { pattern = { "*.txt", 
 
 
 -- ----------------------------------------------------------------------------
--- KEY MAPPINGS: 
+-- KEY MAPPINGS:
 --    <leader> key maps moved to WHICH KEY plugin config
 -- ----------------------------------------------------------------------------
 local noremap = { noremap = true }                -- protects from remapping by other configs
@@ -121,10 +117,10 @@ local silent  = { noremap = true, silent = true } -- silent does not show bound 
 
 -- PERSONAL home row improvements
 --  quick <jk> produces an <escape> while in insert mode
-vim.api.nvim_set_keymap('i', 'jk', '<ESC>', silent)   
+vim.api.nvim_set_keymap('i', 'jk', '<ESC>', silent)
 
 --  buffer movement direct from CONTROL home row keys
---    left / right for tabs 
+--    left / right for tabs
 vim.api.nvim_set_keymap("n", "<C-h>", "tabprev", silent)
 vim.api.nvim_set_keymap("n", "<C-l>", "tabnext", silent)
 --    up / down for buffers
