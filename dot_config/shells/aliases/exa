@@ -1,2 +1,2 @@
-alias ll='exa -lF --group-directories-first'
-alias lla='exa -lF --group-directories-first --git --all'  
+alias ll='if command -v exa &>/dev/null; then exa -lF --group-directories-first; else ls -l; fi'
+alias lla='if command -v exa &>/dev/null; then exa -lF --group-directories-first --git --all; else ls -la; fi'  

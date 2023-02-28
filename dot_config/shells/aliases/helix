@@ -3,9 +3,9 @@
 alias h='hx'
 alias exo='hx ~/portable/exocortex'
 
-alias configs='hx $XDG_CONFIG_HOME'
-alias dots='hx $DOTFILES'
-alias ins='hx $INSTALLS'
+alias h-configs='hx $XDG_CONFIG_HOME'
+alias h-dots='hx $DOTFILES'
+alias h-ins='hx $INSTALLS'
 
 # direct to helix (old way)
 # alias configs='hx $XDG_CONFIG_HOME'
