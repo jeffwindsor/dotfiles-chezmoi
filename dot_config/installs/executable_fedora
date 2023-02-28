@@ -2,37 +2,37 @@
 cd "$(dirname "${0}")"
 
 menu(){
-  while :
-  do
-    clear
     echo -ne "
-\033[0;34m
-    ███████╗███████╗██████╗  ██████╗ ██████╗  █████╗                           
-    ██╔════╝██╔════╝██╔══██╗██╔═══██╗██╔══██╗██╔══██╗                          
-    █████╗  █████╗  ██║  ██║██║   ██║██████╔╝███████║                          
-    ██╔══╝  ██╔══╝  ██║  ██║██║   ██║██╔══██╗██╔══██║                          
-    ██║     ███████╗██████╔╝╚██████╔╝██║  ██║██║  ██║                          
-    ╚═╝     ╚══════╝╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝                          
-
-    d) Dnf setup
-    a) dotfiles
-    c) Command line tools
+ \e[34m                                                       \e[0m
+ \e[34m   ███████╗███████╗██████╗  ██████╗ ██████╗  █████╗    \e[0m
+ \e[34m   ██╔════╝██╔════╝██╔══██╗██╔═══██╗██╔══██╗██╔══██╗   \e[0m
+ \e[34m   █████╗  █████╗  ██║  ██║██║   ██║██████╔╝███████║   \e[0m
+ \e[34m   ██╔══╝  ██╔══╝  ██║  ██║██║   ██║██╔══██╗██╔══██║   \e[0m
+ \e[34m   ██║     ███████╗██████╔╝╚██████╔╝██║  ██║██║  ██║   \e[0m
+ \e[34m   ╚═╝     ╚══════╝╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝   \e[0m
+ \e[34m
+   OsTree Install Options
+   ════════════════════════════════════════
+    o) Os-Tree Update
+    p) Os-Tree Layers
     e) Flatpak - Use Flathub 
     f) Flatpak - Install
     r) Git Repos
     s) Ssh Keygen
-    v) Virtualization
-    q) Rust
     g) Gnome
     k) Kde
-\033[0;36m
-    o) Os-Tree Update
-    p) Os-Tree Layers
-\033[0;35m
-    i) Fisher
-\033[0;34m
+\e[37m
+   Toolbox Install Options
+   ════════════════════════════════════════
+    d) Dnf setup
+    a) dotfiles
+    c) Command line tools
+    v) Virtualization
+    q) Rust
     x) exit
-    Select Version: \033[0m"
+\e[0m
+    Select Version: "
+
     read -r version
     case $version in
       a) dotfiles ;;
@@ -56,11 +56,8 @@ menu(){
          #keygen $HOME/.ssh/gitlab.gnome.com 
          ;;
       v) virt ;;
-      *) echo "Not a valid option"
-         exit 1
-         ;;
+      *) exit 1 ;;
     esac
-  done
 }
 
 dotfiles(){
@@ -151,10 +148,6 @@ virt(){
 keygen(){
   if [[ ! -f $1 ]]; then
     ssh-keygen -t ed25519 -f $1 -C "jeff.windsor@gmail.com"
-    ssh-agent -s
-    ssh-add -k $1
-    echo "== added ssh key: $1"
-    cat $1.pub
   fi
 }
 
@@ -318,12 +311,12 @@ gnome(){
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/command" "'systemctl poweroff'"
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/name" "'Power-Off'"
 
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/binding" "'<Super><Shift>b'"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/command" "'flatpak run com.google.Chrome'"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/name" "'Chrome'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/binding" "'<Ctrl><Super>t'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/command" "'env WINIT_UNIX_BACKEND=x11 alacritty'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/name" "'OSTree'"
 
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/binding" "'<Super>t'"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/command" "'env WINIT_UNIX_BACKEND=x11 alacritty'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/command" "'env WINIT_UNIX_BACKEND=x11 alacritty -e bash -c \"SHELL=/usr/bin/zsh toolbox enter\"'"
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/name" "'Terminal'"
 }
 
