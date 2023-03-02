@@ -1,3 +1,5 @@
+export AWS_DEFAULT_REGION=us-west-1
+
 #export PATH="$PATH:$JAVA_HOME/bin"
 export PATH="$PATH:$SOFTWARE_HOME/bin"
 export PATH="$PATH:$SOFTWARE_HOME/resin"
