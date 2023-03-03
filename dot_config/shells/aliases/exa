@@ -1,4 +1,13 @@
-alias l='if command -v exa &>/dev/null; then exa -F --group-directories-first; else ls; fi'
-alias la='if command -v exa &>/dev/null; then exa -F --group-directories-first --git --all; else ls -a; fi'  
-alias ll='if command -v exa &>/dev/null; then exa -lF --group-directories-first; else ls -l; fi'
-alias lla='if command -v exa &>/dev/null; then exa -lF --group-directories-first --git --all; else ls -la; fi'  
+
+if command -v exa &>/dev/null
+then 
+  alias   l='exa -F --group-directories-first'
+  alias  la='exa -F --group-directories-first --git --all'  
+  alias  ll='exa -lF --group-directories-first'
+  alias lla='exa -lF --group-directories-first --git --all'  
+else 
+  alias   l='ls'
+  alias  la='ls -a'  
+  alias  ll='ls -l'
+  alias lla='ls -la'  
+fi
