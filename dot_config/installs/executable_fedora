@@ -2,7 +2,8 @@
 cd "$(dirname "${0}")"
 
 menu(){
-    echo -ne "
+  clear 
+  echo -ne "
  \e[34m                                                       \e[0m
  \e[34m   ███████╗███████╗██████╗  ██████╗ ██████╗  █████╗    \e[0m
  \e[34m   ██╔════╝██╔════╝██╔══██╗██╔═══██╗██╔══██╗██╔══██╗   \e[0m
@@ -13,114 +14,41 @@ menu(){
  \e[34m
    OsTree Install Options
    ════════════════════════════════════════
-    o) Os-Tree Update
-    p) Os-Tree Layers
-    e) Flatpak - Use Flathub 
-    f) Flatpak - Install
-    r) Git Repos
-    s) Ssh Keygen
-    g) Gnome
-    k) Kde
+    ou) Os-Tree - Update
+    ol) Os-Tree - Add Layers
+    ff) Flatpak - Use Flathub
+    fi) Flatpak - Install
+    ur) Userland - Git Repos
+    us) Userland - Ssh Keygen
+    ug) Userland - Apply Gnome Config
 \e[37m
    Toolbox Install Options
    ════════════════════════════════════════
-    d) Dnf setup
-    a) dotfiles
-    c) Command line tools
-    v) Virtualization
-    q) Rust
-    x) exit
+    ts) Dnf setup
+    td) Dotfiles
+    tt) Tools
+    tr) Rust
 \e[0m
     Select Version: "
 
     read -r version
     case $version in
-      a) dotfiles ;;
-      c) clis ;;
-      d) dnf_setup ;;
-      e) use_flathub ;;
-      f) flatpaks ;;
-      g) gnome ;;
-      h) gnome-ostree  ;;
-      i) source fisher ;;
-      k) kde ;;
-      o) sudo rpm-ostree upgrade ;;
-      p) rpm-ostree install alacritty virt-manager
-         toolbox create 
-         ;;
-      
-      q) rust ;;
-      r) git-clones ;;
-      s) keygen $HOME/.ssh/github.com 
-         #keygen $HOME/.ssh/gitlab.com 
-         #keygen $HOME/.ssh/gitlab.gnome.com 
-         ;;
-      v) virt ;;
+      ou) sudo rpm-ostree upgrade ;;
+      ol) rpm-ostree install alacritty virt-manager
+          toolbox create
+          ;;
+      ff) use_flathub ;;
+      fi) flatpaks ;;
+      ur) git-clones ;;
+      us) ssh-keygen -t ed25519 -C "jeff.windsor@gmail.com"
+          ;;
+      ug) gnome ;;
+      ts) dnf_setup ;;
+      td) dotfiles ;;
+      tt) tools ;;
+      tr) rust ;;
       *) exit 1 ;;
     esac
-}
-
-dotfiles(){
-  # dotfiles from chezmoi
-  sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply "https://github.com/jeffwindsor/dotfiles-chezmoi"
-
-  # move executable to PATH
-  sudo mv ./bin/chezmoi /usr/local/bin/ 
-
-  # re-build fortune dats 
-  $HOME/.config/fortune/build.sh
-}
-
-git-clones(){
-  mkdir -p $HOME/Source
-  mkdir -p $HOME/Source/gitlab.com/
-  mkdir -p $HOME/Source/github.com/
-
-  git clone git@github.com:jeffwindsor/startpage.git $HOME/Source/github.com/jeffwindsor/startpage
-}
-
-clis(){
-  sudo dnf install -y alacritty
-
-  # clis
-  sudo dnf -y install bat 
-  sudo dnf -y install exa
-  sudo dnf -y install entr
-  sudo dnf -y install fd-find
-  sudo dnf -y install fish
-  sudo dnf -y install fortune-mod
-  sudo dnf -y install fzf
-  sudo dnf -y install gitui
-  sudo dnf -y install hledger
-  sudo dnf -y install megatools
-  sudo dnf -y install ripgrep
-  sudo dnf -y install tealdeer
-  sudo dnf -y install jetbrains-mono-fonts
-
-  #helix editor
-  sudo dnf -y copr enable varlad/helix
-  sudo dnf -y install helix
-}
-
-rust(){
-  # neovim
-  #sudo dnf -y install gcc "gcc-c++" glibc-all-langpacks
-  #sudo dnf -y install neovim && git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
-
-  # rust
-  sudo dnf -y install openssl openssl-devel 
-  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-  source "$HOME/.cargo/env"
-  cargo install cargo-update
-  cargo install topgrade              # upgrade all things
-  cargo install --locked zellij       # tmux++
-  cargo install kalker                # terminal based calculator
-  cargo install bottom                # system monitor (like htop)  
-  cargo install ddh                   # duplicate file finder
-  sudo dnf -y install cmake && cargo install starship --version 1.10.3
-
-  # lang servers
-  sudo dnf -y install pylsp rust-analyzer 
 }
 
 dnf_setup(){
@@ -134,21 +62,64 @@ dnf_setup(){
   sudo dnf -y upgrade
 }
 
-kde(){
+dotfiles(){
+  # dotfiles from chezmoi
+  sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply "https://github.com/jeffwindsor/dotfiles-chezmoi"
+
+  # move executable to PATH
+  sudo mv ./bin/chezmoi /usr/local/bin/
+
+  # re-build fortune dats
+  $HOME/.config/fortune/build.sh
+}
+
+git-clones(){
+  mkdir -p $HOME/Source
+  mkdir -p $HOME/Source/gitlab.com/
+  mkdir -p $HOME/Source/github.com/
+
+  git clone git@github.com:jeffwindsor/startpage.git $HOME/Source/github.com/jeffwindsor/startpage
+}
+
+tools(){
   sudo dnf install -y alacritty
-  sudo dnf install -y bismuth
+  sudo dnf -y install bat
+  sudo dnf -y install exa
+  sudo dnf -y install entr
+  sudo dnf -y install fd-find
+  # sudo dnf -y install fish
+  sudo dnf -y install fortune-mod
+  sudo dnf -y install fzf
+  sudo dnf -y install gitui
+  # sudo dnf -y install hledger
+  sudo dnf -y install megatools
+  sudo dnf -y install ripgrep
+  sudo dnf -y install tealdeer
+  sudo dnf -y install jetbrains-mono-fonts
+
+  # neovim
+  sudo dnf -y install gcc "gcc-c++" glibc-all-langpacks
+  sudo dnf -y install neovim && git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+
+  # helix editor
+  # sudo dnf -y copr enable varlad/helix
+  # sudo dnf -y install helix
 }
 
-virt(){
-  sudo dnf install @virtualization
-  sudo systemctl start libvirtd
-  sudo systemctl enable libvirtd
-}
+rust(){
+  sudo dnf -y install openssl openssl-devel
+  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+  source "$HOME/.cargo/env"
+  cargo install cargo-update
+  cargo install topgrade              # upgrade all things
+  cargo install --locked zellij       # tmux++
+  cargo install kalker                # terminal based calculator
+  cargo install bottom                # system monitor (like htop)
+  cargo install ddh                   # duplicate file finder
+  sudo dnf -y install cmake && cargo install starship --version 1.10.3
 
-keygen(){
-  if [[ ! -f $1 ]]; then
-    ssh-keygen -t ed25519 -f $1 -C "jeff.windsor@gmail.com"
-  fi
+  # lang servers
+  sudo dnf -y install pylsp rust-analyzer
 }
 
 flatpaks(){
@@ -158,10 +129,10 @@ flatpaks(){
   flatpak install -y "com.spotify.Client"
   flatpak install -y "com.discordapp.Discord"
   flatpak install -y "org.zealdocs.Zeal"
-  flatpak install -y "net.sourceforge.Klavaro" 
+  flatpak install -y "net.sourceforge.Klavaro"
   flatpak install -y "com.valvesoftware.Steam"
   flatpak install -y "com.discordapp.Discord"
-  # flatpak install -y "io.github.endless_sky.endless_sky" 
+  # flatpak install -y "io.github.endless_sky.endless_sky"
 }
 
 use_flathub(){
@@ -170,14 +141,14 @@ use_flathub(){
   flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
   flatpak install --reinstall flathub $(flatpak list --app-runtime=org.fedoraproject.Platform --columns=application | tail -n +1 )
   flatpak remote-delete fedora
-} 
+}
 
 #gnome_extensions(){
   # favorite terminal
 
   # make fish default shell
   #sudo lchsh $(which fish)
-  
+
   # extensions
   # sudo dnf -y install gnome-shell-extension-appindicator
   # sudo dnf -y install gnome-shell-extension-blur-my-shell
@@ -221,7 +192,7 @@ gnome(){
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/screenshot-clip" "@as []"
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/window-screenshot-clip" "@as []"
   dconf write "/org/gnome/shell/keybindings/focus-active-notification" "@as []"
-  
+
   # interface preferences
   dconf write "/org/gnome/desktop/calendar/show-weekdate" "true"
   dconf write "/org/gnome/desktop/datetime/automatic-timezone" "true"
@@ -275,12 +246,12 @@ gnome(){
   dconf write "/org/gnome/desktop/wm/keybindings/switch-to-workspace-8" "['<Super>8']"
   dconf write "/org/gnome/desktop/wm/keybindings/switch-to-workspace-9" "['<Super>9']"
   dconf write "/org/gnome/desktop/wm/keybindings/toggle-fullscreen" "['<Primary><Super>m']"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/area-screenshot" "['<Primary><Super>BackSpace']"
+  # dconf write "/org/gnome/settings-daemon/plugins/media-keys/area-screenshot" "['<Primary><Super>BackSpace']"
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/control-center" "['<Super>comma']"
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/home" "['<Super>f']"
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/next" "['AudioForward']"
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/previous" "['AudioRewind']"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/window-screenshot" "['<Super>BackSpace']"
+  # dconf write "/org/gnome/settings-daemon/plugins/media-keys/window-screenshot" "['<Super>BackSpace']"
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/www" "['<Super>b']"
   dconf write "/org/gnome/shell/keybindings/toggle-message-tray" "['<Super>n']"
 
@@ -293,7 +264,8 @@ gnome(){
       '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/', \
       '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/', \
       '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/', \
-      '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/']"
+      '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/', \
+      '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/']"
 
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/binding" "'<Primary><Super>S'"
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/command" "'systemctl suspend'"
@@ -312,12 +284,16 @@ gnome(){
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/name" "'Power-Off'"
 
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/binding" "'<Ctrl><Super>t'"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/command" "'env WINIT_UNIX_BACKEND=x11 alacritty'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/command" "'env WINIT_UNIX_BACKEND=x11 alacritty --config-file $HOME/.config/alacritty/alacritty-ostree.yml'"
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/name" "'OSTree'"
 
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/binding" "'<Super>t'"
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/command" "'env WINIT_UNIX_BACKEND=x11 alacritty -e bash -c \"SHELL=/usr/bin/zsh toolbox enter\"'"
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/name" "'Terminal'"
+
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/binding" "'<Super>E'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/command" "'flatpak run com.mattjakeman.ExtensionManager'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/name" "'Extensions'"
 }
 
 menu
