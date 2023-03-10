@@ -20,10 +20,36 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
   -- personal workflow plugins
   { 'pocco81/auto-save.nvim' },
-  { 'echasnovski/mini.nvim', version = '*', lazy = true },
+  -- swiss army knife plugin
+  { 'echasnovski/mini.nvim',
+    version = '*',
+    lazy = true
+  },
+  -- fuzzy finder
+  { 'nvim-telescope/telescope.nvim',
+    dependencies = {'nvim-lua/plenary.nvim'}
+  },
+  -- shortcut key help
+  { 'folke/which-key.nvim', 
+    lazy = true 
+  },
+  -- file explorer
+  { 'nvim-tree/nvim-tree.lua' },
+  { 'nvim-tree/nvim-web-devicons' },
+
+  -- vertical indent lines
   { 'lukas-reineke/indent-blankline.nvim' },
-  { 'nvim-telescope/telescope.nvim', dependencies = {'nvim-lua/plenary.nvim'} },
-  { 'folke/which-key.nvim', lazy = true },
+  -- auto completiong
+  { 'hrsh7th/nvim-cmp' },
+  { 'hrsh7th/cmp-nvim-lsp' },
+  -- language servers
+  { 'neovim/nvim-lspconfig',
+    dependencies = {
+      'williamboman/mason.nvim',
+      'williamboman/mason-lspconfig.nvim',
+    }},
+  -- Highlight, edit, and navigate code
+  { 'nvim-treesitter/nvim-treesitter' },
 
   -- color schemes
   { 'folke/tokyonight.nvim', lazy = true},
@@ -32,30 +58,6 @@ require("lazy").setup({
   { 'mhartington/oceanic-next', lazy = true},
   { 'rebelot/kanagawa.nvim', lazy = true},
   { 'shaunsingh/nord.nvim', lazy = true},
-
-  -- development
-  { "nvim-neo-tree/neo-tree.nvim",
-    branch = "v2.x",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
-      "MunifTanjim/nui.nvim",
-    }
-  },
-  { 'neovim/nvim-lspconfig',              -- LSP Configuration & Plugins
-    dependencies = {
-      'williamboman/mason.nvim',              -- Automatically install LSPs to stdpath for neovim
-      'williamboman/mason-lspconfig.nvim',
-      'j-hui/fidget.nvim',                    -- Useful status updates for LSP
-      'folke/neodev.nvim',                    -- Additional lua configuration, makes nvim stuff amazing
-    }},
-  { 'hrsh7th/nvim-cmp',                   -- Autocompletion
-    dependencies = {
-      'hrsh7th/cmp-nvim-lsp',
-      'L3MON4D3/LuaSnip',
-      'saadparwaiz1/cmp_luasnip'
-    }},
-  { 'nvim-treesitter/nvim-treesitter' },    -- Highlight, edit, and navigate code
 })
 
 -- ----------------------------------------------------------------------------
