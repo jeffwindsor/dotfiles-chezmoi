@@ -43,6 +43,12 @@ wk.register({
     },
     ["1"] = { ':colorscheme onedark<CR>', 'one dark' },
   },
+  e = {
+    name = 'editor',
+    c = { 'gcc','toggle comments (gcc)'},
+    t = { ':lua MiniTrailspace.trim()<CR>', 'remove trailing whitespace' },
+    l = { ':lua MiniTrailspace.trim_last_lines()<CR>', 'remove empty last lines' },
+  },
   f = {
     name = 'files',
     b = { ':Telescope file_browser<CR>','via browser'},
