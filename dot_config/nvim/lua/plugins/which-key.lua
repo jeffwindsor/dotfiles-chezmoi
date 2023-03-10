@@ -79,18 +79,9 @@ wk.register({
   },
   m = {
     name = 'mini nvim',
-    a = {
-      name = 'align <TBD>',
-    },
-    c = {
-      name = 'comment',
-      l = {'gcc','toggle line (gcc)'},
-    },
-    t = {
-      name = 'trim whitespace',
-      l = { ':lua MiniTrailspace.trim_last_lines()<CR>', 'trailing' },
-      w = { ':lua MiniTrailspace.trim()<CR>', 'last lines' },
-    },
+    c = { 'gcc','toggle line (gcc)'},
+    t = { ':lua MiniTrailspace.trim()<CR>', 'trailing whitespace' },
+    l = { ':lua MiniTrailspace.trim_last_lines()<CR>', 'last empty lines' },
   },
   p = { ':Lazy<CR>', 'package manager'},
   q = { ':q<CR>','quit'},
