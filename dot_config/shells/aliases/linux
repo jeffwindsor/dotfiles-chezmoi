@@ -6,4 +6,4 @@ alias config='cd $XDG_CONFIG_HOME'
 alias envr='env | rg'
 alias aliasr='alias | rg'
 
-alias agent='eval "$(ssh-agent -s)" && ssh-add -K $HOME/.ssh/id_ed25519'
+alias agent='eval "$(ssh-agent -s)" && ssh-add $HOME/.ssh/id_ed25519'
