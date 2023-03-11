@@ -45,13 +45,13 @@ wk.register({
   },
   e = {
     name = 'editor',
-    c = { 'gcc','toggle comments (gcc)'},
-    t = { ':lua MiniTrailspace.trim()<CR>', 'remove trailing whitespace' },
-    l = { ':lua MiniTrailspace.trim_last_lines()<CR>', 'remove empty last lines' },
+    c = { 'gc','toggle [c]omments (gc)'},
+    l = { ':lua MiniTrailspace.trim_last_lines()<CR>', 'remove empty [l]ast lines' },
+    w = { ':lua MiniTrailspace.trim()<CR>', 'remove trailing [w]hitespace' },
   },
   f = {
     name = 'files',
-    b = { ':Telescope file_browser<CR>','via browser'},
+    b = { ':NvimTreeToggle<CR>','via browser'},
     c = { ':Telescope find_files cwd=$XDG_CONFIG_HOME<CR>','in config directory'},
     d = { ':Telescope find_files cwd=$DOTFILES<CR>','in dotfiles directory'},
     f = { ':Telescope find_files<CR>','in current directory'},
