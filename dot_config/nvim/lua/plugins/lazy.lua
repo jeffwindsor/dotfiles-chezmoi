@@ -19,98 +19,55 @@ vim.opt.rtp:prepend(lazypath)
 -- ----------------------------------------------------------------------------
 require('lazy').setup({
 
-  -- --------------------------------------------------------------------------
   -- auto save on focus change
-  -- --------------------------------------------------------------------------
   { 'pocco81/auto-save.nvim',
-    config = function()
-      require('auto-save').setup({
-        enabled = true,
-        -- callbacks = {
-        --   before_saving = function(buf)
-        --     MiniTrailspace.trim()
-        --   end,
-        -- }
-      })
-    end,
-  },
+    config = function() require('plugins.auto-save') end },
 
-  -- --------------------------------------------------------------------------
   -- swiss army knife of plugins
-  -- --------------------------------------------------------------------------
   { 'echasnovski/mini.nvim',
-    version = '*',
-    config = function()
-      require('mini.ai').setup()
-      require('mini.align').setup()
-      -- require('mini.base16').setup()	      -- supply palette instead of color schemes?
-      -- require('mini.basics').setup()     	-- leran from these settings or just use?
-      require('mini.comment').setup()
-      require('mini.completion').setup()
-      require('mini.cursorword').setup()      -- highlight word under cursor matches
-      --require('mini.indentscope').setup()
-      require('mini.jump2d').setup()          -- leap like jumps / finds
-      require('mini.move').setup()
-      require('mini.statusline').setup()
-      require('mini.surround').setup()        -- surrond object with ({', etc
-      require('mini.tabline').setup()
-      require('mini.trailspace').setup()      -- highlights trailing whitespace
-    end,
-  },
+    config = function() require('plugins.mini') end,
+    version = '*'},
 
-  -- --------------------------------------------------------------------------
   -- vertical line hints for indentation
-  -- --------------------------------------------------------------------------
   { 'lukas-reineke/indent-blankline.nvim',
-    config = function()
-      require('indent_blankline').setup({
-        char = '┊',
-        show_trailing_blankline_indent = false })
-    end,
-  },
+    config = function() require('plugins.indent-blankline') end },
 
-  -- --------------------------------------------------------------------------
   -- fuzzy finder
-  -- --------------------------------------------------------------------------
   { 'nvim-telescope/telescope.nvim',
+    config = function() require('plugins.telescope') end,
     dependencies = {'nvim-lua/plenary.nvim'},
-    config = function()
-      require('telescope').setup({
-        defaults = {
-          layout_strategy = 'vertical',
-          layout_config = { prompt_position = 'top' },
-          sorting_strategy = 'ascending' }})
-    end,
-  },
+    version = '*'},
 
-  -- --------------------------------------------------------------------------
-  -- pop up displaying possible key bindings
-  -- --------------------------------------------------------------------------
+  -- key bindings popup menu
   { 'folke/which-key.nvim',
-    config = function()
-      require('plugins.which-key')
-    end,
-  },
+    config = function() require('plugins.which-key') end },
 
-  -- --------------------------------------------------------------------------
   -- file manager
-  -- --------------------------------------------------------------------------
   { 'nvim-tree/nvim-tree.lua',
-    dependencies =  { 'nvim-tree/nvim-web-devicons' },
-    config = function()
-      require('nvim-tree').setup({
-        sort_by = 'case_sensitive',
-        renderer = { group_empty = true },
-        filters = { dotfiles = true },
-      })
-    end,
-  },
+    config = function() require('plugins.nvim-tree') end,
+    dependencies =  { 'nvim-tree/nvim-web-devicons' }},
 
-  -- --------------------------------------------------------------------------
-  -- development goodies
-  -- --------------------------------------------------------------------------
-  { 'lewis6991/gitsigns.nvim', config = function() require('gitsigns').setup() end },
-  { 'neovim/nvim-lspconfig' },
+  -- LSP Configuration & Plugins
+  { 'neovim/nvim-lspconfig',
+    config = function() require('plugins.nvim-lsp') end,
+    dependencies = { 'williamboman/mason.nvim', 'williamboman/mason-lspconfig.nvim', { 'j-hui/fidget.nvim', opts = {} }, 'folke/neodev.nvim', }},
+
+  -- Autocompletion
+  { 'hrsh7th/nvim-cmp',
+    config = function() require('plugins.nvim-cmp') end,
+    dependencies = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' }},
+
+  -- Highlight, edit, and navigate code
+  { 'nvim-treesitter/nvim-treesitter',
+    config = function() require('plugins.nvim-treesitter') end,
+    dependencies = { 'nvim-treesitter/nvim-treesitter-textobjects' }},
+
+  -- auto adjust the tab length based on current files usage
+  { 'tpope/vim-sleuth' },
+
+  -- show git gutter
+  { 'lewis6991/gitsigns.nvim',
+    config = function() require('plugins.gitsigns') end },
 
   -- --------------------------------------------------------------------------
   -- color schemes
