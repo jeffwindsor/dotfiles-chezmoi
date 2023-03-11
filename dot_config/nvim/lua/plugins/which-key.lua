@@ -83,12 +83,6 @@ wk.register({
     r = { ':Telescope lsp_references<CR>','references'},
     t = { ':Telescope lsp_type_definitions<CR>','type'},
   },
-  m = {
-    name = 'mini nvim',
-    c = { 'gcc','toggle line (gcc)'},
-    t = { ':lua MiniTrailspace.trim()<CR>', 'trailing whitespace' },
-    l = { ':lua MiniTrailspace.trim_last_lines()<CR>', 'last empty lines' },
-  },
   p = { ':Lazy<CR>', 'package manager'},
   q = { ':q<CR>','quit'},
   r = { ':Telescope registers<CR>','registers'},
