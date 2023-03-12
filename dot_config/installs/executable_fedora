@@ -82,7 +82,7 @@ git-clones(){
 }
 
 tools(){
-  sudo dnf install -y alacritty
+  sudo dnf -y install alacritty
   sudo dnf -y install bat
   sudo dnf -y install exa
   sudo dnf -y install entr
@@ -143,32 +143,6 @@ use_flathub(){
   flatpak remote-delete fedora
 }
 
-#gnome_extensions(){
-  # favorite terminal
-
-  # make fish default shell
-  #sudo lchsh $(which fish)
-
-  # extensions
-  # sudo dnf -y install gnome-shell-extension-appindicator
-  # sudo dnf -y install gnome-shell-extension-blur-my-shell
-  # sudo dnf -y install gnome-shell-extension-caffeine
-  # sudo dnf -y install gnome-shell-extension-just-perfection
-  # sudo dnf -y install gnome-shell-extension-launch-new-instance
-  # sudo dnf -y install gnome-shell-extension-openweather
-  #===========================================================================
-  # ALSO INSTALL THROUGH EXTENSION MANAGER LATER:
-  #  * Forge
-  #  * Simply Workspaces
-  #  * Wallpaper Switcher
-  #  * AppIndicator
-  #  * Blur My SHell
-  #  * Caffeine
-  #  * Just Perfection
-  #  * Launch New Instance
-  #  * Open Weather
-  #===========================================================================
-#}
 
 gnome(){
   # clear unwanted settings
@@ -294,6 +268,25 @@ gnome(){
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/binding" "'<Super>E'"
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/command" "'flatpak run com.mattjakeman.ExtensionManager'"
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/name" "'Extensions'"
+
+echo "
+===========================================================================
+ EXTENSIONS:
+===========================================================================
+  * AppIndicator
+  * Bluetooth Quick Connect
+  * Blur My SHell
+  * Caffeine
+  * Forge
+  * Just Perfection
+  * Launch New Instance
+  * Open Weather
+  * Simply Workspaces
+  * Wallpaper Switcher
+  * Weather O'Clock
+===========================================================================
+"
+
 }
 
 menu
