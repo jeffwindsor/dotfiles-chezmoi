@@ -3,7 +3,7 @@ export HISTCONTROL=ignoreboth
 export LESSHISTFILE="-"
 
 # use `bat` to display and page manuals
-export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+#export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
 export TERM='xterm-256color'
 
