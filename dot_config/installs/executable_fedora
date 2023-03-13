@@ -27,26 +27,27 @@ menu(){
     ts) Dnf setup
     td) Dotfiles
     tt) Tools
-    tr) Rust
 \e[0m
     Select Version: "
 
     read -r version
     case $version in
-      ou) sudo rpm-ostree upgrade ;;
+      ou) sudo rpm-ostree upgrade 
+          systemctl reboot
+          ;;
       ol) rpm-ostree install alacritty virt-manager
           toolbox create
+          systemctl reboot
           ;;
       ff) use_flathub ;;
       fi) flatpaks ;;
       ur) git-clones ;;
-      us) ssh-keygen -t ed25519 -C "jeff.windsor@gmail.com"
-          ;;
+      us) ssh-keygen -t ed25519 -C "jeff.windsor@gmail.com" ;;
       ug) gnome ;;
+
       ts) dnf_setup ;;
       td) dotfiles ;;
       tt) tools ;;
-      tr) rust ;;
       *) exit 1 ;;
     esac
 }
@@ -87,12 +88,10 @@ tools(){
   sudo dnf -y install exa
   sudo dnf -y install entr
   sudo dnf -y install fd-find
-  # sudo dnf -y install fish
   sudo dnf -y install fortune-mod
   sudo dnf -y install fzf
   sudo dnf -y install gitui
-  # sudo dnf -y install hledger
-  sudo dnf -y install megatools
+  sudo dnf -y install megasync
   sudo dnf -y install ripgrep
   sudo dnf -y install tealdeer
   sudo dnf -y install jetbrains-mono-fonts
@@ -102,11 +101,10 @@ tools(){
   sudo dnf -y install neovim && git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 
   # helix editor
-  # sudo dnf -y copr enable varlad/helix
-  # sudo dnf -y install helix
-}
+  sudo dnf -y copr enable varlad/helix
+  sudo dnf -y install helix
 
-rust(){
+  #rust
   sudo dnf -y install openssl openssl-devel
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
   source "$HOME/.cargo/env"
