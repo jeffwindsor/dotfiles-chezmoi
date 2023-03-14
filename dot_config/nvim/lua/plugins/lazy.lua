@@ -20,54 +20,53 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
 
   -- auto save on focus change
-  { 'pocco81/auto-save.nvim',
-    config = function() require('plugins.auto-save') end },
+  { 'pocco81/auto-save.nvim' },
 
   -- swiss army knife of plugins
   { 'echasnovski/mini.nvim',
-    config = function() require('plugins.mini') end,
-    version = '*'},
+    version = '*',
+    lazy = true },
 
   -- vertical line hints for indentation
-  { 'lukas-reineke/indent-blankline.nvim',
-    config = function() require('plugins.indent-blankline') end },
+  { 'lukas-reineke/indent-blankline.nvim' },
 
   -- fuzzy finder
   { 'nvim-telescope/telescope.nvim',
-    config = function() require('plugins.telescope') end,
     dependencies = {'nvim-lua/plenary.nvim'},
-    version = '*'},
+    version = '*',
+    lazy = true },
 
   -- key bindings popup menu
   { 'folke/which-key.nvim',
-    config = function() require('plugins.which-key') end },
+    lazt = true },
 
   -- file manager
   { 'nvim-tree/nvim-tree.lua',
-    config = function() require('plugins.nvim-tree') end,
-    dependencies =  { 'nvim-tree/nvim-web-devicons' }},
+    dependencies =  { 'nvim-tree/nvim-web-devicons' },
+    lazy = true },
 
   -- LSP Configuration & Plugins
   { 'neovim/nvim-lspconfig',
-    config = function() require('plugins.nvim-lsp') end,
-    dependencies = { 'williamboman/mason.nvim', 'williamboman/mason-lspconfig.nvim', { 'j-hui/fidget.nvim', opts = {} }, 'folke/neodev.nvim', }},
+    dependencies = { 'williamboman/mason.nvim', 'williamboman/mason-lspconfig.nvim', { 'j-hui/fidget.nvim', opts = {} }, 'folke/neodev.nvim', },
+    lazy = true },
 
   -- Autocompletion
   { 'hrsh7th/nvim-cmp',
-    config = function() require('plugins.nvim-cmp') end,
-    dependencies = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' }},
+    dependencies = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
+    lazy = true },
 
   -- Highlight, edit, and navigate code
   { 'nvim-treesitter/nvim-treesitter',
-    config = function() require('plugins.nvim-treesitter') end,
-    dependencies = { 'nvim-treesitter/nvim-treesitter-textobjects' }},
+    dependencies = { 'nvim-treesitter/nvim-treesitter-textobjects' },
+    lazy = true },
 
   -- auto adjust the tab length based on current files usage
-  { 'tpope/vim-sleuth' },
+  { 'tpope/vim-sleuth',
+    lazy = true },
 
   -- show git gutter
   { 'lewis6991/gitsigns.nvim',
-    config = function() require('plugins.gitsigns') end },
+    lazy = true },
 
   -- --------------------------------------------------------------------------
   -- color schemes
@@ -80,6 +79,16 @@ require('lazy').setup({
   {'shaunsingh/nord.nvim', lazy = true},
 })
 
-
+require('plugins.auto-save')
+require('plugins.gitsigns')
+require('plugins.indent-blankline')
+require('plugins.mini')
+require('plugins.nvim-cmp')
+require('plugins.nvim-lsp')
+require('plugins.nvim-tree')
+require('plugins.nvim-treesitter')
+require('plugins.telescope')
+require('plugins.which-key')
 --require("lspconfig").lua_ls.setup {}
 require("lspconfig").rust_analyzer.setup {}
+
