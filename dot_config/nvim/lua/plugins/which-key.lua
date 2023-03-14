@@ -28,10 +28,7 @@ wk.register({
   c = {
     name = 'color schemes',
     c = { ':Telescope colorscheme<CR>','color schemes'},
-    d = { ':set background=dark<CR>','dark'},
-    l = { ':set background=light<CR>','light'},
     m = { ':lua require("material.functions").find_style()<CR>', 'material' },
-    o = { ':colorscheme OceanNext<CR>', 'ocean next' },
     k = { ':colorscheme kanagawa<CR>', 'kanagawa' },
     n = { ':colorscheme nord<CR>', 'nord' },
     t = {

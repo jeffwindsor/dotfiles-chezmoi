@@ -74,7 +74,6 @@ require('lazy').setup({
   {'folke/tokyonight.nvim', lazy = true},
   {'joshdick/onedark.vim', lazy = true},
   {'marko-cerovac/material.nvim', lazy = true},
-  {'mhartington/oceanic-next', lazy = true},
   {'rebelot/kanagawa.nvim', lazy = true},
   {'shaunsingh/nord.nvim', lazy = true},
 })
