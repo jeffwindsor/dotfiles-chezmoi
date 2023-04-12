@@ -43,6 +43,7 @@ wk.register({
   e = {
     name = 'editor',
     c = { 'gc','toggle [c]omments (gc)'},
+    j = { ':%!jq .<CR>','format [j]son'},
     l = { ':lua MiniTrailspace.trim_last_lines()<CR>', 'remove empty [l]ast lines' },
     w = { ':lua MiniTrailspace.trim()<CR>', 'remove trailing [w]hitespace' },
   },

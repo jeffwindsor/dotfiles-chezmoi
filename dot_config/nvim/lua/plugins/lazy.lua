@@ -68,6 +68,9 @@ require('lazy').setup({
   { 'lewis6991/gitsigns.nvim',
     lazy = true },
 
+  -- markdown via glow
+  {"ellisonleao/glow.nvim", config = true, cmd = "Glow"},
+
   -- --------------------------------------------------------------------------
   -- color schemes
   -- --------------------------------------------------------------------------
