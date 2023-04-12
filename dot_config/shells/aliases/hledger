@@ -1,4 +1,6 @@
-alias hlcd="cd $LEDGER_DIR"
+hcd(){
+  cd $LEDGER_DIR
+}
 alias unknown="hledger -f- -I print unknown"
 
 # application shortcuts
@@ -7,11 +9,8 @@ alias hu="hledger-ui"
 alias hw="hledger-web"
 
 # importing information
-alias hi="hledger import"
-alias hid="hledger import --dry"
-
-alias hi-d="hledger import --rules-file import.rules"
-alias hid-d="hledger import --dry --rules-file import.rules"
+alias hi="hledger import --rules-file rules/deposit.csv.rules"
+alias hd="hledger import --dry --rules-file rules/deposit.csv.rules"
 
 # report income statement
 alias inc="hledger inc -M"
@@ -28,3 +27,6 @@ alias budget="hledger bal --budget -M"
 alias bal="hledger bal -M"
 alias bal2="hledger bal -M -2"
 alias bal3="hledger bal -M -3"
+
+alias h-p="export LEDGER_DIR=""$HOME/portable/financials/personal""; export LEDGER_FILE=""$LEDGER_DIR/finances.journal"""
+alias h-b="export LEDGER_DIR=""$HOME/portable/financials/wfp""; export LEDGER_FILE=""$LEDGER_DIR/finances.journal"""
