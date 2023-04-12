@@ -10,8 +10,8 @@ alias hw="hledger-web"
 alias hi="hledger import"
 alias hid="hledger import --dry"
 
-alias hi-d="hledger import --rules-file rules/deposit.csv.rules"
-alias hid-d="hledger import --dry --rules-file rules/deposit.csv.rules"
+alias hi-d="hledger import --rules-file import.rules"
+alias hid-d="hledger import --dry --rules-file import.rules"
 
 # report income statement
 alias inc="hledger inc -M"
