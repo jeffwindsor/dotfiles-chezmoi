@@ -1,12 +1,9 @@
-local map = vim.api.nvim_set_keymap
-local opts = { noremap = true, silent = true }
-
 require('lualine').setup {
   options = {
     icons_enabled = true,
     theme = 'auto',
-    component_separators =  { left = '', right = ''}, --{ left = '', right = ''},
-    section_separators = { left = '', right = ''}, --{ left = '', right = ''},
+    component_separators = { left = '', right = ''}, --{ left = '', right = ''},
+    section_separators = { left = '', right = ''}, --{ left = '', right = ''},
     always_divide_middle = true,
     globalstatus = true,
     refresh = {
@@ -17,19 +14,19 @@ require('lualine').setup {
   },
   sections = {
     lualine_a = {'mode'},
-    lualine_b = {'diff', 'diagnostics'},
+    lualine_b = {'branch','diff', 'diagnostics'},
     lualine_c = {''},
     lualine_x = {},
-    lualine_y = {'location'},
+    lualine_y = {'filetype','encoding','progress','location'},
     lualine_z = {}
   },
   tabline = {
-    lualine_a = {{'tabs', mode = 0}},
+    lualine_a = {{'buffers', mode = 0}},          --{{'tabs', mode = 0}},
     lualine_b = {},
     lualine_c = {},
     lualine_x = {},
-    lualine_y = {{'filename', file_status = true, path = 3, shorting_target = 100, }}, 
-    lualine_z = {},
+    lualine_y = {},                               --{{'filename', file_status = true, path = 3, shorting_target = 100, }},
+    lualine_z = {{'tabs', mode = 0}},
   },
   winbar = {},
   inactive_winbar = {},

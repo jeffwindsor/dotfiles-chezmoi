@@ -69,7 +69,11 @@ require('lazy').setup({
     lazy = true },
 
   -- markdown via glow
-  {"ellisonleao/glow.nvim", config = true, cmd = "Glow"},
+  { 'ellisonleao/glow.nvim', config = true, cmd = 'Glow'},
+
+  -- lua line
+  { 'nvim-lualine/lualine.nvim',
+      dependencies = {'nvim-web-devicons'}},
 
   -- --------------------------------------------------------------------------
   -- color schemes
@@ -91,6 +95,9 @@ require('plugins.nvim-tree')
 require('plugins.nvim-treesitter')
 require('plugins.telescope')
 require('plugins.which-key')
+require('plugins.lualine')
+
+
 --require("lspconfig").lua_ls.setup {}
-require("lspconfig").rust_analyzer.setup {}
+require('lspconfig').rust_analyzer.setup {}
 
