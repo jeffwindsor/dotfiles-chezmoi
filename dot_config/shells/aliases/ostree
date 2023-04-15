@@ -1,4 +1,4 @@
-alias ru='rpm-ostree update'
+alias rup='rpm-ostree update'
 alias rs='rpm-ostree status'
-alias rr="ostree remote refs fedora | grep silverblue | grep $(uname -i)"
-alias rup='rpm-ostree rebase'
+alias rl="ostree remote refs fedora | grep silverblue | grep $(uname -i)"
+alias rr='rpm-ostree rebase'
