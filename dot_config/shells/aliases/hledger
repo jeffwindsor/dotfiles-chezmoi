@@ -1,6 +1,12 @@
-hcd(){
-  cd $LEDGER_DIR
+hledger-env(){
+  LEDGER_DIR=$HOME/portable/financials/$1
+  export LEDGER_FILE=$LEDGER_DIR/finances.journal
+  cd $LEDGER_DIR/imports
 }
+
+alias h-p="hledger-env personal"
+alias h-b="hledger-env wfp"
+
 alias unknown="hledger -f- -I print unknown"
 
 # application shortcuts
@@ -28,5 +34,3 @@ alias bal="hledger bal -M"
 alias bal2="hledger bal -M -2"
 alias bal3="hledger bal -M -3"
 
-alias h-p="export LEDGER_DIR=""$HOME/portable/financials/personal""; export LEDGER_FILE=""$HOME/portable/financials/personal/finances.journal"""
-alias h-b="export LEDGER_DIR=""$HOME/portable/financials/wfp""; export LEDGER_FILE=""$HOME/portable/financials/wfp/finances.journal"""
