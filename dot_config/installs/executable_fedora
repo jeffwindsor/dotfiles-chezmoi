@@ -118,6 +118,10 @@ tools(){
 
   # lang servers
   sudo dnf -y install pylsp rust-analyzer
+
+  echo "Install MEGA-SYNC manually: https://mega.io/desktop#downloadapps"
+  read -r response
+  echo
 }
 
 flatpaks(){
