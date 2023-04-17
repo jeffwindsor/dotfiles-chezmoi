@@ -6,6 +6,10 @@ local noremap = { noremap = true }                -- protects from remapping by 
 local silent  = { noremap = true, silent = true } -- silent does not show bound command in bottom row / command output
 
 -- PERSONAL home row improvements
+
+--paste over word
+vim.api.nvim_set_keymap('n', '<C-p>', 'cw<C-r>0<ESC>', silent)
+
 --  quick <jk> produces an <escape> while in insert mode
 vim.api.nvim_set_keymap('i', 'jk', '<ESC>', silent)
 

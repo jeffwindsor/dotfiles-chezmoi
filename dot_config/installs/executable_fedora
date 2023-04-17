@@ -32,7 +32,7 @@ menu(){
 
     read -r version
     case $version in
-      ou) sudo rpm-ostree upgrade 
+      ou) sudo rpm-ostree upgrade
           systemctl reboot
           ;;
       ol) rpm-ostree install alacritty virt-manager
@@ -91,7 +91,7 @@ tools(){
   sudo dnf -y install fortune-mod
   sudo dnf -y install fzf
   sudo dnf -y install gitui
-  sudo dnf -y install megasync
+  sudo dnf -y install hledger hledger-ui hledger-web
   sudo dnf -y install ripgrep
   sudo dnf -y install tealdeer
   sudo dnf -y install jetbrains-mono-fonts
@@ -119,22 +119,27 @@ tools(){
   # lang servers
   sudo dnf -y install pylsp rust-analyzer
 
-  echo "Install MEGA-SYNC manually: https://mega.io/desktop#downloadapps"
+  # manual installs
+  echo "Install MEGA-SYNC manually: "
+  echo "  download from https://mega.io/desktop#downloadapps"
   read -r response
   echo
 }
 
 flatpaks(){
-  flatpak install -y "com.github.tchx84.Flatseal"
+  flatpak install -y "com.mattjakeman.ExtensionManager"           # improved extension manager
+  flatpak install -y "com.github.tchx84.Flatseal"                 # flatpak sec manager
+  flatpak install -y "com.gitlab.davem.ClamTk"                    # virus
   flatpak install -y "com.google.Chrome"
-  flatpak install -y "com.mattjakeman.ExtensionManager"
   flatpak install -y "com.spotify.Client"
-  flatpak install -y "com.discordapp.Discord"
-  flatpak install -y "org.zealdocs.Zeal"
-  flatpak install -y "net.sourceforge.Klavaro"
   flatpak install -y "com.valvesoftware.Steam"
-  flatpak install -y "com.discordapp.Discord"
+
+  # flatpak install -y "com.discordapp.Discord"
+  # flatpak install -y "org.zealdocs.Zeal"                          # dev docs
+  # flatpak install -y "net.sourceforge.Klavaro"                    # typing
   # flatpak install -y "io.github.endless_sky.endless_sky"
+  # flatpak install -y "org.gnome.Photos"
+  # flatpak install -y "org.gnome.Podcasts"
 }
 
 use_flathub(){
