@@ -28,16 +28,17 @@ echo -ne "
 
   sudo dnf -y install alacritty
   sudo dnf -y install bat
-  sudo dnf -y install exa
   sudo dnf -y install entr
+  sudo dnf -y install exa
   sudo dnf -y install fd-find
   sudo dnf -y install fortune-mod
   sudo dnf -y install fzf
   sudo dnf -y install gitui
   sudo dnf -y install hledger hledger-ui hledger-web
+  sudo dnf -y install jetbrains-mono-fonts
   sudo dnf -y install ripgrep
   sudo dnf -y install tealdeer
-  sudo dnf -y install jetbrains-mono-fonts
+  sudo dnf -y install zsh zsh-autosuggestions zsh-syntax-highlighting
 
   # neovim
   sudo dnf -y install gcc "gcc-c++" glibc-all-langpacks
@@ -196,7 +197,7 @@ echo -ne "
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/name" "'OSTree'"
 
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/binding" "'<Super>t'"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/command" "'env WINIT_UNIX_BACKEND=x11 alacritty -e bash -c \"SHELL=/usr/bin/zsh toolbox enter\"'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/command" "'env WINIT_UNIX_BACKEND=x11 alacritty'"
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/name" "'Terminal'"
 
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/binding" "'<Super>E'"
@@ -234,6 +235,9 @@ read -r response
   mkdir -p $HOME/Source/github.com/
 
   git clone git@github.com:jeffwindsor/startpage.git $HOME/Source/github.com/jeffwindsor/startpage
+
+# make zsh the default prompt
+  sudo lchsh $USER
 
 echo "
 ===========================================================================
