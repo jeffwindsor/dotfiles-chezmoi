@@ -19,7 +19,6 @@ menu(){
     sh) System - Use Flathu[b]
     sf) System - Install [F]latpak
 
-    ur) Userland - Git Repos
     us) Userland - Ssh Keygen
     ug) Userland - Apply Gnome Config
     ue) Userland - Extensions
@@ -27,8 +26,9 @@ menu(){
    At a Toolbox Prompt
    ════════════════════════════════════════
     ts) Toolbox - Dnf setup
-    td) Toolbox - Dotfiles
     tt) Toolbox - Tools
+    td) Toolbox - Dotfiles
+    tr) Userland - Git Repos
 \e[0m
     Select Version: "
 
@@ -44,14 +44,14 @@ menu(){
       sh) use_flathub ;;
       sf) flatpaks ;;
 
-      ur) git-clones ;;
       us) ssh-keygen -t ed25519 -C "jeff.windsor@gmail.com" ;;
       ug) gnome ;;
       ue) extensions;;
 
       ts) dnf_setup ;;
-      td) dotfiles ;;
       tt) tools ;;
+      td) dotfiles ;;
+      tr) git-clones ;;
       *) exit 1 ;;
     esac
 }
