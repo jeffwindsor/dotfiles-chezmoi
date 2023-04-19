@@ -1,62 +1,17 @@
 #!/usr/bin/env bash
 cd "$(dirname "${0}")"
 
-menu(){
-  clear
-  echo -ne "
+clear
+echo -ne "
  \e[34m
-    ███████╗███████╗██████╗  ██████╗ ██████╗  █████╗
-    ██╔════╝██╔════╝██╔══██╗██╔═══██╗██╔══██╗██╔══██╗
-    █████╗  █████╗  ██║  ██║██║   ██║██████╔╝███████║
-    ██╔══╝  ██╔══╝  ██║  ██║██║   ██║██╔══██╗██╔══██║
-    ██║     ███████╗██████╔╝╚██████╔╝██║  ██║██║  ██║
-    ╚═╝     ╚══════╝╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
- \e[34m
-   At a System Prompt
-   ════════════════════════════════════════
-    su) System - Os-Tree [U]pdate
-    sl) System - Os-Tree Add [L]ayers
-    sh) System - Use Flathu[b]
-    sf) System - Install [F]latpak
+███████╗███████╗██████╗  ██████╗ ██████╗  █████╗
+██╔════╝██╔════╝██╔══██╗██╔═══██╗██╔══██╗██╔══██╗
+█████╗  █████╗  ██║  ██║██║   ██║██████╔╝███████║
+██╔══╝  ██╔══╝  ██║  ██║██║   ██║██╔══██╗██╔══██║
+██║     ███████╗██████╔╝╚██████╔╝██║  ██║██║  ██║
+╚═╝     ╚══════╝╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
+\e[0m"
 
-    us) Userland - Ssh Keygen
-    ug) Userland - Apply Gnome Config
-    ue) Userland - Extensions
-\e[37m
-   At a Toolbox Prompt
-   ════════════════════════════════════════
-    ts) Toolbox - Dnf setup
-    tt) Toolbox - Tools
-    td) Toolbox - Dotfiles
-    tr) Userland - Git Repos
-\e[0m
-    Select Version: "
-
-    read -r version
-    case $version in
-      su) sudo rpm-ostree upgrade
-          systemctl reboot
-          ;;
-      sl) rpm-ostree install alacritty virt-manager
-          toolbox create
-          systemctl reboot
-          ;;
-      sh) use_flathub ;;
-      sf) flatpaks ;;
-
-      us) ssh-keygen -t ed25519 -C "jeff.windsor@gmail.com" ;;
-      ug) gnome ;;
-      ue) extensions;;
-
-      ts) dnf_setup ;;
-      tt) tools ;;
-      td) dotfiles ;;
-      tr) git-clones ;;
-      *) exit 1 ;;
-    esac
-}
-
-dnf_setup(){
   # update dnf config
   echo "max_parallel_downloads=10" | sudo tee -a /etc/dnf/dnf.conf
   echo "defaultyes=True" | sudo tee -a /etc/dnf/dnf.conf
@@ -65,28 +20,12 @@ dnf_setup(){
   sudo dnf -y install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
   sudo dnf -y install https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
   sudo dnf -y upgrade
-}
 
-dotfiles(){
-  # dotfiles from chezmoi
-  sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply "https://github.com/jeffwindsor/dotfiles-chezmoi"
 
-  # move executable to PATH
-  sudo mv ./bin/chezmoi /usr/local/bin/
+###############################################################################
+# dnf installs
+###############################################################################
 
-  # re-build fortune dats
-  $HOME/.config/fortune/build.sh
-}
-
-git-clones(){
-  mkdir -p $HOME/Source
-  mkdir -p $HOME/Source/gitlab.com/
-  mkdir -p $HOME/Source/github.com/
-
-  git clone git@github.com:jeffwindsor/startpage.git $HOME/Source/github.com/jeffwindsor/startpage
-}
-
-tools(){
   sudo dnf -y install alacritty
   sudo dnf -y install bat
   sudo dnf -y install exa
@@ -123,14 +62,10 @@ tools(){
   # lang servers
   sudo dnf -y install pylsp rust-analyzer
 
-  # manual installs
-  echo "Install MEGA-SYNC manually: "
-  echo "  download from https://mega.io/desktop#downloadapps"
-  read -r response
-  echo
-}
+###############################################################################
+# flatpak installs
+###############################################################################
 
-flatpaks(){
   flatpak install -y "com.mattjakeman.ExtensionManager"           # improved extension manager
   flatpak install -y "com.github.tchx84.Flatseal"                 # flatpak sec manager
   flatpak install -y "com.gitlab.davem.ClamTk"                    # virus
@@ -144,37 +79,33 @@ flatpaks(){
   # flatpak install -y "org.zealdocs.Zeal"                          # dev docs
   # flatpak install -y "net.sourceforge.Klavaro"                    # typing
   # flatpak install -y "io.github.endless_sky.endless_sky"
+
+###############################################################################
+# dot files
+###############################################################################
+
+  # dotfiles from chezmoi
+  sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply "https://github.com/jeffwindsor/dotfiles-chezmoi"
+
+  # move executable to PATH
+  sudo mv ./bin/chezmoi /usr/local/bin/
+
+  # re-build fortune dats
+  $HOME/.config/fortune/build.sh
 }
 
-use_flathub(){
-  # replace fedora flatpak repo with flathub
-  flatpak remote-modify --no-filter --enable flathub
-  flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-  flatpak install --reinstall flathub $(flatpak list --app-runtime=org.fedoraproject.Platform --columns=application | tail -n +1 )
-  flatpak remote-delete fedora
-}
+###############################################################################
+# git repos
+###############################################################################
+  mkdir -p $HOME/Source
+  mkdir -p $HOME/Source/gitlab.com/
+  mkdir -p $HOME/Source/github.com/
 
-extensions(){
-  echo "
-  ===========================================================================
-   EXTENSIONS:
-  ===========================================================================
-    * AppIndicator
-    * Bluetooth Quick Connect
-    * Blur My SHell
-    * Caffeine
-    * Forge
-    * Just Perfection
-    * Launch New Instance
-    * Open Weather
-    * Simply Workspaces
-    * Wallpaper Switcher
-    * Weather O'Clock
-  ===========================================================================
-  "
-}
+  git clone git@github.com:jeffwindsor/startpage.git $HOME/Source/github.com/jeffwindsor/startpage
 
-gnome(){
+###############################################################################
+# GNOME
+###############################################################################
   # interface preferences
   dconf write "/org/gnome/desktop/calendar/show-weekdate" "true"
   dconf write "/org/gnome/desktop/datetime/automatic-timezone" "true"
@@ -295,6 +226,24 @@ gnome(){
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/command" "'flatpak run com.mattjakeman.ExtensionManager'"
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/name" "'Extensions'"
 
-}
+echo "
+===========================================================================
+ EXTENSIONS:
+===========================================================================
+  * AppIndicator
+  * Bluetooth Quick Connect
+  * Blur My SHell
+  * Caffeine
+  * Forge
+  * Just Perfection
+  * Launch New Instance
+  * Open Weather
+  * Simply Workspaces
+  * Wallpaper Switcher
+  * Weather O'Clock
+===========================================================================
+  # manual installs
+  Install MEGA-SYNC manually:
+  download from https://mega.io/desktop#downloadapps
+"
 
-menu
