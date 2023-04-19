@@ -12,38 +12,42 @@ menu(){
     ██║     ███████╗██████╔╝╚██████╔╝██║  ██║██║  ██║
     ╚═╝     ╚══════╝╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
  \e[34m
-   OsTree Install Options
+   At a System Prompt
    ════════════════════════════════════════
-    ou) Os-Tree  - Update
-    ol) Os-Tree  - Add Layers
-    ff) Flatpak  - Use Flathub
-    fi) Flatpak  - Install
+    su) System - Os-Tree [U]pdate
+    sl) System - Os-Tree Add [L]ayers
+    sh) System - Use Flathu[b]
+    sf) System - Install [F]latpak
+
     ur) Userland - Git Repos
     us) Userland - Ssh Keygen
     ug) Userland - Apply Gnome Config
+    ue) Userland - Extensions
 \e[37m
-   Toolbox Install Options
+   At a Toolbox Prompt
    ════════════════════════════════════════
-    ts) Dnf setup
-    td) Dotfiles
-    tt) Tools
+    ts) Toolbox - Dnf setup
+    td) Toolbox - Dotfiles
+    tt) Toolbox - Tools
 \e[0m
     Select Version: "
 
     read -r version
     case $version in
-      ou) sudo rpm-ostree upgrade
+      su) sudo rpm-ostree upgrade
           systemctl reboot
           ;;
-      ol) rpm-ostree install alacritty virt-manager
+      sl) rpm-ostree install alacritty virt-manager
           toolbox create
           systemctl reboot
           ;;
-      ff) use_flathub ;;
-      fi) flatpaks ;;
+      sh) use_flathub ;;
+      sf) flatpaks ;;
+
       ur) git-clones ;;
       us) ssh-keygen -t ed25519 -C "jeff.windsor@gmail.com" ;;
       ug) gnome ;;
+      ue) extensions;;
 
       ts) dnf_setup ;;
       td) dotfiles ;;
@@ -133,13 +137,13 @@ flatpaks(){
   flatpak install -y "com.google.Chrome"
   flatpak install -y "com.spotify.Client"
   flatpak install -y "com.valvesoftware.Steam"
+  flatpak install -y "org.gnome.Photos"
+  flatpak install -y "org.gnome.Podcasts"
 
   # flatpak install -y "com.discordapp.Discord"
   # flatpak install -y "org.zealdocs.Zeal"                          # dev docs
   # flatpak install -y "net.sourceforge.Klavaro"                    # typing
   # flatpak install -y "io.github.endless_sky.endless_sky"
-  # flatpak install -y "org.gnome.Photos"
-  # flatpak install -y "org.gnome.Podcasts"
 }
 
 use_flathub(){
@@ -150,30 +154,27 @@ use_flathub(){
   flatpak remote-delete fedora
 }
 
+extensions(){
+  echo "
+  ===========================================================================
+   EXTENSIONS:
+  ===========================================================================
+    * AppIndicator
+    * Bluetooth Quick Connect
+    * Blur My SHell
+    * Caffeine
+    * Forge
+    * Just Perfection
+    * Launch New Instance
+    * Open Weather
+    * Simply Workspaces
+    * Wallpaper Switcher
+    * Weather O'Clock
+  ===========================================================================
+  "
+}
 
 gnome(){
-  # clear unwanted settings
-  dconf write "/org/gnome/desktop/wm/keybindings/begin-move" "@as []"
-  dconf write "/org/gnome/desktop/wm/keybindings/begin-resize" "@as []"
-  dconf write "/org/gnome/desktop/wm/keybindings/cycle-group" "@as []"
-  dconf write "/org/gnome/desktop/wm/keybindings/cycle-group-backward" "@as []"
-  dconf write "/org/gnome/desktop/wm/keybindings/cycle-windows" "@as []"
-  dconf write "/org/gnome/desktop/wm/keybindings/cycle-windows-backward" "@as []"
-  dconf write "/org/gnome/desktop/wm/keybindings/move-to-workspace-last" "@as []"
-  dconf write "/org/gnome/desktop/wm/keybindings/switch-input-source" "@as []"
-  dconf write "/org/gnome/desktop/wm/keybindings/switch-input-source-backward" "@as []"
-  dconf write "/org/gnome/desktop/wm/keybindings/switch-to-workspace-last" "@as []"
-  dconf write "/org/gnome/mutter/keybindings/toggle-tiled-left" "@as []"
-  dconf write "/org/gnome/mutter/keybindings/toggle-tiled-right" "@as []"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/area-screenshot-clip" "@as []"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/logout" "@as []"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/magnifier" "@as []"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/screencast" "@as []"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/screenreader" "@as []"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/screenshot-clip" "@as []"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/window-screenshot-clip" "@as []"
-  dconf write "/org/gnome/shell/keybindings/focus-active-notification" "@as []"
-
   # interface preferences
   dconf write "/org/gnome/desktop/calendar/show-weekdate" "true"
   dconf write "/org/gnome/desktop/datetime/automatic-timezone" "true"
@@ -202,9 +203,16 @@ gnome(){
   dconf write "/org/gnome/shell/extensions/WallpaperSwitcher/frequency" "1200"
   dconf write "/org/gnome/shell/extensions/WallpaperSwitcher/wallpaper-path" "'/var/home/mid/portable/wallpapers/desktop'"
 
-  # keyboard bindings
-  dconf write "/org/gnome/desktop/wm/keybindings/close" "['<Super>q']"
-  dconf write "/org/gnome/desktop/wm/keybindings/minimize" "['<Super>w']"
+  # keyboard shortcuts
+  # Launchers
+  #   Settings
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/control-center" "['<Super>comma']"
+  #   Files @ Home Folder
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/home" "['<Super>f']"
+  #   Browser
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/www" "['<Super>b']"
+
+  # Navigation
   dconf write "/org/gnome/desktop/wm/keybindings/move-to-workspace-10" "['<Primary><Super>0']"
   dconf write "/org/gnome/desktop/wm/keybindings/move-to-workspace-1" "['<Primary><Super>1']"
   dconf write "/org/gnome/desktop/wm/keybindings/move-to-workspace-2" "['<Primary><Super>2']"
@@ -215,7 +223,6 @@ gnome(){
   dconf write "/org/gnome/desktop/wm/keybindings/move-to-workspace-7" "['<Primary><Super>7']"
   dconf write "/org/gnome/desktop/wm/keybindings/move-to-workspace-8" "['<Primary><Super>8']"
   dconf write "/org/gnome/desktop/wm/keybindings/move-to-workspace-9" "['<Primary><Super>9']"
-  dconf write "/org/gnome/desktop/wm/keybindings/panel-run-dialog" "['<Primary>space']"
   dconf write "/org/gnome/desktop/wm/keybindings/switch-to-workspace-10" "['<Super>0']"
   dconf write "/org/gnome/desktop/wm/keybindings/switch-to-workspace-1" "['<Super>1']"
   dconf write "/org/gnome/desktop/wm/keybindings/switch-to-workspace-2" "['<Super>2']"
@@ -226,19 +233,31 @@ gnome(){
   dconf write "/org/gnome/desktop/wm/keybindings/switch-to-workspace-7" "['<Super>7']"
   dconf write "/org/gnome/desktop/wm/keybindings/switch-to-workspace-8" "['<Super>8']"
   dconf write "/org/gnome/desktop/wm/keybindings/switch-to-workspace-9" "['<Super>9']"
-  dconf write "/org/gnome/desktop/wm/keybindings/toggle-fullscreen" "['<Primary><Super>m']"
-  # dconf write "/org/gnome/settings-daemon/plugins/media-keys/area-screenshot" "['<Primary><Super>BackSpace']"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/control-center" "['<Super>comma']"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/home" "['<Super>f']"
+
+  # Screen shots
+  dconf write "/org/gnome/shell/keybindings/show-screenshot-ui" "['<Control>grave']"
+
+  # Sound and Media
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/next" "['AudioForward']"
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/previous" "['AudioRewind']"
-  # dconf write "/org/gnome/settings-daemon/plugins/media-keys/window-screenshot" "['<Super>BackSpace']"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/www" "['<Super>b']"
-  dconf write "/org/gnome/shell/keybindings/toggle-message-tray" "['<Super>n']"
 
-  # # load gnome terminal profiles
-  # dconf load /org/gnome/terminal/legacy/profiles:/ < ./configs/gnome-terminal-profiles.dconf
+  # System
+  dconf write "/org/gnome/shell/keybindings/focus-active-notification" "@as []"
+  dconf write "/org/gnome/shell/keybindings/toggle-message-tray" "@as []"
+  dconf write "/org/gnome/desktop/wm/keybindings/panel-run-dialog" "['<Primary>space']"
 
+  # Typing
+  dconf write "/org/gnome/desktop/wm/keybindings/switch-input-source" "@as []"
+  dconf write "/org/gnome/desktop/wm/keybindings/switch-input-source-backward" "@as []"
+
+  # Windows
+  dconf write "/org/gnome/desktop/wm/keybindings/close" "['<Super>q']"
+  dconf write "/org/gnome/desktop/wm/keybindings/minimize" "['<Super>w']"
+  dconf write "/org/gnome/desktop/wm/keybindings/toggle-fullscreen" "['<Primary><Super>m']"
+  dconf write "/org/gnome/mutter/keybindings/toggle-tiled-right" "@as []"
+  dconf write "/org/gnome/mutter/keybindings/toggle-tiled-left" "@as []"
+
+  # Custom
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings" "[\
       '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/', \
       '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/', \
@@ -275,24 +294,6 @@ gnome(){
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/binding" "'<Super>E'"
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/command" "'flatpak run com.mattjakeman.ExtensionManager'"
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/name" "'Extensions'"
-
-echo "
-===========================================================================
- EXTENSIONS:
-===========================================================================
-  * AppIndicator
-  * Bluetooth Quick Connect
-  * Blur My SHell
-  * Caffeine
-  * Forge
-  * Just Perfection
-  * Launch New Instance
-  * Open Weather
-  * Simply Workspaces
-  * Wallpaper Switcher
-  * Weather O'Clock
-===========================================================================
-"
 
 }
 
