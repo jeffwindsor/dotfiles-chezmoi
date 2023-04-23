@@ -22,6 +22,9 @@ require('lazy').setup({
   -- auto save on focus change
   { 'pocco81/auto-save.nvim' },
 
+  -- git power
+  --{ 'tpope/vim-fugative', lazy = true },
+
   -- show git gutter
   { 'lewis6991/gitsigns.nvim', lazy = true },
 
