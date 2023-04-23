@@ -56,31 +56,35 @@ update_all(){
   freebsd-update fetch install
   pkg update
   pkg upgrade -y
-  pkg install -y beadm
+  #pkg install -y beadm
   reboot
 }
 
 user_software(){
   pkg install -y desktop-installer
+
   pkg install -y alacritty
   pkg install -y bat
+  pkg install -y chezmoi
   pkg install -y chromium firefox
   pkg install -y exa
   pkg install -y fd-find
   pkg install -y fortune-mod-freebsd-classic
   pkg install -y fzf
+  pkg install -y git
   pkg install -y helix
+  pkg install -y hs-hledger hs-ledger-ui hs-hledger-web
   pkg install -y neovim
   pkg install -y megacmd
   pkg install -y ripgrep
   pkg install -y starship
   pkg install -y spotify-tui
   pkg install -y tealdeer
-  pkg install -y topgrade
 
-  pkg install -y rust rust-analyzer
-  pkg install -y lazygit gitui
-  pkg install -y zeal
+  #pkg install -y topgrade
+  #pkg install -y rust rust-analyzer
+  #pkg install -y lazygit gitui
+  #pkg install -y zeal
 }
 
 menu
