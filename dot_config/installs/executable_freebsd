@@ -22,7 +22,8 @@ s) Add SSH Keys
 Select Step:  "
     read -r step
     case $step in
-      u) user_software ;;
+      u) desktop_env
+         user_software ;;
       g) git_repos ;;
       s) add_ssh_keys ;;
       0) update_all;;
@@ -60,9 +61,11 @@ update_all(){
   reboot
 }
 
-user_software(){
-  pkg install -y desktop-installer
+desktop_env(){
+  pkg install -y gnome
+}
 
+user_software(){
   pkg install -y alacritty
   pkg install -y bat
   pkg install -y chezmoi
