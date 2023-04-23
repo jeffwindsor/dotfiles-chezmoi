@@ -49,6 +49,7 @@ wk.register({
   },
   f = {
     name = 'files',
+    a = { ':Telescope file_browser path=%:p:h select_buffer=true', 'via browser telescope'},
     b = { ':NvimTreeToggle<CR>','via browser'},
     c = { ':Telescope find_files cwd=$XDG_CONFIG_HOME<CR>','in config directory'},
     d = { ':Telescope find_files cwd=$DOTFILES<CR>','in dotfiles directory'},

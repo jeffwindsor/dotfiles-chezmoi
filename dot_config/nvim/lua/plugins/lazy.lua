@@ -22,27 +22,24 @@ require('lazy').setup({
   -- auto save on focus change
   { 'pocco81/auto-save.nvim' },
 
-  -- swiss army knife of plugins
-  { 'echasnovski/mini.nvim',
-    version = '*',
-    lazy = true },
+  -- show git gutter
+  { 'lewis6991/gitsigns.nvim', lazy = true },
+
+  -- markdown via glow
+  { 'ellisonleao/glow.nvim', config = true, cmd = 'Glow'},
 
   -- vertical line hints for indentation
   { 'lukas-reineke/indent-blankline.nvim' },
 
-  -- fuzzy finder
-  { 'nvim-telescope/telescope.nvim',
-    dependencies = {'nvim-lua/plenary.nvim'},
-    version = '*',
-    lazy = true },
+  -- lua line
+  { 'nvim-lualine/lualine.nvim', dependencies = {'nvim-web-devicons'}},
 
-  -- key bindings popup menu
-  { 'folke/which-key.nvim',
-    lazt = true },
+  -- swiss army knife of plugins
+  { 'echasnovski/mini.nvim', version = '*', lazy = true },
 
-  -- file manager
-  { 'nvim-tree/nvim-tree.lua',
-    dependencies =  { 'nvim-tree/nvim-web-devicons' },
+  -- Autocompletion
+  { 'hrsh7th/nvim-cmp',
+    dependencies = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
     lazy = true },
 
   -- LSP Configuration & Plugins
@@ -50,9 +47,9 @@ require('lazy').setup({
     dependencies = { 'williamboman/mason.nvim', 'williamboman/mason-lspconfig.nvim', { 'j-hui/fidget.nvim', opts = {} }, 'folke/neodev.nvim', },
     lazy = true },
 
-  -- Autocompletion
-  { 'hrsh7th/nvim-cmp',
-    dependencies = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
+  -- file manager
+  { 'nvim-tree/nvim-tree.lua',
+    dependencies =  { 'nvim-tree/nvim-web-devicons' },
     lazy = true },
 
   -- Highlight, edit, and navigate code
@@ -60,20 +57,17 @@ require('lazy').setup({
     dependencies = { 'nvim-treesitter/nvim-treesitter-textobjects' },
     lazy = true },
 
+  -- fuzzy finder
+  { 'nvim-telescope/telescope.nvim',
+    dependencies = {'nvim-lua/plenary.nvim'},
+    version = '*',
+    lazy = true },
+
   -- auto adjust the tab length based on current files usage
-  { 'tpope/vim-sleuth',
-    lazy = true },
+  { 'tpope/vim-sleuth', lazy = true },
 
-  -- show git gutter
-  { 'lewis6991/gitsigns.nvim',
-    lazy = true },
-
-  -- markdown via glow
-  { 'ellisonleao/glow.nvim', config = true, cmd = 'Glow'},
-
-  -- lua line
-  { 'nvim-lualine/lualine.nvim',
-      dependencies = {'nvim-web-devicons'}},
+  -- key bindings popup menu
+  { 'folke/which-key.nvim', lazy = true },
 
   -- --------------------------------------------------------------------------
   -- color schemes
@@ -88,6 +82,7 @@ require('lazy').setup({
 require('plugins.auto-save')
 require('plugins.gitsigns')
 require('plugins.indent-blankline')
+require('plugins.lualine')
 require('plugins.mini')
 require('plugins.nvim-cmp')
 require('plugins.nvim-lsp')
@@ -95,7 +90,6 @@ require('plugins.nvim-tree')
 require('plugins.nvim-treesitter')
 require('plugins.telescope')
 require('plugins.which-key')
-require('plugins.lualine')
 
 
 --require("lspconfig").lua_ls.setup {}
