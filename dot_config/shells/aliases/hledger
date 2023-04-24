@@ -1,5 +1,5 @@
 hledger-env(){
-  LEDGER_DIR=$HOME/portable/financials/$1
+  LEDGER_DIR=$HOME/Source/github.com/jeffwindsor/financials/$1
   export LEDGER_FILE=$LEDGER_DIR/finances.journal
   cd $LEDGER_DIR/imports
 }
