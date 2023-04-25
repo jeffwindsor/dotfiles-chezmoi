@@ -4,9 +4,11 @@ hledger-env(){
   cd $LEDGER_DIR/imports
 }
 
+# accounts
 alias h-p="hledger-env personal"
 alias h-b="hledger-env wfp"
 
+# filters
 alias unknown="hledger -f- -I print unknown"
 
 # application shortcuts
@@ -14,23 +16,13 @@ alias hl="hledger"
 alias hu="hledger-ui"
 alias hw="hledger-web"
 
-# importing information
 alias hi="hledger import --rules-file import.rules"
 alias hd="hledger import --dry --rules-file import.rules"
 
-# report income statement
-alias inc="hledger inc -M"
-alias inc2="hledger inc -M -2"
-alias inc3="hledger inc -M -3"
-
-# report balance statement
-alias bs="hledger bs -M"
-alias bs2="hledger bs -M -2"
-alias bs3="hledger bs -M -3"
-
-# report balance sheet and budget
-alias budget="hledger bal --budget -M"
-alias bal="hledger bal -M"
-alias bal2="hledger bal -M -2"
-alias bal3="hledger bal -M -3"
+# reports
+alias h-inc="hledger inc -M"
+alias h-bs="hledger bs -M"
+alias h-bud="hledger bal --budget -M"
+alias h-bal="hledger bal -M"
+alias h-cf="hledger cf -M"
 
