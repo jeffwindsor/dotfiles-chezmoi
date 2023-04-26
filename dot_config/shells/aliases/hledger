@@ -27,12 +27,12 @@ alias hcf='hledger cashflow -M'
 alias hi="hledger import --rules-file import.rules"
 alias hd="hledger import --dry --rules-file import.rules"
 
-
 # filters
 alias unknown="hledger -f- -I print unknown"
 
 # application shortcuts
 alias hl="hledger"
-alias hu="hledger-ui"
+alias hu="hledger-ui --watch"
+alias hur="hledger-ui --watch --register"
 alias hw="hledger-web"
 
