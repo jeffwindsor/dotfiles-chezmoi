@@ -22,9 +22,6 @@ require('lazy').setup({
   -- auto save on focus change
   { 'pocco81/auto-save.nvim' },
 
-  -- git power
-  --{ 'tpope/vim-fugative', lazy = true },
-
   -- show git gutter
   { 'lewis6991/gitsigns.nvim', lazy = true },
 
@@ -68,6 +65,12 @@ require('lazy').setup({
 
   -- auto adjust the tab length based on current files usage
   { 'tpope/vim-sleuth', lazy = true },
+
+  -- git power
+  --{ 'tpope/vim-fugative', lazy = true },
+
+  -- tmux integration
+  { 'christoomey/vim-tmux-navigator', lazy = false },
 
   -- key bindings popup menu
   { 'folke/which-key.nvim', lazy = true },
