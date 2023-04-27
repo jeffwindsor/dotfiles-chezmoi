@@ -32,7 +32,7 @@ require('lazy').setup({
   { 'lukas-reineke/indent-blankline.nvim' },
 
   -- lua line
-  { 'nvim-lualine/lualine.nvim', dependencies = {'nvim-web-devicons'}},
+  -- { 'nvim-lualine/lualine.nvim', dependencies = {'nvim-web-devicons'}},
 
   -- swiss army knife of plugins
   { 'echasnovski/mini.nvim', version = '*', lazy = true },
@@ -88,7 +88,7 @@ require('lazy').setup({
 require('plugins.auto-save')
 require('plugins.gitsigns')
 require('plugins.indent-blankline')
-require('plugins.lualine')
+-- require('plugins.lualine')
 require('plugins.mini')
 require('plugins.nvim-cmp')
 require('plugins.nvim-lsp')
