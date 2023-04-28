@@ -6,9 +6,9 @@ hledger-defaults(){
   cd $LEDGER_DIR/imports
 }
 #   personal account
-alias h2p="defaults personal"
+alias hp="defaults personal"
 #   windsor family practice account
-alias h2b="defaults wfp"
+alias hb="defaults wfp"
 
 # actions on account
 alias hct='hledger accounts'
