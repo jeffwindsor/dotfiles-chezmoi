@@ -11,24 +11,24 @@ alias hp="hledger-defaults personal"
 alias hb="hledger-defaults wfp"
 
 # actions on account
-alias hct='hledger accounts'
-alias hty='hledger activity'
+#alias hclose='hledger close'
 alias hareg='hledger aregister'
 alias hbal='hledger balance -M'
-#alias hclose='hledger close'
+alias hbs='hledger bs -M'
+alias hbse='hledger bse -M'
+alias hcf='hledger cashflow -M'
+alias hct='hledger accounts'
+alias hd="hledger import --dry --rules-file import.rules"
+alias hi="hledger import --rules-file import.rules"
+alias hinc='hledger is -M'
 alias hprint='hledger print'
 alias hreg='hledger register'
 alias hstats='hledger stats'
 alias htags='hledger tags'
-alias hbs='hledger bs -M'
-alias hbse='hledger bse -M'
-alias hinc='hledger is -M'
-alias hcf='hledger cashflow -M'
-alias hi="hledger import --rules-file import.rules"
-alias hd="hledger import --dry --rules-file import.rules"
+alias hty='hledger activity'
 
 # filters
-alias unknown="hledger -f- -I print unknown"
+alias hunknown="hledger -f- -I print unknown"
 
 # application shortcuts
 alias hl="hledger"

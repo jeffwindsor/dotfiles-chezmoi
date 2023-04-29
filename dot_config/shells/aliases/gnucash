@@ -1,0 +1,2 @@
+alias gcp="cd $HOME/Source/github.com/jeffwindsor/financials/gnucash/home/imports"
+alias gcb="cd $HOME/Source/github.com/jeffwindsor/financials/gnucash/business/imports"
