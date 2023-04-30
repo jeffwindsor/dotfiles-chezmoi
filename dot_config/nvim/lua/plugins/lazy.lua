@@ -48,9 +48,12 @@ require('lazy').setup({
     lazy = true },
 
   -- file manager
-  { 'nvim-tree/nvim-tree.lua',
-    dependencies =  { 'nvim-tree/nvim-web-devicons' },
-    lazy = true },
+  { "luukvbaal/nnn.nvim",
+    config = function() require("nnn").setup() end
+  },
+  -- { 'nvim-tree/nvim-tree.lua',
+  --   dependencies =  { 'nvim-tree/nvim-web-devicons' },
+  --   lazy = true },
 
   -- Highlight, edit, and navigate code
   { 'nvim-treesitter/nvim-treesitter',
@@ -92,7 +95,7 @@ require('plugins.indent-blankline')
 require('plugins.mini')
 require('plugins.nvim-cmp')
 require('plugins.nvim-lsp')
-require('plugins.nvim-tree')
+--require('plugins.nvim-tree')
 require('plugins.nvim-treesitter')
 require('plugins.telescope')
 require('plugins.which-key')
