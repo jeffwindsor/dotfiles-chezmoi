@@ -48,12 +48,7 @@ require('lazy').setup({
     lazy = true },
 
   -- file manager
-  { "luukvbaal/nnn.nvim",
-    config = function() require("nnn").setup() end
-  },
-  -- { 'nvim-tree/nvim-tree.lua',
-  --   dependencies =  { 'nvim-tree/nvim-web-devicons' },
-  --   lazy = true },
+    {"is0n/fm-nvim", lazy = false},
 
   -- Highlight, edit, and navigate code
   { 'nvim-treesitter/nvim-treesitter',

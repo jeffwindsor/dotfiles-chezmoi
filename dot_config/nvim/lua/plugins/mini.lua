@@ -9,5 +9,9 @@ require('mini.cursorword').setup()      -- highlight word under cursor matches
 require('mini.jump2d').setup()          -- leap like jumps / finds
 require('mini.move').setup()
 require('mini.surround').setup()        -- surrond object with ({', etc
-require('mini.tabline').setup()
+require('mini.tabline').setup(
+  {  config = {
+      show_icons = true,
+      set_vim_settings = true,
+      tabpage_section = 'left'}})
 require('mini.trailspace').setup()      -- highlights trailing whitespace
