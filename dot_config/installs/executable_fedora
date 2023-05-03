@@ -13,14 +13,15 @@ echo -ne "
 \e[0m"
 
 # update dnf config
-echo "max_parallel_downloads=10" | sudo tee -a /etc/dnf/dnf.conf
+echo "max_parallel_downloads=20" | sudo tee -a /etc/dnf/dnf.conf
 echo "defaultyes=True" | sudo tee -a /etc/dnf/dnf.conf
-echo "fastestmirror=True" | sudo tee -a /etc/dnf/dnf.conf
+echo "fastestmirror=False" | sudo tee -a /etc/dnf/dnf.conf
+echo "cacheonly=True" | sudo tee -a /etc/dnf/dnf.conf
+
 # add rpm fusion repositories
 sudo dnf -y install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
 sudo dnf -y install https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 sudo dnf -y upgrade
-
 
 ###############################################################################
 # dnf installs
