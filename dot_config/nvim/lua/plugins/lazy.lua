@@ -26,7 +26,7 @@ require('lazy').setup({
   { 'lewis6991/gitsigns.nvim', lazy = true },
 
   -- markdown via glow
-  { 'ellisonleao/glow.nvim', config = true, cmd = 'Glow'},
+  -- { 'ellisonleao/glow.nvim', config = true, cmd = 'Glow'},
 
   -- vertical line hints for indentation
   { 'lukas-reineke/indent-blankline.nvim' },
@@ -47,7 +47,7 @@ require('lazy').setup({
     dependencies = { 'williamboman/mason.nvim', 'williamboman/mason-lspconfig.nvim', { 'j-hui/fidget.nvim', opts = {} }, 'folke/neodev.nvim', },
     lazy = true },
 
-  -- file manager
+  -- terminal app wrapper : lazygit, lf, etc.
     {"is0n/fm-nvim", lazy = false},
 
   -- Highlight, edit, and navigate code
@@ -68,7 +68,7 @@ require('lazy').setup({
   --{ 'tpope/vim-fugative', lazy = true },
 
   -- tmux integration
-  { 'christoomey/vim-tmux-navigator', lazy = false },
+  --{ 'christoomey/vim-tmux-navigator', lazy = false },
 
   -- key bindings popup menu
   { 'folke/which-key.nvim', lazy = true },
