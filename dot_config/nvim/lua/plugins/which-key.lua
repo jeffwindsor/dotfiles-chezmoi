@@ -2,12 +2,11 @@
 -- WHICH KEY (EMACS LIKE POPUP MENUS)
 -- ----------------------------------------------------------------------------
 local buffer_next = ':bnext<CR>'
-local load_config = ':luafile %<CR>'
 local wk = require('which-key')
 wk.setup()
 wk.register({
   ["<leader>"] = { ':Telescope spell_suggest<CR>', 'spelling'},
-  ["."] = { load_config .. ':echo "Configuration Re-Loaded"<CR>', 'load config'},
+  ["."] = { ':args $HOME/.config/nvim/lua/plugins/lazy.lua $HOME/.config/nvim/lua/plugins/which-key.lua<CR> :e args', 'edit config'},
   [","] = {
     name = 'commands',
     [","] = { ':Telescope commands<CR>','search commands'},
