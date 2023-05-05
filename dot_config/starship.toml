@@ -31,8 +31,8 @@ format = "[$all_status$ahead_behind]($style) "
 [jobs]
 disabled = false
 number_threshold = 1
-style = "dimmed blue"
-format = "[<$number>]($style)"
+style = "dimmed green"
+format = "[JOBS:$number]($style) "
 
 [shell]
 fish_indicator = "🐟"
@@ -44,8 +44,8 @@ disabled = false
 
 [shlvl]
 disabled = false
-sytle = "dimmed green"
-format = "[$shlvl]($style) "
+style = "dimmed green"
+format = "[DEPTH:$shlvl]($style) "
 
 [time]
 disabled = false
