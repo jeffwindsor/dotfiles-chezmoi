@@ -12,66 +12,55 @@ echo -ne "
 ╚═╝     ╚══════╝╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
 \e[0m"
 
-# update dnf config
-echo "max_parallel_downloads=20" | sudo tee -a /etc/dnf/dnf.conf
-echo "defaultyes=True" | sudo tee -a /etc/dnf/dnf.conf
-echo "fastestmirror=False" | sudo tee -a /etc/dnf/dnf.conf
-echo "cacheonly=True" | sudo tee -a /etc/dnf/dnf.conf
+  # update dnf config
+  echo "max_parallel_downloads=10" | sudo tee -a /etc/dnf/dnf.conf
+  echo "defaultyes=True" | sudo tee -a /etc/dnf/dnf.conf
+  echo "fastestmirror=True" | sudo tee -a /etc/dnf/dnf.conf
+  # add rpm fusion repositories
+  sudo dnf -y install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
+  sudo dnf -y install https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+  sudo dnf -y upgrade
 
-# add rpm fusion repositories
-sudo dnf -y install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
-sudo dnf -y install https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-sudo dnf -y upgrade
 
 ###############################################################################
 # dnf installs
 ###############################################################################
 
-sudo dnf -y install alacritty
-sudo dnf -y install bat
-sudo dnf -y install exa
-sudo dnf -y install entr
-sudo dnf -y install fd-find
-sudo dnf -y install fortune-mod
-sudo dnf -y install fzf
-sudo dnf -y install gitui
-sudo dnf -y install hledger hledger-ui hledger-web
-sudo dnf -y install lf
-sudo dnf -y install ripgrep
-sudo dnf -y install tealdeer
-sudo dnf -y install jetbrains-mono-fonts
+  sudo dnf -y install alacritty
+  sudo dnf -y install bat
+  sudo dnf -y install exa
+  sudo dnf -y install entr
+  sudo dnf -y install fd-find
+  sudo dnf -y install fortune-mod
+  sudo dnf -y install fzf
+  sudo dnf -y install gitui
+  sudo dnf -y install hledger hledger-ui hledger-web
+  sudo dnf -y install ripgrep
+  sudo dnf -y install tealdeer
+  sudo dnf -y install jetbrains-mono-fonts
 
-# neovim
-sudo dnf -y install gcc "gcc-c++" glibc-all-langpacks
-sudo dnf -y install neovim && git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+  # neovim
+  sudo dnf -y install gcc "gcc-c++" glibc-all-langpacks
+  sudo dnf -y install neovim && git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 
-# helix editor
-sudo dnf -y copr enable varlad/helix
-sudo dnf -y install helix
+  # helix editor
+  sudo dnf -y copr enable varlad/helix
+  sudo dnf -y install helix
 
-# starship prompt
-sudo dnf copr enable atim/starship
-sudo dnf -y install starship
+  #rust
+  sudo dnf -y install openssl openssl-devel
+  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+  source "$HOME/.cargo/env"
+  cargo install cargo-update
+  cargo install topgrade              # upgrade all things
+  cargo install --locked zellij       # tmux++
+  cargo install kalker                # terminal based calculator
+  cargo install bottom                # system monitor (like htop)
+  cargo install ddh                   # duplicate file finder
+  sudo dnf -y install cmake && cargo install starship --version 1.10.3
 
-# lf and zellij
-sudo dnf copr enable pennbauman/ports
-sudo dnf -y install lf
-sudo dnf -y install zellij
-
-#rust
-sudo dnf -y install openssl openssl-devel
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-source "$HOME/.cargo/env"
-cargo install cargo-update
-cargo install topgrade              # upgrade all things
-cargo install --locked zellij       # tmux++
-cargo install kalker                # terminal based calculator
-cargo install bottom                # system monitor (like htop)
-cargo install ddh                   # duplicate file finder
-sudo dnf -y install cmake && cargo install starship --version 1.10.3
-
-# lang servers
-sudo dnf -y install pylsp rust-analyzer
+  # lang servers
+  sudo dnf -y install pylsp rust-analyzer
 
 ###############################################################################
 # flatpak installs
@@ -85,7 +74,6 @@ sudo dnf -y install pylsp rust-analyzer
   flatpak install -y "com.valvesoftware.Steam"
   flatpak install -y "org.gnome.Photos"
   flatpak install -y "org.gnome.Podcasts"
-  flatpak install -y "org.gnucash.GnuCash"
 
   # flatpak install -y "com.discordapp.Discord"
   # flatpak install -y "org.zealdocs.Zeal"                          # dev docs
