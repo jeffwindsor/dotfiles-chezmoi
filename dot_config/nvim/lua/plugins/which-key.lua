@@ -7,7 +7,7 @@ local wk = require('which-key')
 wk.setup()
 wk.register({
   ["<leader>"] = { ':Telescope spell_suggest<CR>', 'spelling'},
-  ["."] = { load_config .. ':echo "Configuration Re-Loaded"<CR>', 'load config'},
+  ["."] = { ':arga $HOME/.config/nvim/lua/plugins/lazy.lua $HOME/.config/nvim/lua/plugins/which-key.lua<CR>:e arg<CR>', 'load config'},
   [","] = {
     name = 'commands',
     [","] = { ':Telescope commands<CR>','search commands'},
