@@ -6,4 +6,4 @@ require('config.keymaps')
 require('plugins.lazy')
 
 -- colorscheme default
-vim.cmd 'colorscheme tokyonight-storm'
+vim.cmd 'colorscheme tokyonight-night'
