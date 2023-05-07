@@ -1,5 +1,5 @@
 format = """
-[┌ ](blue)$container$directory$git_branch$git_status$jobs$shlvl
+[┌ ](blue)$directory$git_branch$git_status$jobs$container
 [└ ](blue)$shell$time$cmd_duration$character"""
 
 #right_format = "(purple)$shell"
@@ -8,13 +8,6 @@ format = """
 success_symbol = "[:](green)"
 error_symbol   = "[:](red)"
 vicmd_symbol   = "[>](yellow)"
-
-[cmd_duration]
-disabled=false
-
-[container]
-style = "cyan"
-disabled=false
 
 [directory]
 style = "blue"
@@ -25,14 +18,11 @@ symbol = ""
 style = "cyan"
 
 [git_status]
-style = "dimmed yellow"
-format = "[$all_status$ahead_behind]($style) "
+format = '([\[](dimmed yellow)[$all_status$ahead_behind](yellow)[\]](dimmed yellow)) '
 
-[jobs]
-disabled = false
-number_threshold = 1
-style = "dimmed green"
-format = "[JOBS:$number]($style) "
+[time]
+disabled=false
+format = '[$time](dimmed blue) '
 
 [shell]
 fish_indicator = "🐟"
@@ -42,13 +32,14 @@ nu_indicator = "n"
 style = "dimmed blue"
 disabled = false
 
-[shlvl]
-disabled = false
-style = "dimmed green"
-format = "[DEPTH:$shlvl]($style) "
+[cmd_duration]
+disabled=false
 
-[time]
-disabled = false
-style = "dimmed blue"
-format = "[$time]($style) "
+[jobs]
+disabled=false
+number_threshold=1
+format='([\[](dimmed blue)[$number](dimmed blue)[\]](dimmed blue))'
 
+[container]
+style = "cyan"
+disabled=false
