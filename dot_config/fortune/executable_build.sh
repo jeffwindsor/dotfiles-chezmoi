@@ -14,3 +14,8 @@ do
   rm -f ${file}.dat
   strfile -c % ${file} ${file}.dat
 done
+
+# move to sub directory
+rm -rf compiled
+mkdir -p compiled
+mv *.dat ./compiled
