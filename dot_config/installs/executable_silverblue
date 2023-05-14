@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-cd "$(dirname "${0}")"
+cd "$(dirname "${0}")" || exit
 
 menu(){
   clear
@@ -16,7 +16,6 @@ menu(){
    ════════════════════════════════════════
     su) System - Os-Tree [U]pdate
     sl) System - Os-Tree Add [L]ayers
-    sh) System - Use Flathu[b]
     sf) System - Install [F]latpak
 \e[1;32m
     us) Userland - Ssh Keygen
@@ -41,7 +40,6 @@ menu(){
           toolbox create
           systemctl reboot
           ;;
-      sh) use_flathub ;;
       sf) flatpaks ;;
 
       us) ssh-keygen -t ed25519 -C "jeff.windsor@gmail.com" ;;
@@ -62,8 +60,8 @@ dnf_setup(){
   echo "defaultyes=True" | sudo tee -a /etc/dnf/dnf.conf
   echo "fastestmirror=True" | sudo tee -a /etc/dnf/dnf.conf
   # add rpm fusion repositories
-  sudo dnf -y install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
-  sudo dnf -y install https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+  sudo dnf -y install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-"$(rpm -E %fedora)".noarch.rpm
+  sudo dnf -y install https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-"$(rpm -E %fedora)".noarch.rpm
   sudo dnf -y upgrade
 }
 
@@ -75,15 +73,15 @@ dotfiles(){
   sudo mv ./bin/chezmoi /usr/local/bin/
 
   # re-build fortune dats
-  $HOME/.config/fortune/build.sh
+  "$HOME"/.config/fortune/build.sh
 }
 
 git-clones(){
-  mkdir -p $HOME/Source
-  mkdir -p $HOME/Source/gitlab.com/
-  mkdir -p $HOME/Source/github.com/
+  mkdir -p "$HOME"/Source
+  mkdir -p "$HOME"/Source/gitlab.com/
+  mkdir -p "$HOME"/Source/github.com/
 
-  git clone git@github.com:jeffwindsor/startpage.git $HOME/Source/github.com/jeffwindsor/startpage
+  git clone git@github.com:jeffwindsor/startpage.git "$HOME"/Source/github.com/jeffwindsor/startpage
 }
 
 tools(){
@@ -120,7 +118,7 @@ tools(){
   # manual installs
   echo "Install MEGA-SYNC manually: "
   echo "  download from https://mega.io/desktop#downloadapps"
-  read -r response
+  read -r 
   echo
 }
 
@@ -151,14 +149,6 @@ flatpaks(){
   # flatpak install -y "net.sourceforge.Klavaro"                    # typing
   # flatpak install -y "io.github.endless_sky.endless_sky"
 
-}
-
-use_flathub(){
-  # replace fedora flatpak repo with flathub
-  flatpak remote-modify --no-filter --enable flathub
-  flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-  flatpak install --reinstall flathub $(flatpak list --app-runtime=org.fedoraproject.Platform --columns=application | tail -n +1 )
-  flatpak remote-delete fedora
 }
 
 extensions(){
@@ -291,7 +281,7 @@ gnome(){
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/name" "'Power-Off'"
 
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/binding" "'<Ctrl><Super>t'"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/command" "'env WINIT_UNIX_BACKEND=x11 alacritty --config-file $HOME/.config/alacritty/alacritty-ostree.yml'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/command" "'env WINIT_UNIX_BACKEND=x11 alacritty --config-file \"$HOME\"/.config/alacritty/alacritty-ostree.yml'"
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/name" "'OSTree'"
 
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/binding" "'<Super>t'"

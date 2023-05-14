@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
-cd "$(dirname "${0}")"
-
+cd "$(dirname "${0}")" || exit
 clear
 echo -ne "
  \e[34m
@@ -19,8 +18,8 @@ echo "fastestmirror=False" | sudo tee -a /etc/dnf/dnf.conf
 echo "cacheonly=True" | sudo tee -a /etc/dnf/dnf.conf
 
 # add rpm fusion repositories
-sudo dnf -y install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
-sudo dnf -y install https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+sudo dnf -y install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-"$(rpm -E %fedora)".noarch.rpm
+sudo dnf -y install https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-"$(rpm -E %fedora)".noarch.rpm
 sudo dnf -y upgrade
 
 ###############################################################################
@@ -38,6 +37,7 @@ sudo dnf -y install gitui
 sudo dnf -y install hledger hledger-ui hledger-web
 sudo dnf -y install lf
 sudo dnf -y install ripgrep
+sudo dnf -y install shellcheck
 sudo dnf -y install tealdeer
 sudo dnf -y install jetbrains-mono-fonts
 
@@ -210,7 +210,7 @@ sudo dnf -y install zellij
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/name" "'Power-Off'"
 
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/binding" "'<Ctrl><Super>t'"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/command" "'env WINIT_UNIX_BACKEND=x11 alacritty --config-file $HOME/.config/alacritty/alacritty-ostree.yml -e bash -c \"SHELL=/usr/bin/zsh toolbox enter\"'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/command" "'env WINIT_UNIX_BACKEND=x11 alacritty --config-file \"$HOME\"/.config/alacritty/alacritty-ostree.yml -e bash -c \"SHELL=/usr/bin/zsh toolbox enter\"'"
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/name" "'OSTree'"
 
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/binding" "'<Super>t'"
@@ -232,7 +232,7 @@ sudo dnf -y install zellij
   sudo mv ./bin/chezmoi /usr/local/bin/
 
   # re-build fortune dats
-  $HOME/.config/fortune/build.sh
+  "$HOME"/.config/fortune/build.sh
 
 ###############################################################################
 # ssh key
@@ -242,16 +242,16 @@ eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_ed25519
 
 echo "Add ssh public key to Github"
-read -r response
+read -r 
 
 ###############################################################################
 # git repos
 ###############################################################################
-  mkdir -p $HOME/Source
-  mkdir -p $HOME/Source/gitlab.com/
-  mkdir -p $HOME/Source/github.com/
+  mkdir -p "$HOME"/Source
+  mkdir -p "$HOME"/Source/gitlab.com/
+  mkdir -p "$HOME"/Source/github.com/
 
-  git clone git@github.com:jeffwindsor/startpage.git $HOME/Source/github.com/jeffwindsor/startpage
+  git clone git@github.com:jeffwindsor/startpage.git "$HOME"/Source/github.com/jeffwindsor/startpage
 
 echo "
 ===========================================================================

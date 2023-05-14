@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-cd "$(dirname "${0}")"
+cd "$(dirname "${0}")" || exit
 
 menu(){
   while :
@@ -36,11 +36,11 @@ Select Step:  "
 }
 
 git_repos(){
-  mkdir -p $HOME/Source
-  mkdir -p $HOME/Source/gitlab.com/
-  mkdir -p $HOME/Source/github.com/
+  mkdir -p "$HOME"/Source
+  mkdir -p "$HOME"/Source/gitlab.com/
+  mkdir -p "$HOME"/Source/github.com/
 
-  git clone git@github.com:jeffwindsor/startpage.git $HOME/Source/github.com/jeffwindsor/startpage
+  git clone git@github.com:jeffwindsor/startpage.git "$HOME"/Source/github.com/jeffwindsor/startpage
 }
 
 add_ssh_keys(){
