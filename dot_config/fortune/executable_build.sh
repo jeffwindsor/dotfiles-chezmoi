@@ -1,21 +1,23 @@
 #!/usr/bin/env bash
 
-# set working directory to script location
-cd "$(dirname "$0")"
+# remove old fortune files
+sudo rm -f /usr/share/games/fortune/*
 
-# get all files with no extension
+# get all files with no extension in current directory
+cd "$(dirname "$0")"
 shopt -s extglob
 files=(!(*.*))
 
 # compile fortune files
 for file in "${files[@]}"
 do
-  echo; echo "compiling $file"
+  echo "compiling $file"
   rm -f ${file}.dat
   strfile -c % ${file} ${file}.dat
-done
 
-# move to sub directory
-rm -rf compiled
-mkdir -p compiled
-mv *.dat ./compiled
+  echo "copying $file and $file.dat"
+  sudo cp ${file} /usr/share/games/fortune/
+  sudo mv ${file}.dat /usr/share/games/fortune/
+
+  echo
+done
