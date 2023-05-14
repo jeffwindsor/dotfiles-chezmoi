@@ -96,6 +96,7 @@ tools(){
   sudo dnf -y install fzf
   sudo dnf -y install gitui
   sudo dnf -y install hledger hledger-ui hledger-web
+  sudo dnf -y install lf
   sudo dnf -y install ripgrep
   sudo dnf -y install tealdeer
   sudo dnf -y install jetbrains-mono-fonts
@@ -108,21 +109,14 @@ tools(){
   sudo dnf -y copr enable varlad/helix
   sudo dnf -y install helix
 
-  #rust
-  sudo dnf -y install openssl openssl-devel
-  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-  source "$HOME/.cargo/env"
-  cargo install cargo-update
-  cargo install topgrade              # upgrade all things
-  cargo install --locked zellij       # tmux++
-  cargo install kalker                # terminal based calculator
-  cargo install bottom                # system monitor (like htop)
-  cargo install ddh                   # duplicate file finder
-  sudo dnf -y install cmake && cargo install starship --version 1.10.3
+  # starship prompt
+  sudo dnf copr enable atim/starship
+  sudo dnf -y install starship
 
-  # lang servers
-  sudo dnf -y install pylsp rust-analyzer
-
+  # lf and zellij
+  sudo dnf copr enable pennbauman/ports
+  sudo dnf -y install lf
+  sudo dnf -y install zellij
   # manual installs
   echo "Install MEGA-SYNC manually: "
   echo "  download from https://mega.io/desktop#downloadapps"
@@ -134,16 +128,29 @@ flatpaks(){
   flatpak install -y "com.mattjakeman.ExtensionManager"           # improved extension manager
   flatpak install -y "com.github.tchx84.Flatseal"                 # flatpak sec manager
   flatpak install -y "com.gitlab.davem.ClamTk"                    # virus
-  flatpak install -y "com.google.Chrome"
-  flatpak install -y "com.spotify.Client"
-  flatpak install -y "com.valvesoftware.Steam"
-  flatpak install -y "org.gnome.Photos"
-  flatpak install -y "org.gnome.Podcasts"
+  flatpak install -y "org.gnome.Firmware"
+  flatpak install -y "org.gnome.seahorse.Application"
 
+  sudo dnf remove Firefox
+  flatpak install -y "com.google.Chrome"
+  flatpak install -y "org.chromium.Chromium"
+
+  flatpak install -y "md.obsidian.Obsidian"
+  flatpak install -y "com.spotify.Client"
+  flatpak install -y "org.gnome.Podcasts"
+  flatpak install -y "org.videolan.VLC"
+
+  flatpak install -y "org.gnucash.GnuCash"
+  flatpak install -y "com.gitlab.newsflash"
+
+
+  # flatpak install -y "com.valvesoftware.Steam"
+  # flatpak install -y "org.gnome.Photos"
   # flatpak install -y "com.discordapp.Discord"
   # flatpak install -y "org.zealdocs.Zeal"                          # dev docs
   # flatpak install -y "net.sourceforge.Klavaro"                    # typing
   # flatpak install -y "io.github.endless_sky.endless_sky"
+
 }
 
 use_flathub(){

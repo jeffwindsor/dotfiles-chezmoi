@@ -75,8 +75,10 @@ user_software(){
   pkg install -y fortune-mod-freebsd-classic
   pkg install -y fzf
   pkg install -y git
+  pkg install -y gnucash
   pkg install -y helix
-  pkg install -y hs-hledger hs-ledger-ui hs-hledger-web
+  # pkg install -y hs-hledger hs-ledger-ui hs-hledger-web
+  pkg install -y lf
   pkg install -y neovim
   pkg install -y megacmd
   pkg install -y ripgrep
