@@ -2,10 +2,7 @@
 cd "$(dirname "${0}")" || exit
 
 menu(){
-  while :
-  do
-    clear
-    echo -ne "
+  echo -ne "
 
 ███████╗██████╗ ███████╗███████╗██████╗ ███████╗██████╗
 ██╔════╝██╔══██╗██╔════╝██╔════╝██╔══██╗██╔════╝██╔══██╗
@@ -21,19 +18,18 @@ s) Add SSH Keys
 0) Update All (reboots)
 
 Select Step:  "
-    read -r step
-    case $step in
-      d) desktop_env ;;
-      u) user_software ;;
-      g) git_repos ;;
-      s) ssh_keys ;;
-      0) update_all;;
-      *)
-        echo "Not a valid option"
-        exit 1
-        ;;
-    esac
-  done
+  read -r step
+  case $step in
+    d) desktop_env ;;
+    u) user_software ;;
+    g) git_repos ;;
+    s) ssh_keys ;;
+    0) update_all;;
+    *)
+      echo "Not a valid option"
+      exit 1
+      ;;
+  esac
 }
 
 git_repos(){
@@ -210,6 +206,25 @@ desktop_env(){
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/binding" "'<Super>E'"
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/command" "'flatpak run com.mattjakeman.ExtensionManager'"
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/name" "'Extensions'"
+
+echo "
+===========================================================================
+ EXTENSIONS:
+===========================================================================
+  * AppIndicator
+  * Blur My Shell
+  * Caffeine
+  * Executor (task bar fortunes)
+  * Forge
+  * Just Perfection
+  * Launch New Instance
+  * Spacebar
+  * Wallpaper Switcher
+===========================================================================
+  # manual installs
+  Install MEGA-SYNC manually:
+  download from https://mega.io/desktop#downloadapps
+"
 
 }
 
