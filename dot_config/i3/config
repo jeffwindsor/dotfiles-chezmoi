@@ -1,20 +1,7 @@
+#####################################################################################
 # i3 config file (v4)
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
-#
-# shift       Shift_L (0x32),  Shift_R (0x3e)
-# lock        Caps_Lock (0x42)
-# control     Control_L (0x25),  Control_R (0x69)
-# mod1        Alt_L (0x40),  Alt_R (0x6c),  Alt_L (0xcc),  Meta_L (0xcd)
-# mod2        Num_Lock (0x4d)
-# mod3        ISO_Level5_Shift (0xcb)
-# mod4        Super_L (0x85),  Super_R (0x86),  Super_L (0xce),  Hyper_L (0xcf)
-# mod5        ISO_Level3_Shift (0x5c)
-
-set $m  Mod4
-# modification chords
-set $mc $m+control
-set $ma $m+mod1
-set $ms $m+shift
+#####################################################################################
 
 # workspace names
 set $ws1 "1"
@@ -28,10 +15,13 @@ set $ws8 "8"
 set $ws9 "9"
 set $ws10 "10"
 
-#####################################################################################
 #font pango:JetBrainsMono Nerd Font 16
-font pango:Catarell 14
+font            pango:Catarell 14
+default_border  pixel 3
 
+################################################################################
+# auto-starts
+################################################################################
 # Start XDG autostart .desktop files using dex. See also https://wiki.archlinux.org/index.php/XDG_Autostart
 exec --no-startup-id dex-autostart --autostart --environment i3
 
@@ -41,26 +31,44 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 # NetworkManager is the most popular way to manage wireless networks on Linux, and nm-applet is a desktop environment-independent system tray GUI for it.
 exec --no-startup-id nm-applet
 
-#####################################################################################
-bindsym $m+Return     exec alacritty
-bindsym $m+space      exec "rofi -modi drun,run -show drun"
+
+################################################################################
+# keybindings
+################################################################################
+# shift       Shift_L (0x32),  Shift_R (0x3e)
+# lock        Caps_Lock (0x42)
+# control     Control_L (0x25),  Control_R (0x69)
+# mod1        Alt_L (0x40),  Alt_R (0x6c),  Alt_L (0xcc),  Meta_L (0xcd)
+# mod2        Num_Lock (0x4d)
+# mod3        ISO_Level5_Shift (0xcb)
+# mod4        Super_L (0x85),  Super_R (0x86),  Super_L (0xce),  Hyper_L (0xcf)
+# mod5        ISO_Level3_Shift (0x5c)
+
+set $m  Mod4
+set $mc Mod4+Control
+set $ma Mod4+Mod1
+set $ms Mod4+Shift
+
+bindsym $m+Return     exec "alacritty"
+bindsym $m+space      exec "rofi -show run"
 # bindsym $m+d      exec --no-startup-id "dmenu_run -nf '#BBBBBB' -nb '#222222' -sb '#005577' -sf '#EEEEEE' -fn 'monospace-10'"
 bindsym $m+b          exec "flatpak run com.google.Chrome"
 
 # i3
 bindsym $ms+c reload
-bindsym $ms+r restart
+# bindsym $ms+r restart
+
 # session
-bindsym $mc+l exec "i3-msg exit"
-bindsym $mc+r exec "systemctl restart"
-bindsym $mc+p exec "systemctl poweroff"
+bindsym $ms+l exec "i3-msg exit"
+bindsym $ms+r exec "systemctl restart"
+bindsym $ms+p exec "systemctl poweroff"
 
 # windows
-floating_modifier $m
-bindsym $m+period       split toggle
-bindsym $m+forwardslash layout toggle split tabbed stacking
-bindsym $m+period       fullscreen toggle
-bindsym $m+comma        floating toggle
+# floating_modifier $m
+# bindsym $m+period       split toggle
+# bindsym $m+forwardslash layout toggle split tabbed stacking
+# bindsym $m+period       fullscreen toggle
+# bindsym $m+comma        floating toggle
 bindsym $m+q            kill
 bindsym $m+h            focus left
 bindsym $m+j            focus down
@@ -83,7 +91,7 @@ bindsym $m+8 workspace number $ws8
 bindsym $m+9 workspace number $ws9
 bindsym $m+0 workspace number $ws10
 
-# move
+# # move
 bindsym $mc+1 move container to workspace number $ws1
 bindsym $mc+2 move container to workspace number $ws2
 bindsym $mc+3 move container to workspace number $ws3
@@ -115,45 +123,8 @@ mode "resize" {
 }
 bindsym $m+r mode "resize"
 
-# OG Theme
-# client.focused          #83CAFA #51A2DA #FFFFFF #83CAFA   #51A2DA
-# client.focused_inactive #8C8C8C #4C4C4C #FFFFFF #4C4C4C   #8C8C8C
-# client.unfocused        #4C4C4C #222222 #888888 #292D2E   #222222
-# client.urgent           #EC69A0 #DB3279 #FFFFFF #DB3279   #DB3279
-# client.placeholder      #000000 #0C0C0C #FFFFFF #000000   #0C0C0C
-# client.background       #FFFFFF
-# bar {
-#   position top
-#   status_command i3status
-#   colors {
-#     background #000000
-#     statusline #FFFFFF
-#     separator  #666666
-#
-#     focused_workspace  #83CAFA #51A2DA #FFFFFF
-#     active_workspace   #3C6EB4 #294172 #FFFFFF
-#     inactive_workspace #8C8C8C #4C4C4C #888888
-#     urgent_workspace   #EC69A0 #DB3279 #FFFFFF
-#     binding_mode       #b691d3 #A07CBC #FFFFFF
-#   }
-# }
-
-# https://github.com/stav121/i3wm-themer/blob/main/themes/004.yml
-# client.background #1d1e26
-# client.focused #b0b287 #1d1e26 #b0b287 #789073 #789073
-# client.unfocused #b0b287 #1d1e26 #b0b287 #789073 #789073
-# client.focused_inactive #b0b287 #1d1e26 #b0b287 #789073 #789073
-# client.urgent #b0b287 #1d1e26 #b0b287 #789073 #789073
-# client.placeholder #b0b287 #1d1e26 #b0b287 #789073 #789073
-
-# https://github.com/stav121/i3wm-themer/blob/main/themes/010.yml
-# client.background #1d1f21
-# client.focused #707880 #1d1f21 #707880 #8c9440 #8c9440
-# client.unfocused #707880 #1d1f21 #707880 #5f819d #5f819d
-# client.focused_inactive #707880 #1d1f21 #707880 #5f819d #5f819d
-# client.urgent #707880 #1d1f21 #707880 #5f819d #5f819d
-# client.placeholder #707880 #1d1f21 #707880 #5f819d #5f819d
-
+################################################################################
+# theme
 ################################################################################
 # dracula : https://github.com/dracula/i3/blob/05ba49e6de572c037c0b9967d2dfc03186154fda/.config/i3/config
 client.focused          #6272A4 #6272A4 #F8F8F2 #6272A4   #6272A4
@@ -179,4 +150,45 @@ bar {
   }
 }
 
-# Start i3bar to display a workspace bar (plus the system information i3status finds out, if available)
+################################################################################
+# https://github.com/stav121/i3wm-themer/blob/main/themes/004.yml
+# client.background #1d1e26
+# client.focused #b0b287 #1d1e26 #b0b287 #789073 #789073
+# client.unfocused #b0b287 #1d1e26 #b0b287 #789073 #789073
+# client.focused_inactive #b0b287 #1d1e26 #b0b287 #789073 #789073
+# client.urgent #b0b287 #1d1e26 #b0b287 #789073 #789073
+# client.placeholder #b0b287 #1d1e26 #b0b287 #789073 #789073
+
+################################################################################
+# https://github.com/stav121/i3wm-themer/blob/main/themes/010.yml
+# client.background #1d1f21
+# client.focused #707880 #1d1f21 #707880 #8c9440 #8c9440
+# client.unfocused #707880 #1d1f21 #707880 #5f819d #5f819d
+# client.focused_inactive #707880 #1d1f21 #707880 #5f819d #5f819d
+# client.urgent #707880 #1d1f21 #707880 #5f819d #5f819d
+# client.placeholder #707880 #1d1f21 #707880 #5f819d #5f819d
+
+################################################################################
+# OG Theme
+# client.focused          #83CAFA #51A2DA #FFFFFF #83CAFA   #51A2DA
+# client.focused_inactive #8C8C8C #4C4C4C #FFFFFF #4C4C4C   #8C8C8C
+# client.unfocused        #4C4C4C #222222 #888888 #292D2E   #222222
+# client.urgent           #EC69A0 #DB3279 #FFFFFF #DB3279   #DB3279
+# client.placeholder      #000000 #0C0C0C #FFFFFF #000000   #0C0C0C
+# client.background       #FFFFFF
+# bar {
+#   position top
+#   status_command i3status
+#   colors {
+#     background #000000
+#     statusline #FFFFFF
+#     separator  #666666
+#
+#     focused_workspace  #83CAFA #51A2DA #FFFFFF
+#     active_workspace   #3C6EB4 #294172 #FFFFFF
+#     inactive_workspace #8C8C8C #4C4C4C #888888
+#     urgent_workspace   #EC69A0 #DB3279 #FFFFFF
+#     binding_mode       #b691d3 #A07CBC #FFFFFF
+#   }
+# }
+
