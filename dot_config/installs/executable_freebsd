@@ -2,7 +2,10 @@
 cd "$(dirname "${0}")" || exit
 
 menu(){
-  echo -ne "
+  while :
+  do
+    clear
+    echo -ne "
 
 ███████╗██████╗ ███████╗███████╗██████╗ ███████╗██████╗
 ██╔════╝██╔══██╗██╔════╝██╔════╝██╔══██╗██╔════╝██╔══██╗
@@ -11,25 +14,25 @@ menu(){
 ██║     ██║  ██║███████╗███████╗██████╔╝███████║██████╔╝
 ╚═╝     ╚═╝  ╚═╝╚══════╝╚══════╝╚═════╝ ╚══════╝╚═════╝
 
-d) User Software
+0) Update All (reboots)
 u) User Software
 g) Git Repos
 s) Add SSH Keys
-0) Update All (reboots)
 
 Select Step:  "
-  read -r step
-  case $step in
-    d) desktop_env ;;
-    u) user_software ;;
-    g) git_repos ;;
-    s) ssh_keys ;;
-    0) update_all;;
-    *)
-      echo "Not a valid option"
-      exit 1
-      ;;
-  esac
+    read -r step
+    case $step in
+      u) desktop_env
+         user_software ;;
+      g) git_repos ;;
+      s) add_ssh_keys ;;
+      0) update_all;;
+      *)
+        echo "Not a valid option"
+        exit 1
+        ;;
+    esac
+  done
 }
 
 git_repos(){
@@ -38,10 +41,9 @@ git_repos(){
   mkdir -p "$HOME"/Source/github.com/
 
   git clone git@github.com:jeffwindsor/startpage.git "$HOME"/Source/github.com/jeffwindsor/startpage
-  git clone git@github.com:jeffwindsor/financials.git "$HOME"/Source/github.com/jeffwindsor/financials
 }
 
-ssh_keys(){
+add_ssh_keys(){
   if [[ ! -f id_ed25519 ]]; then
     ssh-keygen -t ed25519 -C "jeff.windsor@gmail.com"
     ssh-agent -s
@@ -59,6 +61,10 @@ update_all(){
   reboot
 }
 
+desktop_env(){
+  pkg install -y gnome
+}
+
 user_software(){
   pkg install -y alacritty
   pkg install -y bat
@@ -69,7 +75,6 @@ user_software(){
   pkg install -y fortune-mod-freebsd-classic
   pkg install -y fzf
   pkg install -y git
-  #pkg install -y lazygit gitui
   pkg install -y gnucash
   pkg install -y helix
   # pkg install -y hs-hledger hs-ledger-ui hs-hledger-web
@@ -77,155 +82,14 @@ user_software(){
   pkg install -y neovim
   pkg install -y megacmd
   pkg install -y ripgrep
-  #pkg install -y rust rust-analyzer
   pkg install -y starship
   pkg install -y spotify-tui
   pkg install -y tealdeer
+
+  #pkg install -y topgrade
+  #pkg install -y rust rust-analyzer
+  #pkg install -y lazygit gitui
   #pkg install -y zeal
-}
-
-desktop_env(){
-  pkg install -y gnome
-
-  # interface preferences
-  dconf write "/org/gnome/desktop/calendar/show-weekdate" "true"
-  dconf write "/org/gnome/desktop/datetime/automatic-timezone" "true"
-  dconf write "/org/gnome/desktop/interface/clock-format" "'12h'"
-  dconf write "/org/gnome/desktop/interface/clock-show-weekday" "true"
-  dconf write "/org/gnome/desktop/interface/color-scheme" "'prefer-dark'"
-  dconf write "/org/gnome/desktop/interface/gtk-theme" "'Adwaita-dark'"
-  dconf write "/org/gnome/desktop/interface/locate-pointer" "true"
-  dconf write "/org/gnome/desktop/interface/text-scaling-factor" "1.25"
-  dconf write "/org/gnome/desktop/peripherals/touchpad/click-method" "'fingers'"
-  dconf write "/org/gnome/desktop/peripherals/touchpad/natural-scroll" "true"
-  dconf write "/org/gnome/desktop/peripherals/touchpad/speed" "0.4"
-  dconf write "/org/gnome/desktop/peripherals/touchpad/two-finger-scrolling-enabled" "true"
-  dconf write "/org/gnome/desktop/wm/preferences/button-layout" "'close:appmenu'"
-  dconf write "/org/gnome/desktop/wm/preferences/num-workspaces" "10"
-  dconf write "/org/gnome/mutter/dynamic-workspaces" "false"
-  dconf write "/org/gnome/mutter/workspaces-only-on-primary" "true"
-  dconf write "/org/gtk/settings/file-chooser/clock-format" "'12h'"
-
-  # extension preferences
-  dconf write "/org/gnome/shell/extensions/just-perfection/activities-button" "false"
-  dconf write "/org/gnome/shell/extensions/just-perfection/app-menu-label" "false"
-  dconf write "/org/gnome/shell/extensions/just-perfection/startup-status" "0"
-  dconf write "/org/gnome/shell/extensions/openweather/actual-city" "2"
-  dconf write "/org/gnome/shell/extensions/openweather/city" "'30.2711286,-97.7436995>Austin, Travis County, Texas, United States>0 && 39.7392364,-104.984862>Denver, Colorado, United States>0 && 34.2783355,-119.293174>Ventura, Ventura County, CAL Fire Southern Region, California, United States>0'"
-  dconf write "/org/gnome/shell/extensions/WallpaperSwitcher/frequency" "1200"
-  dconf write "/org/gnome/shell/extensions/WallpaperSwitcher/wallpaper-path" "'/var/home/mid/portable/wallpapers/desktop'"
-
-  # keyboard shortcuts
-  # Launchers
-  #   Settings
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/control-center" "['<Super>comma']"
-  #   Files @ Home Folder
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/home" "['<Super>f']"
-  #   Browser
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/www" "['<Super>b']"
-
-  # Navigation
-  dconf write "/org/gnome/desktop/wm/keybindings/move-to-workspace-10" "['<Primary><Super>0']"
-  dconf write "/org/gnome/desktop/wm/keybindings/move-to-workspace-1" "['<Primary><Super>1']"
-  dconf write "/org/gnome/desktop/wm/keybindings/move-to-workspace-2" "['<Primary><Super>2']"
-  dconf write "/org/gnome/desktop/wm/keybindings/move-to-workspace-3" "['<Primary><Super>3']"
-  dconf write "/org/gnome/desktop/wm/keybindings/move-to-workspace-4" "['<Primary><Super>4']"
-  dconf write "/org/gnome/desktop/wm/keybindings/move-to-workspace-5" "['<Primary><Super>5']"
-  dconf write "/org/gnome/desktop/wm/keybindings/move-to-workspace-6" "['<Primary><Super>6']"
-  dconf write "/org/gnome/desktop/wm/keybindings/move-to-workspace-7" "['<Primary><Super>7']"
-  dconf write "/org/gnome/desktop/wm/keybindings/move-to-workspace-8" "['<Primary><Super>8']"
-  dconf write "/org/gnome/desktop/wm/keybindings/move-to-workspace-9" "['<Primary><Super>9']"
-  dconf write "/org/gnome/desktop/wm/keybindings/switch-to-workspace-10" "['<Super>0']"
-  dconf write "/org/gnome/desktop/wm/keybindings/switch-to-workspace-1" "['<Super>1']"
-  dconf write "/org/gnome/desktop/wm/keybindings/switch-to-workspace-2" "['<Super>2']"
-  dconf write "/org/gnome/desktop/wm/keybindings/switch-to-workspace-3" "['<Super>3']"
-  dconf write "/org/gnome/desktop/wm/keybindings/switch-to-workspace-4" "['<Super>4']"
-  dconf write "/org/gnome/desktop/wm/keybindings/switch-to-workspace-5" "['<Super>5']"
-  dconf write "/org/gnome/desktop/wm/keybindings/switch-to-workspace-6" "['<Super>6']"
-  dconf write "/org/gnome/desktop/wm/keybindings/switch-to-workspace-7" "['<Super>7']"
-  dconf write "/org/gnome/desktop/wm/keybindings/switch-to-workspace-8" "['<Super>8']"
-  dconf write "/org/gnome/desktop/wm/keybindings/switch-to-workspace-9" "['<Super>9']"
-
-  # Screen shots
-  dconf write "/org/gnome/shell/keybindings/show-screenshot-ui" "['<Control>grave']"
-
-  # Sound and Media
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/next" "['AudioForward']"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/previous" "['AudioRewind']"
-
-  # System
-  dconf write "/org/gnome/shell/keybindings/focus-active-notification" "@as []"
-  dconf write "/org/gnome/shell/keybindings/toggle-message-tray" "@as []"
-  dconf write "/org/gnome/desktop/wm/keybindings/panel-run-dialog" "['<Primary>space']"
-
-  # Typing
-  dconf write "/org/gnome/desktop/wm/keybindings/switch-input-source" "@as []"
-  dconf write "/org/gnome/desktop/wm/keybindings/switch-input-source-backward" "@as []"
-
-  # Windows
-  dconf write "/org/gnome/desktop/wm/keybindings/close" "['<Super>q']"
-  dconf write "/org/gnome/desktop/wm/keybindings/minimize" "['<Super>w']"
-  dconf write "/org/gnome/desktop/wm/keybindings/toggle-fullscreen" "['<Primary><Super>m']"
-  dconf write "/org/gnome/mutter/keybindings/toggle-tiled-right" "@as []"
-  dconf write "/org/gnome/mutter/keybindings/toggle-tiled-left" "@as []"
-
-  # Custom
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings" "[\
-      '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/', \
-      '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/', \
-      '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/', \
-      '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/', \
-      '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/', \
-      '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/', \
-      '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/']"
-
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/binding" "'<Primary><Super>S'"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/command" "'systemctl suspend'"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/name" "'Suspend'"
-
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/binding" "'<Primary><Super>L'"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/command" "'gnome-session-quit --logout --no-prompt'"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/name" "'Logout'"
-
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/binding" "'<Primary><Super>R'"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/command" "'systemctl reboot'"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/name" "'Reboot'"
-
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/binding" "'<Primary><Super>P'"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/command" "'systemctl poweroff'"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/name" "'Power-Off'"
-
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/binding" "'<Ctrl><Super>t'"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/command" "'env WINIT_UNIX_BACKEND=x11 alacritty --config-file \"$HOME\"/.config/alacritty/alacritty-ostree.yml -e bash -c \"SHELL=/usr/bin/zsh toolbox enter\"'"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/name" "'OSTree'"
-
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/binding" "'<Super>t'"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/command" "'env WINIT_UNIX_BACKEND=x11 alacritty'"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/name" "'Terminal'"
-
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/binding" "'<Super>E'"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/command" "'flatpak run com.mattjakeman.ExtensionManager'"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/name" "'Extensions'"
-
-echo "
-===========================================================================
- EXTENSIONS:
-===========================================================================
-  * AppIndicator
-  * Blur My Shell
-  * Caffeine
-  * Executor (task bar fortunes)
-  * Forge
-  * Just Perfection
-  * Launch New Instance
-  * Spacebar
-  * Wallpaper Switcher
-===========================================================================
-  # manual installs
-  Install MEGA-SYNC manually:
-  download from https://mega.io/desktop#downloadapps
-"
-
 }
 
 menu

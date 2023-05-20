@@ -268,14 +268,17 @@ echo "
  EXTENSIONS:
 ===========================================================================
   * AppIndicator
-  * Blur My Shell
+  * Bluetooth Quick Connect
+  * Blur My SHell
   * Caffeine
-  * Executor (task bar fortunes)
   * Forge
+  * GSConnect (iphone connection)
   * Just Perfection
   * Launch New Instance
-  * Spacebar
+  * Open Weather
+  * Simply Workspaces
   * Wallpaper Switcher
+  * Weather O'Clock
 ===========================================================================
   # manual installs
   Install MEGA-SYNC manually:
