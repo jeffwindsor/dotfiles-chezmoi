@@ -51,8 +51,8 @@ wk.register({
   f = {
     name = 'files',
     b = { ':Lf<CR>', 'via browser (lf)'},
-    c = { ':Telescope find_files cwd=$XDG_CONFIG_HOME<CR>','in config directory'},
-    d = { ':Telescope find_files cwd=$XDG_CONFIG_HOME<CR>','in config directory'},
+    c = { ':Telescope find_files find_command=chezmoi,list<CR>','in config directory'},
+    d = { ':Telescope find_files find_command=chezmoi,list<CR>','in config directory'},
     f = { ':Telescope find_files<CR>','in current directory'},
     g = { ':Telescope find_files cwd=$SRC<CR>','in git repos'},
     h = { ':Telescope find_files cwd=$HOME<CR>','in home directory'},
