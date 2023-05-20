@@ -56,19 +56,16 @@ bindsym $m+b          exec "flatpak run com.google.Chrome"
 
 # i3
 bindsym $ms+c reload
-# bindsym $ms+r restart
-
-# session
 bindsym $ms+l exec "i3-msg exit"
 bindsym $ms+r exec "systemctl restart"
 bindsym $ms+p exec "systemctl poweroff"
 
 # windows
-# floating_modifier $m
-# bindsym $m+period       split toggle
-# bindsym $m+forwardslash layout toggle split tabbed stacking
-# bindsym $m+period       fullscreen toggle
-# bindsym $m+comma        floating toggle
+floating_modifier $m
+
+bindsym $m+s split toggle
+# bindsym $m+a layout toggle all
+
 bindsym $m+q            kill
 bindsym $m+h            focus left
 bindsym $m+j            focus down
