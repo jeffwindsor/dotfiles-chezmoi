@@ -2,7 +2,7 @@ alias v='nvim'
 
 clist='chezmoi list -i files -p absolute'
 cpick='fzf --preview="bat --color=always --style=numbers {}"'
-cedit='xargs chezmoi edit --apply'
+cedit='xargs --no-run-if-empty chezmoi edit --apply'
 
 alias configs="$clist | $cpick | $cedit"
 alias dots="$clist | $cpick | $cedit"
