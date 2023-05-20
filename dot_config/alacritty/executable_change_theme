@@ -8,7 +8,7 @@ if [ -z "$1" ]; then
   selected=$(fd -i . $themes | fzf)
 else
   selected="$themes/$1.yml"
-fi  
+fi
 
 # merge base os and picked theme to over write alacrity config
 cat $config/os.yml "${selected}" > $config/alacritty.yml
