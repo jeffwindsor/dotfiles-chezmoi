@@ -43,3 +43,4 @@ format='([\[](dimmed blue)[$number](dimmed blue)[\]](dimmed blue))'
 [container]
 style = "cyan"
 disabled=false
+
