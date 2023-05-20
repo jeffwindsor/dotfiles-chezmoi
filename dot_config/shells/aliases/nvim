@@ -1,6 +1,12 @@
 alias v='nvim'
 
-alias configs='nvim -c ":Telescope find_files cwd=$XDG_CONFIG_HOME"'
-alias dots='nvim -c ":Telescope find_files cwd=$DOTFILES"'
-alias ins='nvim -c ":Telescope find_files cwd=$INSTALLS"'
 alias fins='nvim -c ":Telescope find_files cwd=$HOME/portable/financials"'
+
+alias configs='chezmoi list -i files -p absolute | fzf | xargs chezmoi edit'
+alias dots='chezmoi list -i files -p absolute | fzf | xargs chezmoi edit'
+alias ins='chezmoi list -i files -p absolute | rg installs | fzf | xargs chezmoi edit'
+
+#alias configs='nvim -c ":Telescope find_files cwd=$XDG_CONFIG_HOME"'
+#alias dots='nvim -c ":Telescope find_files cwd=$DOTFILES"'
+#alias ins='nvim -c ":Telescope find_files cwd=$INSTALLS"'
+
