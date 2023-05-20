@@ -42,24 +42,36 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 exec --no-startup-id nm-applet
 
 #####################################################################################
-floating_modifier $m
-
-bindsym $m+forwardslash split toggle
-bindsym $m+space        layout toggle split tabbed stacking
-bindsym $m+Return       exec alacritty
-
-bindsym $m+d      exec "rofi -modi drun,run -show drun"
+bindsym $m+Return     exec alacritty
+bindsym $m+space      exec "rofi -modi drun,run -show drun"
 # bindsym $m+d      exec --no-startup-id "dmenu_run -nf '#BBBBBB' -nb '#222222' -sb '#005577' -sf '#EEEEEE' -fn 'monospace-10'"
-bindsym $m+f      fullscreen toggle
-bindsym $m+t      floating toggle
-# bindsym $ms+f      focus mode_toggle
-bindsym $m+q      kill
+bindsym $m+b          exec "flatpak run com.google.Chrome"
+
+# i3
+bindsym $ms+c reload
+bindsym $ms+r restart
+# session
+bindsym $mc+l exec "i3-msg exit"
+bindsym $mc+r exec "systemctl restart"
+bindsym $mc+p exec "systemctl poweroff"
+
+# windows
+floating_modifier $m
+bindsym $m+period       split toggle
+bindsym $m+forwardslash layout toggle split tabbed stacking
+bindsym $m+period       fullscreen toggle
+bindsym $m+comma        floating toggle
+bindsym $m+q            kill
+bindsym $m+h            focus left
+bindsym $m+j            focus down
+bindsym $m+k            focus up
+bindsym $m+l            focus right
+bindsym $mc+h           move left
+bindsym $mc+j           move down
+bindsym $mc+k           move up
+bindsym $mc+l           move right
 
 # focus
-bindsym $m+h focus left
-bindsym $m+j focus down
-bindsym $m+k focus up
-bindsym $m+l focus right
 bindsym $m+1 workspace number $ws1
 bindsym $m+2 workspace number $ws2
 bindsym $m+3 workspace number $ws3
@@ -72,10 +84,6 @@ bindsym $m+9 workspace number $ws9
 bindsym $m+0 workspace number $ws10
 
 # move
-bindsym $mc+h move left
-bindsym $mc+j move down
-bindsym $mc+k move up
-bindsym $mc+l move right
 bindsym $mc+1 move container to workspace number $ws1
 bindsym $mc+2 move container to workspace number $ws2
 bindsym $mc+3 move container to workspace number $ws3
@@ -86,16 +94,6 @@ bindsym $mc+7 move container to workspace number $ws7
 bindsym $mc+8 move container to workspace number $ws8
 bindsym $mc+9 move container to workspace number $ws9
 bindsym $mc+0 move container to workspace number $ws10
-
-# i3
-bindsym $ms+c reload
-bindsym $ms+r restart
-# bindsym $ms+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
-bindsym $mc+l exec "i3-msg exit"
-
-# system
-bindsym $mc+r exec "systemctl restart"
-bindsym $mc+p exec "systemctl poweroff"
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
