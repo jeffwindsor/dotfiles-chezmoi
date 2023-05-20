@@ -4,9 +4,9 @@ clist='chezmoi list -i files -p absolute'
 cpick='fzf --preview="bat --color=always --style=numbers {}"'
 cedit='xargs chezmoi eidt --apply'
 
-alias configs='$clist | $cpick | $cedit'
-alias dots='$clist | $cpick | $cedit'
-alias ins='$clist | rg installs | $cpick | $cedit'
+alias configs="$clist | $cpick | $cedit"
+alias dots="$clist | $cpick | $cedit"
+alias ins="$clist | rg installs | $cpick | $cedit"
 
 tffc='nvim -c ":Telescope find_files cwd='
 
