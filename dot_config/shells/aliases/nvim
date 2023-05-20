@@ -1,12 +1,17 @@
 alias v='nvim'
 
-alias fins='nvim -c ":Telescope find_files cwd=$HOME/portable/financials"'
+clist='chezmoi list -i files -p absolute'
+cpick='fzf --preview="bat --color=always --style=numbers {}"'
+cedit='xargs chezmoi eidt --apply'
 
-alias configs='chezmoi list -i files -p absolute | fzf | xargs chezmoi edit'
-alias dots='chezmoi list -i files -p absolute | fzf | xargs chezmoi edit'
-alias ins='chezmoi list -i files -p absolute | rg installs | fzf | xargs chezmoi edit'
+alias configs='$clist | $cpick | $cedit'
+alias dots='$clist | $cpick | $cedit'
+alias ins='$clist | rg installs | $cpick | $cedit'
 
-#alias configs='nvim -c ":Telescope find_files cwd=$XDG_CONFIG_HOME"'
-#alias dots='nvim -c ":Telescope find_files cwd=$DOTFILES"'
-#alias ins='nvim -c ":Telescope find_files cwd=$INSTALLS"'
+tffc='nvim -c ":Telescope find_files cwd='
+
+alias fins='$ttfc$HOME/portable/financials"'
+#alias configs='$ttfc$XDG_CONFIG_HOME"'
+#alias dots='$ttfc$DOTFILES"'
+#alias ins='$ttfc$INSTALLS"'
 
