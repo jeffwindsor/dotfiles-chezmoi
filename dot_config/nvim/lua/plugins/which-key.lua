@@ -2,7 +2,7 @@
 -- WHICH KEY (EMACS LIKE POPUP MENUS)
 -- ----------------------------------------------------------------------------
 local buffer_next = ':bnext<CR>'
-local load_config = ':luafile %<CR>'
+-- local load_config = ':luafile %<CR>'
 local wk = require('which-key')
 wk.setup()
 wk.register({
