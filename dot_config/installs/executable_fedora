@@ -252,7 +252,7 @@ eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_ed25519
 
 echo "Add ssh public key to Github"
-read -r 
+read -r
 
 ###############################################################################
 # git repos
@@ -267,15 +267,19 @@ echo "
 ===========================================================================
  EXTENSIONS: .local/share/gnome-shell/extensions
 ===========================================================================
-  * AppIndicator
-  * Blur My Shell
-  * Caffeine
-  * Forge
-  * Just Perfection
+  * AppIndicator, https://github.com/ubuntu/gnome-shell-extension-appindicator, _
+  * Blur My Shell, https://github.com/aunetx/gnome-shell-extension-blur-my-shell, src
+  * Caffeine, https://github.com/eonpatapon/gnome-shell-extension-caffeine, caffeine@patapon.info
+  * Executor, https://github.com/raujonas/executor, executor@raujonas.github.io
+  * Forge, https://github.com/jmmaranan/forge, _
+  * Just Perfection, https://gitlab.gnome.org/jrahmatzadeh/just-perfection, src
+  * SpaceBar, https://github.com/christopher-l/space-bar, _
+  * Stocks, https://github.com/cinatic/stocks-extension, stocks@infinicode.de
+  * Wallpaper Switcher, https://github.com/rishuinfinity/WallpaperSwitcher, src
+  * Weather O'Clock, https://github.com/CleoMenezesJr/weather-oclock, weatheroclock@CleoMenezesJr.github.io
+===========================================================================
+ PRE INSTALLED ON FEDORA
   * Launch New Instance
-  * SpaceBar
-  * Wallpaper Switcher
-  * Weather O'Clock
 ===========================================================================
   # manual installs
   Install MEGA-SYNC manually:
