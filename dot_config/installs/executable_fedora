@@ -265,18 +265,15 @@ read -r
 
 echo "
 ===========================================================================
- EXTENSIONS:
+ EXTENSIONS: .local/share/gnome-shell/extensions
 ===========================================================================
   * AppIndicator
-  * Bluetooth Quick Connect
-  * Blur My SHell
+  * Blur My Shell
   * Caffeine
   * Forge
-  * GSConnect (iphone connection)
   * Just Perfection
   * Launch New Instance
-  * Open Weather
-  * Simply Workspaces
+  * SpaceBar
   * Wallpaper Switcher
   * Weather O'Clock
 ===========================================================================
