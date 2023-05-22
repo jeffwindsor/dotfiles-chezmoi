@@ -201,14 +201,16 @@ sudo dnf -y install zellij
       '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/', \
       '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/', \
       '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/', \
-      '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/']"
+      '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/', \
+      '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom7/', \
+      '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom8/']"
 
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/binding" "'<Primary><Super>S'"
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/command" "'systemctl suspend'"
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/name" "'Suspend'"
 
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/binding" "'<Primary><Super>L'"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/command" "'gnome-session-quit --logout --no-prompt'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/command" "'gnome-session-quit'"
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/name" "'Logout'"
 
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/binding" "'<Primary><Super>R'"
@@ -221,7 +223,7 @@ sudo dnf -y install zellij
 
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/binding" "'<Ctrl><Super>t'"
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/command" "'env WINIT_UNIX_BACKEND=x11 alacritty --config-file \"$HOME\"/.config/alacritty/alacritty-ostree.yml -e bash -c \"SHELL=/usr/bin/zsh toolbox enter\"'"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/name" "'OSTree'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/name" "'Terminal2'"
 
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/binding" "'<Super>t'"
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/command" "'env WINIT_UNIX_BACKEND=x11 alacritty'"
@@ -230,6 +232,14 @@ sudo dnf -y install zellij
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/binding" "'<Super>E'"
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/command" "'flatpak run com.mattjakeman.ExtensionManager'"
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/name" "'Extensions'"
+
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom7/binding" "'<Super>G'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom7/command" "'gnucash'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom7/name" "'GNU Cash'"
+
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom8/binding" "'<Super>S'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom8/command" "'flatpak run com.spotify.Client'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom8/name" "'Spotify'"
 
 ###############################################################################
 # dot files
