@@ -46,17 +46,17 @@ sudo dnf -y install gcc "gcc-c++" glibc-all-langpacks
 sudo dnf -y install neovim && git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 
 # helix editor
-sudo dnf -y copr enable varlad/helix
-sudo dnf -y install helix
+# sudo dnf -y copr enable varlad/helix
+# sudo dnf -y install helix
 
 # starship prompt
-sudo dnf copr enable atim/starship
+sudo dnf -y copr enable atim/starship
 sudo dnf -y install starship
 
 # lf and zellij
-sudo dnf copr enable pennbauman/ports
-sudo dnf -y install lf
-sudo dnf -y install zellij
+#sudo dnf -y copr enable pennbauman/ports
+#sudo dnf -y install lf
+# sudo dnf -y install zellij
 
 #rust
 # sudo dnf -y install openssl openssl-devel
