@@ -1,0 +1,5 @@
+
+alias pil='podman image list'
+
+alias pcl='podman container list'
+
