@@ -268,15 +268,12 @@ read -r
 ###############################################################################
 # git repos
 ###############################################################################
-  mkdir -p "$HOME"/Source
-  mkdir -p "$HOME"/Source/gitlab.com/
-  mkdir -p "$HOME"/Source/github.com/
-
+  mkdir -p "$HOME"/Source/github.com/jeffwindsor
   git clone git@github.com:jeffwindsor/startpage.git "$HOME"/Source/github.com/jeffwindsor/startpage
 
 echo "
 ===========================================================================
- EXTENSIONS: .local/share/gnome-shell/extensions
+EXTENSIONS: .local/share/gnome-shell/extensions
 ===========================================================================
   * AppIndicator, https://github.com/ubuntu/gnome-shell-extension-appindicator, _
   * Blur My Shell, https://github.com/aunetx/gnome-shell-extension-blur-my-shell, src
@@ -289,11 +286,10 @@ echo "
   * Wallpaper Switcher, https://github.com/rishuinfinity/WallpaperSwitcher, src
   * Weather O'Clock, https://github.com/CleoMenezesJr/weather-oclock, weatheroclock@CleoMenezesJr.github.io
 ===========================================================================
- PRE INSTALLED ON FEDORA
+PRE INSTALLED ON FEDORA
   * Launch New Instance
 ===========================================================================
-  # manual installs
-  Install MEGA-SYNC manually:
-  download from https://mega.io/desktop#downloadapps
+MANUAL INSTALLS
+  MEGA: https://mega.io/desktop#downloadapps
 "
 
