@@ -1,5 +1,9 @@
 
+alias pi='podman image'
 alias pil='podman image list'
+alias pir='podman image rm'
 
+alias pc='podman container'
 alias pcl='podman container list'
+alias pcr='podman container rm'
 
