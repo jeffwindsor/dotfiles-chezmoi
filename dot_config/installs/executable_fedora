@@ -71,32 +71,30 @@ sudo dnf -y install zellij
 ###############################################################################
 # flatpak installs
 ###############################################################################
+  sudo dnf remove Firefox
 
-  flatpak install -y "com.mattjakeman.ExtensionManager"           # improved extension manager
+  # flatpak install -y "io.github.endless_sky.endless_sky"
+  # flatpak install -y "net.sourceforge.Klavaro"                    # typing
+  # flatpak install -y "org.videolan.VLC"
+  flatpak install -y "com.discordapp.Discord"
+  flatpak install -y "com.github.rafostar.Clapper"
   flatpak install -y "com.github.tchx84.Flatseal"                 # flatpak sec manager
   flatpak install -y "com.gitlab.davem.ClamTk"                    # virus
-  flatpak install -y "org.gnome.Firmware"
-  flatpak install -y "org.gnome.seahorse.Application"
-
-  sudo dnf remove Firefox
-  flatpak install -y "com.google.Chrome"
-  flatpak install -y "org.chromium.Chromium"
-
-  flatpak install -y "md.obsidian.Obsidian"
-  flatpak install -y "com.spotify.Client"
-  flatpak install -y "org.gnome.Podcasts"
-  flatpak install -y "org.videolan.VLC"
-
-  flatpak install -y "org.gnucash.GnuCash"
   flatpak install -y "com.gitlab.newsflash"
-
-
-  # flatpak install -y "com.valvesoftware.Steam"
-  # flatpak install -y "org.gnome.Photos"
-  # flatpak install -y "com.discordapp.Discord"
-  # flatpak install -y "org.zealdocs.Zeal"                          # dev docs
-  # flatpak install -y "net.sourceforge.Klavaro"                    # typing
-  # flatpak install -y "io.github.endless_sky.endless_sky"
+  flatpak install -y "com.google.Chrome"
+  flatpak install -y "com.mattjakeman.ExtensionManager"           # improved extension manager
+  flatpak install -y "com.spotify.Client"
+  flatpak install -y "com.valvesoftware.Steam"
+  flatpak install -y "io.podman_desktop.PodmanDesktop"
+  flatpak install -y "md.obsidian.Obsidian"
+  flatpak install -y "org.chromium.Chromium"
+  flatpak install -y "org.gnome.Evolution"
+  flatpak install -y "org.gnome.Firmware"
+  flatpak install -y "org.gnome.Photos"
+  flatpak install -y "org.gnome.Podcasts"
+  flatpak install -y "org.gnome.seahorse.Application"
+  flatpak install -y "org.gnucash.GnuCash"
+  flatpak install -y "org.zealdocs.Zeal"                          # dev docs
 
 ###############################################################################
 # GNOME
