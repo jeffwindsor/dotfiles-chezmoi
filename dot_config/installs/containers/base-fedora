@@ -1,4 +1,4 @@
-FROM registry.fedoraproject.org/fedora-toolbox:38
+FROM registry.fedoraproject.org/fedora-toolbox:latest
 
 # standard base packages
 RUN dnf -y install bat
@@ -12,7 +12,7 @@ RUN dnf -y install ripgrep
 RUN dnf -y install shellcheck
 RUN dnf -y install tealdeer
 RUN dnf -y install jetbrains-mono-fonts
-RUN dnf -y install vifm
+RUN dnf -y install zsh zsh-autosuggestions zsh-syntax-highlighting 
 
 # neovim
 RUN dnf -y install gcc "gcc-c++" glibc-all-langpacks
