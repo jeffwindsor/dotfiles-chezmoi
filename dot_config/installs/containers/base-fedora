@@ -1,4 +1,4 @@
-FROM registry.fedoraproject.org/fedora:38
+FROM registry.fedoraproject.org/fedora-toolbox:38
 
 # standard base packages
 RUN dnf -y install bat
