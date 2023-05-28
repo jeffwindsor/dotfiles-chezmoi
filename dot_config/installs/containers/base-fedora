@@ -10,6 +10,7 @@ RUN dnf -y install fortune-mod
 RUN dnf -y install fzf
 RUN dnf -y install ranger
 RUN dnf -y install ripgrep
+RUN dnf -y install sd
 RUN dnf -y install shellcheck
 RUN dnf -y install tealdeer
 RUN dnf -y install jetbrains-mono-fonts
