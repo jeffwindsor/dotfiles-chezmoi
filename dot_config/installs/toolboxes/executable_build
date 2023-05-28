@@ -5,7 +5,7 @@ shopt -s extglob
 echo "======================================================================="
 toolbox list
 
-files=(!(*.*))
+files=(!(*.Containerfile))
 for filename in "${files[@]}"
 do
   tag="docker.io/jeffwindsor/${filename}:latest"
