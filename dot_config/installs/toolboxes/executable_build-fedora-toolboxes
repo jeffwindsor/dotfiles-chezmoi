@@ -3,9 +3,8 @@ cd "$(dirname "$0")"
 
 # build toolbox images and layers
 #   TODO: use the --env=name=value for fedora verion in the FROM, ie 38 instead of latest if needed
-pre="docker.io/jeffwindsor/"
-name="fedora-toolbox"
+filename="fedora-toolbox"
 
-label="${pre}/${name}"
-podman build --file="$name" --label="$label"
-toolbox create "${name}-38" --image="$label"
+tag="docker.io/jeffwindsor/${filename}"
+podman build --file="$filename" --tag="$tag"
+toolbox create "$filename" --image="$tag"
