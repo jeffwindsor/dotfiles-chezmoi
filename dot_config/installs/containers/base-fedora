@@ -1,15 +1,7 @@
 FROM registry.fedoraproject.org/fedora-toolbox:latest
 
 ###############################################################################
-# dot files from chezmoi
-RUN sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply "https://github.com/jeffwindsor/dotfiles-chezmoi"
-RUN mv ./bin/chezmoi /usr/local/bin/
-
-###############################################################################
-# re-build fortune dats
-RUN "$HOME"/.config/fortune/build.sh
-
-###############################################################################
+# packages
 RUN dnf -y install bat
 RUN dnf -y install exa
 RUN dnf -y install entr
@@ -33,4 +25,13 @@ RUN dnf -y install 'dnf-command(copr)'
 # starship prompt
 RUN dnf -y copr enable atim/starship
 RUN dnf -y install starship
+
+###############################################################################
+# dot files from chezmoi
+RUN sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply "https://github.com/jeffwindsor/dotfiles-chezmoi"
+RUN mv ./bin/chezmoi /usr/local/bin/
+
+###############################################################################
+# re-build fortune dats
+RUN "$HOME"/.config/fortune/build.sh
 
