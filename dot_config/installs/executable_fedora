@@ -33,40 +33,20 @@ sudo dnf -y install entr
 sudo dnf -y install fd-find
 sudo dnf -y install fortune-mod
 sudo dnf -y install fzf
-sudo dnf -y install gitui
-sudo dnf -y install hledger hledger-ui hledger-web
-sudo dnf -y install lf
+sudo dnf -y install ranger
 sudo dnf -y install ripgrep
 sudo dnf -y install shellcheck
 sudo dnf -y install tealdeer
 sudo dnf -y install jetbrains-mono-fonts
+sudo dnf -y install vifm
 
 # neovim
 sudo dnf -y install gcc "gcc-c++" glibc-all-langpacks
 sudo dnf -y install neovim && git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 
-# helix editor
-# sudo dnf -y copr enable varlad/helix
-# sudo dnf -y install helix
-
 # starship prompt
 sudo dnf -y copr enable atim/starship
 sudo dnf -y install starship
-
-# lf and zellij
-#sudo dnf -y copr enable pennbauman/ports
-#sudo dnf -y install lf
-# sudo dnf -y install zellij
-
-#rust
-# sudo dnf -y install openssl openssl-devel
-# curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-# source "$HOME/.cargo/env"
-# cargo install cargo-update
-# cargo install topgrade              # upgrade all things
-
-# lang servers
-# sudo dnf -y install pylsp rust-analyzer
 
 ###############################################################################
 # flatpak installs
