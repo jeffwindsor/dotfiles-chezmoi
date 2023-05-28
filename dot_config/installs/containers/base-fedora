@@ -1,6 +1,15 @@
 FROM registry.fedoraproject.org/fedora-toolbox:latest
 
-# standard base packages
+###############################################################################
+# dot files from chezmoi
+RUN sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply "https://github.com/jeffwindsor/dotfiles-chezmoi"
+RUN mv ./bin/chezmoi /usr/local/bin/
+
+###############################################################################
+# re-build fortune dats
+RUN "$HOME"/.config/fortune/build.sh
+
+###############################################################################
 RUN dnf -y install bat
 RUN dnf -y install exa
 RUN dnf -y install entr
@@ -12,11 +21,10 @@ RUN dnf -y install ripgrep
 RUN dnf -y install shellcheck
 RUN dnf -y install tealdeer
 RUN dnf -y install jetbrains-mono-fonts
-RUN dnf -y install zsh zsh-autosuggestions zsh-syntax-highlighting 
+RUN dnf -y install zsh zsh-autosuggestions zsh-syntax-highlighting
 
 # neovim
-RUN dnf -y install gcc "gcc-c++" glibc-all-langpacks
-RUN dnf -y install neovim
+RUN dnf -y install neovim gcc "gcc-c++" glibc-all-langpacks
 RUN git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 
 # needed for copr enable
