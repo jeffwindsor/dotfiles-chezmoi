@@ -27,9 +27,3 @@ RUN dnf -y install starship
 # dot files from chezmoi
 RUN sh -c "$(curl -fsLS get.chezmoi.io)"
 RUN mv ./bin/chezmoi /usr/local/bin/
-###############################################################################
-# setup dnf
-echo "max_parallel_downloads=20" | sudo tee -a /etc/dnf/dnf.conf
-echo "defaultyes=True" | sudo tee -a /etc/dnf/dnf.conf
-echo "fastestmirror=False" | sudo tee -a /etc/dnf/dnf.conf
-echo "cacheonly=True" | sudo tee -a /etc/dnf/dnf.conf
