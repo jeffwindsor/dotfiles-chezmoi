@@ -50,7 +50,7 @@ wk.register({
   },
   f = {
     name = 'files',
-    b = { ':Lf<CR>', 'via browser (lf)'},
+    b = { ':Ranger<CR>', 'via file browser'},
     c = { ':Telescope find_files find_command=chezmoi,list<CR>','in config directory'},
     d = { ':Telescope find_files find_command=chezmoi,list<CR>','in config directory'},
     f = { ':Telescope find_files<CR>','in current directory'},
