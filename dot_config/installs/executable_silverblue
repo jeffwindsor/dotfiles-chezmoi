@@ -11,41 +11,28 @@ menu(){
 ╚════██║██║██║    ╚██╗ ██╔╝██╔══╝  ██╔══██╗██╔══██╗██║     ██║   ██║██╔══╝
 ███████║██║███████╗╚████╔╝ ███████╗██║  ██║██████╔╝███████╗╚██████╔╝███████╗
 ╚══════╝╚═╝╚══════╝ ╚═══╝  ╚══════╝╚═╝  ╚═╝╚═════╝ ╚══════╝ ╚═════╝ ╚══════╝
- \e[1;36m
-   At a System Prompt
-   ════════════════════════════════════════
-    su) System - Os-Tree [U]pdate
-    sl) System - Os-Tree Add [L]ayers
-    sf) System - Install [F]latpak
-\e[1;32m
-    us) Userland - Ssh Keygen
-    ug) Userland - Apply Gnome Config
-    ue) Userland - Extensions
-\e[1;33m
-   At a Toolbox Prompt
-   ════════════════════════════════════════
-    ts) Toolbox - Dnf setup
-    tt) Toolbox - Tools
-    td) Toolbox - Dotfiles
-    tr) Userland - Git Repos
-\e[0m
-    Select Version: "
+
+\e[1;36m
+    1) System - Os-Tree [U]pgrade
+    2) System - Os-Tree Add [L]ayers
+    u) Create Userland
+    : "
 
     read -r version
     case $version in
-      su) sudo rpm-ostree upgrade
-          systemctl reboot
-          ;;
-      sl) rpm-ostree install alacritty
-          toolbox create
-          systemctl reboot
-          ;;
-      sf) flatpaks ;;
-
-      us) ssh_keygen ;;
-      ug) gnome ;;
-      ue) extensions;;
-
+      1) sudo rpm-ostree upgrade
+         systemctl reboot
+         ;;
+      2) rpm-ostree install alacritty
+         systemctl reboot
+         ;;
+      u) ssh_keygen
+         git_clones
+         gnome
+         extensions
+         flatpacks
+         toolbox create fedora-toolbox-38 --image docker.io/jeffwindsor/base-fedora-toolbox
+         ;;
       ts) dnf_setup ;;
       tt) tools ;;
       td) dotfiles ;;
@@ -66,18 +53,7 @@ dnf_setup(){
   #sudo dnf -y upgrade
 }
 
-dotfiles(){
-  # dotfiles from chezmoi
-  sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply "https://github.com/jeffwindsor/dotfiles-chezmoi"
-
-  # move executable to PATH
-  sudo mv ./bin/chezmoi /usr/local/bin/
-
-  # re-build fortune dats
-  "$HOME"/.config/fortune/build.sh
-}
-
-git-clones(){
+git_clones(){
   mkdir -p "$HOME"/Source/github.com/jeffwindsor
   git clone git@github.com:jeffwindsor/startpage.git "$HOME"/Source/github.com/jeffwindsor/startpage
 }
