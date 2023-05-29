@@ -16,9 +16,10 @@ INITIAL SETUP STEPS:
   1) os-tree upgrade
   2) os-tree add layers
   3) userland
-\e[38;5;7m
+\e[38;5;249m
 OPTIONAL RE-INSTALLS:
   c) clone git repos
+  d) dotfiles
   e) install gnome extensions
   f) install flatpacks
   g) configure gnome
@@ -29,25 +30,35 @@ OPTIONAL RE-INSTALLS:
 
     read -r version
     case $version in
-      1) sudo rpm-ostree upgrade
-         systemctl reboot
-         ;;
-      2) rpm-ostree install alacritty
-         systemctl reboot
-         ;;
-      3) generate_ssh_keys
-         install_gnome_extensions
-         install_flatpacks
-         configure_gnome
-         create_toolboxes
-         ;;
-      c) clone_git_repos ;;
-      e) install_gnome_extensions ;;
-      f) install_flatpacks ;;
-      g) configure_gnome ;;
-      s) generate_ssh_keys;;
-      t) create_toolboxes;;
-      *) exit 1 ;;
+      1)  sudo rpm-ostree upgrade
+          systemctl reboot
+          ;;
+
+      2)  rpm-ostree install alacritty
+          systemctl reboot
+          ;;
+
+      3)  install_gnome_extensions
+          install_flatpacks
+          configure_gnome
+          create_toolboxes
+          generate_ssh_keys
+          github_sshkey_add
+          dotfiles
+          clone_git_repos
+          manual_installs
+          ;;
+
+      c)  clone_git_repos ;;
+      d)  dotfiles ;;
+      e)  install_gnome_extensions ;;
+      f)  install_flatpacks ;;
+      g)  configure_gnome ;;
+      s)  generate_ssh_keys ;;
+      t)  create_toolboxes ;;
+      *)  echo "unknown option $version"
+          exit 1
+          ;;
     esac
 }
 
@@ -70,19 +81,36 @@ create_toolbox(){
   toolbox rmi "$tag"
 
   # build image and toolbox
-  podman build --file="./toolboxes/$filename" --tag="$tag"
+  podman build --file="$filename" --tag="$tag"
   toolbox create "$filename" --image="$tag"
 }
 
 #==================================================================================================
-create_toolboxes(){
-  create_toolbox base
+github_sshkey_add(){
+  echo "Add ssh public key to Github"
+  cat $HOME/.ssh/*.pub
+  echo "Hit Any key when completed"
+  read -r
+}
+
+dotfiles(){
+  echo "\n==> Pulling and applying dotfiles"
+  chezmoi init --apply "https://github.com/jeffwindsor/dotfiles-chezmoi"
+}
+
+manual_installs(){
+  echo "\nStep 2: Install"
+  echo "==> MEGA: https://mega.io/desktop#downloadapps"
 }
 
 clone_git_repos(){
   mkdir -p "$HOME"/Source/github.com/jeffwindsor
   git clone git@github.com:jeffwindsor/startpage.git "$HOME"/Source/github.com/jeffwindsor/startpage
   git clone git@github.com:jeffwindsor/finacials.git "$HOME"/Source/github.com/jeffwindsor/finacials
+}
+
+create_toolboxes(){
+  create_toolbox base
 }
 
 generate_ssh_keys(){
@@ -138,12 +166,6 @@ install_gnome_extensions(){
   install_gnome_ext 4812
   # 5470 | Weather O'Clock, https://github.com/CleoMenezesJr/weather-oclock, weatheroclock@CleoMenezesJr.github.io
   install_gnome_ext 5470
-
-  echo "
-  ===========================================================================
-  MANUAL INSTALLS
-    MEGA: https://mega.io/desktop#downloadapps
-  "
 }
 
 configure_gnome(){
