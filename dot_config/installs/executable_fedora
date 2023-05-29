@@ -23,11 +23,13 @@ echo -ne "
 #sudo dnf -y install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-"$(rpm -E %fedora)".noarch.rpm
 #sudo dnf -y install https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-"$(rpm -E %fedora)".noarch.rpm
 
-# bring up to current
+###############################################################################
+# make current
+###############################################################################
 sudo dnf -y upgrade
 
 ###############################################################################
-# installs
+# dnf installs
 ###############################################################################
 sudo dnf -y install alacritty
 sudo dnf -y install zsh zsh-autosuggestions zsh-syntax-highlighting
@@ -83,7 +85,7 @@ flatpak install -y "org.gnucash.GnuCash"
 flatpak install -y "org.zealdocs.Zeal"                          # dev docs
 
 ###############################################################################
-# GNOME
+# gnome config
 ###############################################################################
   mod="<Super>"
   mod2="<Control>"
@@ -227,20 +229,6 @@ flatpak install -y "org.zealdocs.Zeal"                          # dev docs
   dconf write "${custom}8/name" "'Terminal'"
 
 ###############################################################################
-# dot files
-###############################################################################
-sh -c "$(curl -fsLS get.chezmoi.io)" 
-# move executable to PATH
-sudo mv ./bin/chezmoi /usr/local/bin/
-
-###############################################################################
-# ssh key
-###############################################################################
-ssh-keygen -t ed25519 -C "jeff.windsor@gmail.com"
-eval "$(ssh-agent -s)"
-ssh-add ~/.ssh/id_ed25519
-
-###############################################################################
 # gnome extesions
 ###############################################################################
 install_gnome_extension(){
@@ -277,11 +265,25 @@ install_gnome_extension 4812
 # 5470 | Weather O'Clock, https://github.com/CleoMenezesJr/weather-oclock, weatheroclock@CleoMenezesJr.github.io
 install_gnome_extension 5470
 
-echo "\n\n\n========================================================================="
-echo " Post Steps"
-echo "=========================================================================\n"
+###############################################################################
+# dot files
+###############################################################################
+sh -c "$(curl -fsLS get.chezmoi.io)"
+# move executable to PATH
+sudo mv ./bin/chezmoi /usr/local/bin/
 
-echo "Step 1: Add ssh public key to Github"
+###############################################################################
+# ssh key
+###############################################################################
+ssh-keygen -t ed25519 -C "jeff.windsor@gmail.com"
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
+
+###############################################################################
+#  post steps
+###############################################################################
+echo "========================================================================="
+echo "Add ssh public key to Github"
 cat $HOME/.ssh/*.pub
 echo "Hit Any key when completed"
 read -r
@@ -293,6 +295,6 @@ echo "\n==> Cloning Personal Github Repos"
 git clone git@github.com:jeffwindsor/financials.git "$HOME"/Source/github.com/jeffwindsor/financials
 git clone git@github.com:jeffwindsor/startpage.git "$HOME"/Source/github.com/jeffwindsor/startpage
 
-echo "\nStep 2: Install"
+echo "\nManual Install"
 echo "==> MEGA: https://mega.io/desktop#downloadapps"
 
