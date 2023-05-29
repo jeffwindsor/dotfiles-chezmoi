@@ -16,7 +16,7 @@ menu(){
     1) os-tree upgrade
     2) os-tree add layers
     3) userland
-\e[38;5;39m
+\e[38;5;28m
   OPTIONAL RE-INSTALLS:
     c) clone git repos
     e) install gnome extensions
