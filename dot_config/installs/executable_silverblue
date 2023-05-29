@@ -11,19 +11,19 @@ menu(){
 ╚════██║██║██║    ╚██╗ ██╔╝██╔══╝  ██╔══██╗██╔══██╗██║     ██║   ██║██╔══╝
 ███████║██║███████╗╚████╔╝ ███████╗██║  ██║██████╔╝███████╗╚██████╔╝███████╗
 ╚══════╝╚═╝╚══════╝ ╚═══╝  ╚══════╝╚═╝  ╚═╝╚═════╝ ╚══════╝ ╚═════╝ ╚══════╝
+
+INITIAL SETUP STEPS:
+  1) os-tree upgrade
+  2) os-tree add layers
+  3) userland
 \e[38;5;7m
-  INITIAL SETUP STEPS:
-    1) os-tree upgrade
-    2) os-tree add layers
-    3) userland
-\e[38;5;49m
-  OPTIONAL RE-INSTALLS:
-    c) clone git repos
-    e) install gnome extensions
-    f) install flatpacks
-    g) configure gnome
-    s) generate ssh key
-    t) create toolboxes
+OPTIONAL RE-INSTALLS:
+  c) clone git repos
+  e) install gnome extensions
+  f) install flatpacks
+  g) configure gnome
+  s) generate ssh key
+  t) create toolboxes
 \e[38;5;7m: "
 
     read -r version
