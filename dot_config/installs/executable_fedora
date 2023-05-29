@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 cd "$(dirname "${0}")" || exit
+
+
 clear
 echo -ne "
  \e[34m
@@ -249,22 +251,43 @@ read -r
   mkdir -p "$HOME"/Source/github.com/jeffwindsor
   git clone git@github.com:jeffwindsor/startpage.git "$HOME"/Source/github.com/jeffwindsor/startpage
 
+###############################################################################
+# gnome extesions
+###############################################################################
+add_gnome_ext(){
+  # 1. GNOME shell version
+  shell_version=$(gnome-shell --version | cut -d' ' -f3)
+
+  # 2. Fetch extension info (for the given shell version) example input: 307
+  info_json=$(curl -sS "https://extensions.gnome.org/extension-info/?pk=$1&shell_version=$shell_version")
+
+  # 3. Extract download url from the json with jq
+  download_url=$(echo $info_json | jq ".download_url" --raw-output)
+
+  # 4. Install the extension
+  echo "==> installing gnome $shell_version extension $1 from $download_url"
+  gnome-extensions install "https://extensions.gnome.org$download_url"
+}
+# 615  | AppIndicator, https://github.com/ubuntu/gnome-shell-extension-appindicator, _
+add_gnome_ext 615
+# 3193 | Blur My Shell, https://github.com/aunetx/gnome-shell-extension-blur-my-shell, src
+add_gnome_ext 3193
+# 517  | Caffeine, https://github.com/eonpatapon/gnome-shell-extension-caffeine, caffeine@patapon.info
+add_gnome_ext 517
+# 2932 | Executor, https://github.com/raujonas/executor, executor@raujonas.github.io
+add_gnome_ext 2932
+# 4481 | Forge, https://github.com/jmmaranan/forge, _
+add_gnome_ext 4481
+# 3843 | Just Perfection, https://gitlab.gnome.org/jrahmatzadeh/just-perfection, src
+add_gnome_ext 3843
+# 5090 | Space Bar, https://github.com/christopher-l/space-bar, _
+add_gnome_ext 5090
+# 4812 | Wallpaper Switcher, https://github.com/rishuinfinity/WallpaperSwitcher, src
+add_gnome_ext 4812
+# 5470 | Weather O'Clock, https://github.com/CleoMenezesJr/weather-oclock, weatheroclock@CleoMenezesJr.github.io
+add_gnome_ext 5470
+
 echo "
-===========================================================================
-EXTENSIONS: .local/share/gnome-shell/extensions
-===========================================================================
-  * 615  | AppIndicator, https://github.com/ubuntu/gnome-shell-extension-appindicator, _
-  * 3193 | Blur My Shell, https://github.com/aunetx/gnome-shell-extension-blur-my-shell, src
-  * 517  | Caffeine, https://github.com/eonpatapon/gnome-shell-extension-caffeine, caffeine@patapon.info
-  * 2932 | Executor, https://github.com/raujonas/executor, executor@raujonas.github.io
-  * 4481 | Forge, https://github.com/jmmaranan/forge, _
-  * 3843 | Just Perfection, https://gitlab.gnome.org/jrahmatzadeh/just-perfection, src
-  * 5090 | Space Bar, https://github.com/christopher-l/space-bar, _
-  * 4812 | Wallpaper Switcher, https://github.com/rishuinfinity/WallpaperSwitcher, src
-  * 5470 | Weather O'Clock, https://github.com/CleoMenezesJr/weather-oclock, weatheroclock@CleoMenezesJr.github.io
-===========================================================================
-PRE INSTALLED ON FEDORA
-  * Launch New Instance
 ===========================================================================
 MANUAL INSTALLS
   MEGA: https://mega.io/desktop#downloadapps
