@@ -82,6 +82,7 @@ create_toolboxes(){
 clone_git_repos(){
   mkdir -p "$HOME"/Source/github.com/jeffwindsor
   git clone git@github.com:jeffwindsor/startpage.git "$HOME"/Source/github.com/jeffwindsor/startpage
+  git clone git@github.com:jeffwindsor/finacials.git "$HOME"/Source/github.com/jeffwindsor/finacials
 }
 
 generate_ssh_keys(){
