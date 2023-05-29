@@ -41,16 +41,27 @@ menu(){
     esac
 }
 
-dnf_setup(){
-  echo "max_parallel_downloads=20" | sudo tee -a /etc/dnf/dnf.conf
-  echo "defaultyes=True" | sudo tee -a /etc/dnf/dnf.conf
-  echo "fastestmirror=False" | sudo tee -a /etc/dnf/dnf.conf
-  echo "cacheonly=True" | sudo tee -a /etc/dnf/dnf.conf
+install_gnome_ext(){
+  shell_version=$(gnome-shell --version | cut -d' ' -f3)
+  info_json=$(curl -sS "https://extensions.gnome.org/extension-info/?pk=$1&shell_version=$shell_version")
+  download_url=$(echo $info_json | jq ".download_url" --raw-output)
 
-  # add rpm fusion repositories
-  #sudo dnf -y install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-"$(rpm -E %fedora)".noarch.rpm
-  #sudo dnf -y install https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-"$(rpm -E %fedora)".noarch.rpm
-  #sudo dnf -y upgrade
+  echo "==> installing gnome $shell_version extension $1 from $download_url"
+  gnome-extensions install "https://extensions.gnome.org$download_url"
+}
+
+create_toolbox(){
+  tag="docker.io/jeffwindsor/${filename}:latest"
+  echo "======================================================================="
+  echo "creating toolbox $filename from image $tag"
+  
+  # remove old local
+  toolbox rm "$filename" --force
+  toolbox rmi "$tag"
+
+  # build image and toolbox
+  podman build --file="$filename" --tag="$tag"
+  toolbox create "$filename" --image="$tag"
 }
 
 git_clones(){
@@ -92,40 +103,25 @@ flatpaks(){
   flatpak install -y "org.zealdocs.Zeal"                          # dev docs
 }
 
-add_gnome_ext(){
-  # 1. GNOME shell version
-  shell_version=$(gnome-shell --version | cut -d' ' -f3)
-
-  # 2. Fetch extension info (for the given shell version) example input: 307
-  info_json=$(curl -sS "https://extensions.gnome.org/extension-info/?pk=$1&shell_version=$shell_version")
-
-  # 3. Extract download url from the json with jq
-  download_url=$(echo $info_json | jq ".download_url" --raw-output)
-
-  # 4. Install the extension
-  echo "==> installing gnome $shell_version extension $1 from $download_url"
-  gnome-extensions install "https://extensions.gnome.org$download_url"
-}
-
 extensions(){
   # 615  | AppIndicator, https://github.com/ubuntu/gnome-shell-extension-appindicator, _
-  add_gnome_ext 615
+  install_gnome_ext 615
   # 3193 | Blur My Shell, https://github.com/aunetx/gnome-shell-extension-blur-my-shell, src
-  add_gnome_ext 3193
+  install_gnome_ext 3193
   # 517  | Caffeine, https://github.com/eonpatapon/gnome-shell-extension-caffeine, caffeine@patapon.info
-  add_gnome_ext 517
+  install_gnome_ext 517
   # 2932 | Executor, https://github.com/raujonas/executor, executor@raujonas.github.io
-  add_gnome_ext 2932
+  install_gnome_ext 2932
   # 4481 | Forge, https://github.com/jmmaranan/forge, _
-  add_gnome_ext 4481
+  install_gnome_ext 4481
   # 3843 | Just Perfection, https://gitlab.gnome.org/jrahmatzadeh/just-perfection, src
-  add_gnome_ext 3843
+  install_gnome_ext 3843
   # 5090 | Space Bar, https://github.com/christopher-l/space-bar, _
-  add_gnome_ext 5090
+  install_gnome_ext 5090
   # 4812 | Wallpaper Switcher, https://github.com/rishuinfinity/WallpaperSwitcher, src
-  add_gnome_ext 4812
+  install_gnome_ext 4812
   # 5470 | Weather O'Clock, https://github.com/CleoMenezesJr/weather-oclock, weatheroclock@CleoMenezesJr.github.io
-  add_gnome_ext 5470
+  install_gnome_ext 5470
 
   echo "
   ===========================================================================
