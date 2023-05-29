@@ -4,7 +4,7 @@ cd "$(dirname "${0}")" || exit
 
 clear
 echo -ne "
- \e[34m
+ \e[38;5;39m
 ███████╗███████╗██████╗  ██████╗ ██████╗  █████╗
 ██╔════╝██╔════╝██╔══██╗██╔═══██╗██╔══██╗██╔══██╗
 █████╗  █████╗  ██║  ██║██║   ██║██████╔╝███████║
@@ -14,21 +14,25 @@ echo -ne "
 \e[0m"
 
 # update dnf config
-echo "max_parallel_downloads=20" | sudo tee -a /etc/dnf/dnf.conf
-echo "defaultyes=True" | sudo tee -a /etc/dnf/dnf.conf
-echo "fastestmirror=False" | sudo tee -a /etc/dnf/dnf.conf
-echo "cacheonly=True" | sudo tee -a /etc/dnf/dnf.conf
+#echo "max_parallel_downloads=20" | sudo tee -a /etc/dnf/dnf.conf
+#echo "defaultyes=True" | sudo tee -a /etc/dnf/dnf.conf
+#echo "fastestmirror=False" | sudo tee -a /etc/dnf/dnf.conf
+#echo "cacheonly=True" | sudo tee -a /etc/dnf/dnf.conf
 
 # add rpm fusion repositories
-sudo dnf -y install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-"$(rpm -E %fedora)".noarch.rpm
-sudo dnf -y install https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-"$(rpm -E %fedora)".noarch.rpm
+#sudo dnf -y install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-"$(rpm -E %fedora)".noarch.rpm
+#sudo dnf -y install https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-"$(rpm -E %fedora)".noarch.rpm
+
+# bring up to current
 sudo dnf -y upgrade
 
 ###############################################################################
-# dnf installs
+# installs
 ###############################################################################
-
 sudo dnf -y install alacritty
+sudo dnf -y install zsh zsh-autosuggestions zsh-syntax-highlighting
+sudo dnf -y install jetbrains-mono-fonts
+
 sudo dnf -y install bat
 sudo dnf -y install exa
 sudo dnf -y install entr
@@ -37,9 +41,9 @@ sudo dnf -y install fortune-mod
 sudo dnf -y install fzf
 sudo dnf -y install ranger
 sudo dnf -y install ripgrep
+sudo dnf -y install sd
 sudo dnf -y install shellcheck
 sudo dnf -y install tealdeer
-sudo dnf -y install jetbrains-mono-fonts
 sudo dnf -y install vifm
 
 # neovim
@@ -53,30 +57,30 @@ sudo dnf -y install starship
 ###############################################################################
 # flatpak installs
 ###############################################################################
-  sudo dnf remove Firefox
+sudo dnf remove Firefox
 
-  # flatpak install -y "io.github.endless_sky.endless_sky"
-  # flatpak install -y "net.sourceforge.Klavaro"                    # typing
-  # flatpak install -y "org.videolan.VLC"
-  flatpak install -y "com.discordapp.Discord"
-  flatpak install -y "com.github.rafostar.Clapper"
-  flatpak install -y "com.github.tchx84.Flatseal"                 # flatpak sec manager
-  flatpak install -y "com.gitlab.davem.ClamTk"                    # virus
-  flatpak install -y "com.gitlab.newsflash"
-  flatpak install -y "com.google.Chrome"
-  flatpak install -y "com.mattjakeman.ExtensionManager"           # improved extension manager
-  flatpak install -y "com.spotify.Client"
-  flatpak install -y "com.valvesoftware.Steam"
-  flatpak install -y "io.podman_desktop.PodmanDesktop"
-  flatpak install -y "md.obsidian.Obsidian"
-  flatpak install -y "org.chromium.Chromium"
-  flatpak install -y "org.gnome.Evolution"
-  flatpak install -y "org.gnome.Firmware"
-  flatpak install -y "org.gnome.Photos"
-  flatpak install -y "org.gnome.Podcasts"
-  flatpak install -y "org.gnome.seahorse.Application"
-  flatpak install -y "org.gnucash.GnuCash"
-  flatpak install -y "org.zealdocs.Zeal"                          # dev docs
+# flatpak install -y "io.github.endless_sky.endless_sky"
+# flatpak install -y "net.sourceforge.Klavaro"                    # typing
+# flatpak install -y "org.videolan.VLC"
+flatpak install -y "com.discordapp.Discord"
+flatpak install -y "com.github.rafostar.Clapper"
+flatpak install -y "com.github.tchx84.Flatseal"                 # flatpak sec manager
+flatpak install -y "com.gitlab.davem.ClamTk"                    # virus
+flatpak install -y "com.gitlab.newsflash"
+flatpak install -y "com.google.Chrome"
+flatpak install -y "com.mattjakeman.ExtensionManager"           # improved extension manager
+flatpak install -y "com.spotify.Client"
+flatpak install -y "com.valvesoftware.Steam"
+flatpak install -y "io.podman_desktop.PodmanDesktop"
+flatpak install -y "md.obsidian.Obsidian"
+flatpak install -y "org.chromium.Chromium"
+flatpak install -y "org.gnome.Evolution"
+flatpak install -y "org.gnome.Firmware"
+flatpak install -y "org.gnome.Photos"
+flatpak install -y "org.gnome.Podcasts"
+flatpak install -y "org.gnome.seahorse.Application"
+flatpak install -y "org.gnucash.GnuCash"
+flatpak install -y "org.zealdocs.Zeal"                          # dev docs
 
 ###############################################################################
 # GNOME
@@ -225,15 +229,9 @@ sudo dnf -y install starship
 ###############################################################################
 # dot files
 ###############################################################################
-
-  # dotfiles from chezmoi
-  sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply "https://github.com/jeffwindsor/dotfiles-chezmoi"
-
-  # move executable to PATH
-  sudo mv ./bin/chezmoi /usr/local/bin/
-
-  # re-build fortune dats
-  "$HOME"/.config/fortune/build.sh
+sh -c "$(curl -fsLS get.chezmoi.io)" 
+# move executable to PATH
+sudo mv ./bin/chezmoi /usr/local/bin/
 
 ###############################################################################
 # ssh key
@@ -242,19 +240,10 @@ ssh-keygen -t ed25519 -C "jeff.windsor@gmail.com"
 eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_ed25519
 
-echo "Add ssh public key to Github"
-read -r
-
-###############################################################################
-# git repos
-###############################################################################
-  mkdir -p "$HOME"/Source/github.com/jeffwindsor
-  git clone git@github.com:jeffwindsor/startpage.git "$HOME"/Source/github.com/jeffwindsor/startpage
-
 ###############################################################################
 # gnome extesions
 ###############################################################################
-add_gnome_ext(){
+install_gnome_extension(){
   # 1. GNOME shell version
   shell_version=$(gnome-shell --version | cut -d' ' -f3)
 
@@ -268,28 +257,42 @@ add_gnome_ext(){
   echo "==> installing gnome $shell_version extension $1 from $download_url"
   gnome-extensions install "https://extensions.gnome.org$download_url"
 }
-# 615  | AppIndicator, https://github.com/ubuntu/gnome-shell-extension-appindicator, _
-add_gnome_ext 615
-# 3193 | Blur My Shell, https://github.com/aunetx/gnome-shell-extension-blur-my-shell, src
-add_gnome_ext 3193
-# 517  | Caffeine, https://github.com/eonpatapon/gnome-shell-extension-caffeine, caffeine@patapon.info
-add_gnome_ext 517
-# 2932 | Executor, https://github.com/raujonas/executor, executor@raujonas.github.io
-add_gnome_ext 2932
-# 4481 | Forge, https://github.com/jmmaranan/forge, _
-add_gnome_ext 4481
-# 3843 | Just Perfection, https://gitlab.gnome.org/jrahmatzadeh/just-perfection, src
-add_gnome_ext 3843
-# 5090 | Space Bar, https://github.com/christopher-l/space-bar, _
-add_gnome_ext 5090
-# 4812 | Wallpaper Switcher, https://github.com/rishuinfinity/WallpaperSwitcher, src
-add_gnome_ext 4812
-# 5470 | Weather O'Clock, https://github.com/CleoMenezesJr/weather-oclock, weatheroclock@CleoMenezesJr.github.io
-add_gnome_ext 5470
 
-echo "
-===========================================================================
-MANUAL INSTALLS
-  MEGA: https://mega.io/desktop#downloadapps
-"
+# 615  | AppIndicator, https://github.com/ubuntu/gnome-shell-extension-appindicator, _
+install_gnome_extension 615
+# 3193 | Blur My Shell, https://github.com/aunetx/gnome-shell-extension-blur-my-shell, src
+install_gnome_extension 3193
+# 517  | Caffeine, https://github.com/eonpatapon/gnome-shell-extension-caffeine, caffeine@patapon.info
+install_gnome_extension 517
+# 2932 | Executor, https://github.com/raujonas/executor, executor@raujonas.github.io
+install_gnome_extension 2932
+# 4481 | Forge, https://github.com/jmmaranan/forge, _
+install_gnome_extension 4481
+# 3843 | Just Perfection, https://gitlab.gnome.org/jrahmatzadeh/just-perfection, src
+install_gnome_extension 3843
+# 5090 | Space Bar, https://github.com/christopher-l/space-bar, _
+install_gnome_extension 5090
+# 4812 | Wallpaper Switcher, https://github.com/rishuinfinity/WallpaperSwitcher, src
+install_gnome_extension 4812
+# 5470 | Weather O'Clock, https://github.com/CleoMenezesJr/weather-oclock, weatheroclock@CleoMenezesJr.github.io
+install_gnome_extension 5470
+
+echo "\n\n\n========================================================================="
+echo " Post Steps"
+echo "=========================================================================\n"
+
+echo "Step 1: Add ssh public key to Github"
+cat $HOME/.ssh/*.pub
+echo "Hit Any key when completed"
+read -r
+
+echo "\n==> Pulling and applying dotfiles"
+chezmoi init --apply "https://github.com/jeffwindsor/dotfiles-chezmoi"
+
+echo "\n==> Cloning Personal Github Repos"
+git clone git@github.com:jeffwindsor/financials.git "$HOME"/Source/github.com/jeffwindsor/financials
+git clone git@github.com:jeffwindsor/startpage.git "$HOME"/Source/github.com/jeffwindsor/startpage
+
+echo "\nStep 2: Install"
+echo "==> MEGA: https://mega.io/desktop#downloadapps"
 
