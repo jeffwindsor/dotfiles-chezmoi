@@ -24,7 +24,8 @@ OPTIONAL RE-INSTALLS:
   g) configure gnome
   s) generate ssh key
   t) create toolboxes
-\e[38;5;7m: "
+\e[38;5;7m
+: "
 
     read -r version
     case $version in
