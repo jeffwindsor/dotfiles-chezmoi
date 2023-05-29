@@ -4,18 +4,27 @@ cd "$(dirname "${0}")" || exit
 menu(){
   clear
   echo -ne "
- \e[34m
+ \e[38;5;39m
 ███████╗██╗██╗    ██╗   ██╗███████╗██████╗ ██████╗ ██╗     ██╗   ██╗███████╗
 ██╔════╝██║██║    ██║   ██║██╔════╝██╔══██╗██╔══██╗██║     ██║   ██║██╔════╝
 ███████╗██║██║    ██║   ██║█████╗  ██████╔╝██████╔╝██║     ██║   ██║█████╗
 ╚════██║██║██║    ╚██╗ ██╔╝██╔══╝  ██╔══██╗██╔══██╗██║     ██║   ██║██╔══╝
 ███████║██║███████╗╚████╔╝ ███████╗██║  ██║██████╔╝███████╗╚██████╔╝███████╗
 ╚══════╝╚═╝╚══════╝ ╚═══╝  ╚══════╝╚═╝  ╚═╝╚═════╝ ╚══════╝ ╚═════╝ ╚══════╝
+\e[38;5;7m
+  INITIAL SETUP STEPS:
+    1) system - os-tree upgrade
+    2) system - os-tree add layers
+    3) create userland
 
-\e[1;36m
-    1) System - Os-Tree [U]pgrade
-    2) System - Os-Tree Add [L]ayers
-    u) Create Userland
+\e[38;5;7m
+  OPTIONAL RE-INSTALLS:
+    c) clone git repos
+    e) install gnome extensions
+    f) install flatpacks
+    g) configure gnome
+    s) generate ssh key
+    t) crete toolboxes
     : "
 
     read -r version
@@ -26,21 +35,23 @@ menu(){
       2) rpm-ostree install alacritty
          systemctl reboot
          ;;
-      u) ssh_keygen
-         git_clones
-         gnome
-         extensions
-         flatpacks
-         toolbox create fedora-toolbox-38 --image docker.io/jeffwindsor/base-fedora-toolbox
+      3) generate_ssh_keys
+         install_gnome_extensions
+         install_flatpacks
+         configure_gnome
+         create_toolboxes
          ;;
-      ts) dnf_setup ;;
-      tt) tools ;;
-      td) dotfiles ;;
-      tr) git-clones ;;
+      c) clone_git_repos ;;
+      e) install_gnome_extensions ;;
+      f) install_flatpacks ;;
+      g) configure_gnome ;;
+      s) generate_ssh_keys;;
+      t) create_toolboxes;;
       *) exit 1 ;;
     esac
 }
 
+#==================================================================================================
 install_gnome_ext(){
   shell_version=$(gnome-shell --version | cut -d' ' -f3)
   info_json=$(curl -sS "https://extensions.gnome.org/extension-info/?pk=$1&shell_version=$shell_version")
@@ -52,24 +63,28 @@ install_gnome_ext(){
 
 create_toolbox(){
   tag="docker.io/jeffwindsor/${filename}:latest"
-  echo "======================================================================="
-  echo "creating toolbox $filename from image $tag"
-  
+  echo "==> creating toolbox $filename from image $tag"
+
   # remove old local
   toolbox rm "$filename" --force
   toolbox rmi "$tag"
 
   # build image and toolbox
-  podman build --file="$filename" --tag="$tag"
+  podman build --file="./toolboxes/$filename" --tag="$tag"
   toolbox create "$filename" --image="$tag"
 }
 
-git_clones(){
+#==================================================================================================
+create_toolboxes(){
+  create_toolbox base
+}
+
+clone_git_repos(){
   mkdir -p "$HOME"/Source/github.com/jeffwindsor
   git clone git@github.com:jeffwindsor/startpage.git "$HOME"/Source/github.com/jeffwindsor/startpage
 }
 
-ssh_keygen(){
+generate_ssh_keys(){
   ssh-keygen -t ed25519 -C "jeff.windsor@gmail.com"
   eval "$(ssh-agent -s)"
   ssh-add ~/.ssh/id_ed25519
@@ -78,7 +93,7 @@ ssh_keygen(){
   read -r
 }
 
-flatpaks(){
+install_flatpacks(){
   # flatpak install -y "io.github.endless_sky.endless_sky"
   # flatpak install -y "net.sourceforge.Klavaro"                    # typing
   # flatpak install -y "org.videolan.VLC"
@@ -103,7 +118,7 @@ flatpaks(){
   flatpak install -y "org.zealdocs.Zeal"                          # dev docs
 }
 
-extensions(){
+install_gnome_extensions(){
   # 615  | AppIndicator, https://github.com/ubuntu/gnome-shell-extension-appindicator, _
   install_gnome_ext 615
   # 3193 | Blur My Shell, https://github.com/aunetx/gnome-shell-extension-blur-my-shell, src
@@ -130,7 +145,7 @@ extensions(){
   "
 }
 
-gnome(){
+configure_gnome(){
   mod="<Super>"
   mod2="<Control>"
 
