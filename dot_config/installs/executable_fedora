@@ -253,16 +253,15 @@ echo "
 ===========================================================================
 EXTENSIONS: .local/share/gnome-shell/extensions
 ===========================================================================
-  * AppIndicator, https://github.com/ubuntu/gnome-shell-extension-appindicator, _
-  * Blur My Shell, https://github.com/aunetx/gnome-shell-extension-blur-my-shell, src
-  * Caffeine, https://github.com/eonpatapon/gnome-shell-extension-caffeine, caffeine@patapon.info
-  * Executor, https://github.com/raujonas/executor, executor@raujonas.github.io
-  * Forge, https://github.com/jmmaranan/forge, _
-  * Just Perfection, https://gitlab.gnome.org/jrahmatzadeh/just-perfection, src
-  * SpaceBar, https://github.com/christopher-l/space-bar, _
-  * Stocks, https://github.com/cinatic/stocks-extension, stocks@infinicode.de
-  * Wallpaper Switcher, https://github.com/rishuinfinity/WallpaperSwitcher, src
-  * Weather O'Clock, https://github.com/CleoMenezesJr/weather-oclock, weatheroclock@CleoMenezesJr.github.io
+  * 615  | AppIndicator, https://github.com/ubuntu/gnome-shell-extension-appindicator, _
+  * 3193 | Blur My Shell, https://github.com/aunetx/gnome-shell-extension-blur-my-shell, src
+  * 517  | Caffeine, https://github.com/eonpatapon/gnome-shell-extension-caffeine, caffeine@patapon.info
+  * 2932 | Executor, https://github.com/raujonas/executor, executor@raujonas.github.io
+  * 4481 | Forge, https://github.com/jmmaranan/forge, _
+  * 3843 | Just Perfection, https://gitlab.gnome.org/jrahmatzadeh/just-perfection, src
+  * 5090 | Space Bar, https://github.com/christopher-l/space-bar, _
+  * 4812 | Wallpaper Switcher, https://github.com/rishuinfinity/WallpaperSwitcher, src
+  * 5470 | Weather O'Clock, https://github.com/CleoMenezesJr/weather-oclock, weatheroclock@CleoMenezesJr.github.io
 ===========================================================================
 PRE INSTALLED ON FEDORA
   * Launch New Instance
