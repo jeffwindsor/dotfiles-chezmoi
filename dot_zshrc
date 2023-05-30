@@ -24,24 +24,30 @@ HISTSIZE=50000
 SAVEHIST=10000
 
 #===========================================================
-# autoloads
-for file in $XDG_CONFIG_HOME/shells/autoloads/*.zsh
-do
-    source $file
-done
-
-# aliases
 for file in $XDG_CONFIG_HOME/shells/aliases/*
 do
     source $file
 done
 
 #===========================================================
+# zsh-completions 
+if type brew &>/dev/null; then
+    FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
 
-# auto/tab completion 
-zstyle ':completion:*' menu select
-zmodload zsh/complist
-_comp_options+=(globdots)    #include hidden files
+    autoload -Uz compinit
+    compinit
+fi
 
-autoload -Uz compinit
-compinit -d $XDG_CACHE_HOME/zsh/zcompdump-$ZSH_VERSION
+# MACOS
+[[ ! "$PATH" == */usr/local/opt/fzf/bin* ]] && export PATH="${PATH:+${PATH}:}/usr/local/opt/fzf/bin"
+[[ $- == *i* ]] && source "/usr/local/opt/fzf/shell/completion.zsh" 2> /dev/null
+[ -d /usr/local/opt/fzf ] && source "/usr/local/opt/fzf/shell/key-bindings.zsh"
+[ -d /usr/local/share/zsh-syntax-highlighting ] && source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+#[ -d /usr/local/share/zsh-history-substring-search ] && source /usr/local/share/zsh-history-substring-search/zsh-history-substring-search.zsh
+[ -d /usr/local/share/zsh-autosuggestions ] && source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+# FEDORA
+[ -d /usr/share/fzf/ ] && source "/usr/share/fzf/shell/key-bindings.zsh"
+
+eval "$(starship init zsh)"
