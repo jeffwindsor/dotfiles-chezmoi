@@ -4,7 +4,7 @@ pcall(require('nvim-treesitter.install').update { with_sync = true })
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'c', 'go', 'lua', 'python', 'rust', 'tsx', 'typescript', 'vim' },
+  ensure_installed = { 'bash', 'c', 'go', 'lua', 'python', 'rust', 'sql', 'tsx', 'typescript', 'vim', 'yaml' },
 
   -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
   auto_install = false,
