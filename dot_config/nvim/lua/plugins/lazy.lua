@@ -23,10 +23,10 @@ require('lazy').setup({
   { 'pocco81/auto-save.nvim' },
 
   -- show git gutter
-  { 'lewis6991/gitsigns.nvim', lazy = true },
+  { 'lewis6991/gitsigns.nvim' },
 
-  -- markdown via glow
-  -- { 'ellisonleao/glow.nvim', config = true, cmd = 'Glow'},
+  -- terminal app wrapper : lazygit, lf, etc.
+    {"is0n/fm-nvim" },
 
   -- vertical line hints for indentation
   { 'lukas-reineke/indent-blankline.nvim' },
@@ -35,34 +35,27 @@ require('lazy').setup({
   -- { 'nvim-lualine/lualine.nvim', dependencies = {'nvim-web-devicons'}},
 
   -- swiss army knife of plugins
-  { 'echasnovski/mini.nvim', version = '*', lazy = true },
+  { 'echasnovski/mini.nvim', version = '*' },
 
   -- Autocompletion
   { 'hrsh7th/nvim-cmp',
-    dependencies = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
-    lazy = true },
+    dependencies = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' }},
 
   -- LSP Configuration & Plugins
   { 'neovim/nvim-lspconfig',
-    dependencies = { 'williamboman/mason.nvim', 'williamboman/mason-lspconfig.nvim', { 'j-hui/fidget.nvim', opts = {} }, 'folke/neodev.nvim', },
-    lazy = true },
-
-  -- terminal app wrapper : lazygit, lf, etc.
-    {"is0n/fm-nvim", lazy = false},
+    dependencies = { 'williamboman/mason.nvim', 'williamboman/mason-lspconfig.nvim', { 'j-hui/fidget.nvim', opts = {} }, 'folke/neodev.nvim', }},
 
   -- Highlight, edit, and navigate code
   { 'nvim-treesitter/nvim-treesitter',
-    dependencies = { 'nvim-treesitter/nvim-treesitter-textobjects' },
-    lazy = true },
+    dependencies = { 'nvim-treesitter/nvim-treesitter-textobjects' }},
 
   -- fuzzy finder
   { 'nvim-telescope/telescope.nvim',
     dependencies = {'nvim-lua/plenary.nvim'},
-    version = '*',
-    lazy = true },
+    version = '*'},
 
   -- auto adjust the tab length based on current files usage
-  { 'tpope/vim-sleuth', lazy = true },
+  { 'tpope/vim-sleuth' },
 
   -- git power
   --{ 'tpope/vim-fugative', lazy = true },
@@ -71,7 +64,7 @@ require('lazy').setup({
   --{ 'christoomey/vim-tmux-navigator', lazy = false },
 
   -- key bindings popup menu
-  { 'folke/which-key.nvim', lazy = true },
+  { 'folke/which-key.nvim' },
 
   -- --------------------------------------------------------------------------
   -- color schemes
