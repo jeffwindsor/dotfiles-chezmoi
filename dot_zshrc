@@ -49,7 +49,7 @@ fi
 
 # FEDORA
 [ -d /usr/share/fzf/ ] && source "/usr/share/fzf/shell/key-bindings.zsh"
-[ -d /usr/share/zsh-autosuggestions ] && /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-[ -d /usr/share/zsh-syntax-highlighting ] && /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+[ -d /usr/share/zsh-autosuggestions ] && source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+[ -d /usr/share/zsh-syntax-highlighting ] && source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 eval "$(starship init zsh)"
