@@ -213,7 +213,7 @@ flatpak install -y "org.zealdocs.Zeal"                          # dev docs
   dconf write "${custom}3/name" "'Suspend'"
 
   dconf write "${custom}4/binding" "'${mod}${mod2}t'"
-  dconf write "${custom}4/command" "'env WINIT_UNIX_BACKEND=x11 alacritty --config-file \"$HOME\"/.config/alacritty/alacritty-ostree.yml -e bash -c \"SHELL=/usr/bin/zsh toolbox enter\"'"
+  dconf write "${custom}4/command" "'env WINIT_UNIX_BACKEND=x11 alacritty --config-file \"$HOME\"/.config/alacritty/alacritty-ostree.yml -e bash -c \"SHELL=/usr/bin/zsh toolbox enter base\"'"
   dconf write "${custom}4/name" "'Terminal2'"
 
 
