@@ -268,7 +268,10 @@ install_gnome_extension 5090
 # 4812 | Wallpaper Switcher, https://github.com/rishuinfinity/WallpaperSwitcher, src
 install_gnome_extension 4812
 # 5470 | Weather O'Clock, https://github.com/CleoMenezesJr/weather-oclock, weatheroclock@CleoMenezesJr.github.io
-install_gnome_extension 5470
+#install_gnome_extension 5470
+# 750 | Open Weather
+install_gnome_extension 750
+
 
 ###############################################################################
 # dot files
