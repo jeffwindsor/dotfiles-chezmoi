@@ -19,7 +19,7 @@ echo -ne "
 install_gnome_extension(){
   # Need current GNOME shell version
   shell_version=$(gnome-shell --version | cut -d' ' -f3)
-  
+
   # Fetch extension info (for the given shell version) example input: 307
   info_json=$(curl -sS "https://extensions.gnome.org/extension-info/?pk=$1&shell_version=$shell_version")
 
@@ -81,6 +81,7 @@ flatpak install -y "com.google.Chrome"
 flatpak install -y "com.mattjakeman.ExtensionManager"           # improved extension manager
 flatpak install -y "com.spotify.Client"
 flatpak install -y "com.valvesoftware.Steam"
+flatpak install -y "io.gitlab.librewolf-community"
 flatpak install -y "io.podman_desktop.PodmanDesktop"
 flatpak install -y "md.obsidian.Obsidian"
 flatpak install -y "org.chromium.Chromium"
@@ -238,8 +239,8 @@ install_gnome_extension 3843
 install_gnome_extension 5090
 # 4812 | Wallpaper Switcher, https://github.com/rishuinfinity/WallpaperSwitcher, src
 install_gnome_extension 4812
-# 5470 | Weather O'Clock, https://github.com/CleoMenezesJr/weather-oclock, weatheroclock@CleoMenezesJr.github.io
-#install_gnome_extension 5470
+#   # 5470 | Weather O'Clock, https://github.com/CleoMenezesJr/weather-oclock, weatheroclock@CleoMenezesJr.github.io
+#   install_gnome_extension 5470
 # 750 | Open Weather
 install_gnome_extension 750
 
