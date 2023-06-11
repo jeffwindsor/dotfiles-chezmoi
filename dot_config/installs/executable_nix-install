@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 cd "$(dirname "${0}")" || exit
 
+menu(){
 clear
-
 echo -ne "
 0) Nix Package Manager Install
 g) Gnome Configure
@@ -12,20 +12,19 @@ n) Nix Package Installs
 h) Github Integration
 
 Select Step:  "
-    read -r step
-    case $step in
-      0) nix_pm_install ;;
-      g) gnome_config ;;
-      e) gnome_extensions ;;
-      h) github_integration ;;
-      f) flatpak_installs ;;
-      n) nix_installs;;
-      *)
-        echo "Not a valid option"
-        exit 1
-        ;;
-    esac
-  done
+  read -r step
+  case $step in
+    0) nix_pm_install ;;
+    g) gnome_configuration ;;
+    e) gnome_extensions ;;
+    h) github_integration ;;
+    f) flatpak_installs ;;
+    n) nix_installs;;
+    *)
+      echo "Not a valid option"
+      exit 1
+      ;;
+  esac
 }
 
 ###############################################################################
@@ -78,24 +77,24 @@ nix_pm_install(){
 }
 
 nix_installs(){
-  nix-env -iA alacritty
-  nix-env -iA bat
-  nix-env -iA chezmoi
-  nix-env -iA exa
-  nix-env -iA fd
-  nix-env -iA fortune
-  nix-env -iA fzf
-  nix-env -iA jetbrains-mono
-  nix-env -iA lf
-  nix-env -iA neovim
-  nix-env -iA ripgrep
-  nix-env -iA sd
-  nix-env -iA shellcheck
-  nix-env -iA starship
-  nix-env -iA tealdeer
-  nix-env -iA zsh
-  nix-env -iA zsh-autosuggestions
-  nix-env -iA zsh-syntax-highlighting
+  nix-env -iA nixpkgs.alacritty
+  nix-env -iA nixpkgs.bat
+  nix-env -iA nixpkgs.chezmoi
+  nix-env -iA nixpkgs.exa
+  nix-env -iA nixpkgs.fd
+  nix-env -iA nixpkgs.fortune
+  nix-env -iA nixpkgs.fzf
+  nix-env -iA nixpkgs.jetbrains-mono
+  nix-env -iA nixpkgs.lf
+  nix-env -iA nixpkgs.neovim
+  nix-env -iA nixpkgs.ripgrep
+  nix-env -iA nixpkgs.sd
+  nix-env -iA nixpkgs.shellcheck
+  nix-env -iA nixpkgs.starship
+  nix-env -iA nixpkgs.tealdeer
+  nix-env -iA nixpkgs.zsh
+  nix-env -iA nixpkgs.zsh-autosuggestions
+  nix-env -iA nixpkgs.zsh-syntax-highlighting
 # nix-env -iA entr
 }
 
@@ -299,3 +298,5 @@ gnome_configuration(){
   dconf write "${custom}8/name" "'Terminal'"
 
 }
+
+menu
