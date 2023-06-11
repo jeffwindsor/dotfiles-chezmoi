@@ -12,3 +12,5 @@ for rc in $XDG_CONFIG_HOME/shells/env/*
 do
     source $rc
 done
+
+if [ -e /home/mid/.nix-profile/etc/profile.d/nix.sh ]; then . /home/mid/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
