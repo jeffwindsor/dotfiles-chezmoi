@@ -27,9 +27,13 @@ exec-on-git-repos() {
   [ ! -z "$result" ] && $1 $result
 }
 
-git-all() { ls | xargs -I{} git -C {} $1 }
+git-all() {
+  ls | xargs -I{} git -C {} $1
+}
 
-ghc()  { git clone git@github.com:$1 $SRC/github.com/$1; }
+ghc()  {
+  git clone git@github.com:$1 $SRC/github.com/$1
+}
 
 alias src="cd $SRC"
 alias srcs="exec-on-git-repos cd $SRC"
