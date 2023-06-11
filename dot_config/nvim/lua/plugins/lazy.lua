@@ -43,7 +43,12 @@ require('lazy').setup({
 
   -- LSP Configuration & Plugins
   { 'neovim/nvim-lspconfig',
-    dependencies = { 'williamboman/mason.nvim', 'williamboman/mason-lspconfig.nvim', { 'j-hui/fidget.nvim', opts = {} }, 'folke/neodev.nvim', }},
+    dependencies = { 
+      'williamboman/mason.nvim', 
+      'williamboman/mason-lspconfig.nvim', 
+      { 'j-hui/fidget.nvim', branch = 'legacy', opts = {} }, 
+      'folke/neodev.nvim', 
+    }},
 
   -- Highlight, edit, and navigate code
   { 'nvim-treesitter/nvim-treesitter',
