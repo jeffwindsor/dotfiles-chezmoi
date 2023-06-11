@@ -6,6 +6,7 @@ clear
 echo -ne "
 0) Nix Package Manager Install
 g) Gnome Configure
+e) Gnome Extensions
 f) Flatpack Installs
 n) Nix Package Installs
 h) Github Integration
@@ -14,12 +15,12 @@ Select Step:  "
     read -r step
     case $step in
       0) nix_pm_install ;;
-      g) gnome_config
-         gnome_extensions ;;
+      g) gnome_config ;;
+      e) gnome_extensions ;;
       h) github_integration ;;
       f) flatpak_installs ;;
       n) nix_installs;;
-      *) 
+      *)
         echo "Not a valid option"
         exit 1
         ;;
@@ -73,10 +74,7 @@ github_integration(){
 
 nix_pm_install(){
   sh <(curl -L https://nixos.org/nix/install) --no-daemon
-
-  # add simplfied commands and flakes to capabilities
-  mkdir -p $HOME/.config/nix
-  echo "experimental-features = nix-command flakes" > $HOME/.config/nix/nix.conf
+  #sh <(curl -L https://nixos.org/nix/install) --daemon
 }
 
 nix_installs(){
@@ -128,24 +126,22 @@ flatpak_installs(){
 }
 
 gnome_extensions(){
-  # 615  | AppIndicator, https://github.com/ubuntu/gnome-shell-extension-appindicator, _
+  # 615  | AppIndicator
   install_gnome_extension 615
-  # 3193 | Blur My Shell, https://github.com/aunetx/gnome-shell-extension-blur-my-shell, src
+  # 3193 | Blur My Shell
   install_gnome_extension 3193
-  # 517  | Caffeine, https://github.com/eonpatapon/gnome-shell-extension-caffeine, caffeine@patapon.info
+  # 517  | Caffeine
   install_gnome_extension 517
-  # 2932 | Executor, https://github.com/raujonas/executor, executor@raujonas.github.io
+  # 2932 | Executor
   install_gnome_extension 2932
-  # 4481 | Forge, https://github.com/jmmaranan/forge, _
+  # 4481 | Forge
   install_gnome_extension 4481
-  # 3843 | Just Perfection, https://gitlab.gnome.org/jrahmatzadeh/just-perfection, src
+  # 3843 | Just Perfection
   install_gnome_extension 3843
-  # 5090 | Space Bar, https://github.com/christopher-l/space-bar, _
+  # 5090 | Space Bar
   install_gnome_extension 5090
-  # 4812 | Wallpaper Switcher, https://github.com/rishuinfinity/WallpaperSwitcher, src
+  # 4812 | Wallpaper Switcher
   install_gnome_extension 4812
-  #   # 5470 | Weather O'Clock, https://github.com/CleoMenezesJr/weather-oclock, weatheroclock@CleoMenezesJr.github.io
-  #   install_gnome_extension 5470
   # 750 | Open Weather
   install_gnome_extension 750
 
@@ -281,21 +277,21 @@ gnome_configuration(){
   dconf write "${custom}3/command" "'systemctl suspend'"
   dconf write "${custom}3/name" "'Suspend'"
 
-  dconf write "${custom}4/binding" "'${mod}${mod2}t'"
-  dconf write "${custom}4/command" "'env WINIT_UNIX_BACKEND=x11 alacritty --config-file \"$HOME\"/.config/alacritty/alacritty-ostree.yml -e bash -c \"SHELL=/usr/bin/zsh toolbox enter base\"'"
-  dconf write "${custom}4/name" "'Terminal2'"
 
+  dconf write "${custom}4/binding" "'${mod}o'"
+  dconf write "${custom}4/command" "'flatpack run md.obsidian.Obsidian'"
+  dconf write "${custom}4/name" "'Obsidian'"
 
   dconf write "${custom}5/binding" "'${mod}e'"
-  dconf write "${custom}5/command" "'flatpak run com.mattjakeman.extensionmanager'"
+  dconf write "${custom}5/command" "'flatpak run com.mattjakeman.ExtensionManager'"
   dconf write "${custom}5/name" "'Extensions'"
 
   dconf write "${custom}6/binding" "'${mod}g'"
-  dconf write "${custom}6/command" "'gnucash'"
+  dconf write "${custom}6/command" "'flatpak run org.gnucash.GnuCash'"
   dconf write "${custom}6/name" "'GNU Cash'"
 
   dconf write "${custom}7/binding" "'${mod}s'"
-  dconf write "${custom}7/command" "'flatpak run com.spotify.client'"
+  dconf write "${custom}7/command" "'flatpak run com.spotify.Client'"
   dconf write "${custom}7/name" "'Spotify'"
 
   dconf write "${custom}8/binding" "'${mod}t'"
