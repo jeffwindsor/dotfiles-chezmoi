@@ -15,9 +15,9 @@ Select Step:  "
       g) gnome_config
          gnome_extensions ;;
       h) github_integration ;;
-      n) nix_install ;;
+      n) nix_pm_install ;;
       u) flatpak_installs
-         nix_package_installs;;
+         nix_installs;;
       *)
         echo "Not a valid option"
         exit 1
@@ -63,11 +63,14 @@ github_integration(){
   git clone git@github.com:jeffwindsor/financials.git "$HOME"/Source/github.com/jeffwindsor/financials
   git clone git@github.com:jeffwindsor/startpage.git "$HOME"/Source/github.com/jeffwindsor/startpage
 
+  # echo "\n==> Adding Packer to Nvim"
+  # git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+
   echo "\nManual Install"
   echo "==> MEGA: https://mega.io/desktop#downloadapps"
 }
 
-nix_install(){
+nix_pm_install(){
   sh <(curl -L https://nixos.org/nix/install) --daemon
   mkdir -p $HOME/.config/nix
   echo "experimental-features = nix-command flakes" > $HOME/.config/nix/nix.conf
@@ -96,6 +99,27 @@ gnome_extensions(){
   #install_gnome_extension 5470
   # 750 | Open Weather
   install_gnome_extension 750
+}
+
+nix_installs(){
+  nix-env -iA alacritty
+  nix-env -iA bat
+# nix-env -iA entr
+  nix-env -iA exa
+  nix-env -iA fd
+  nix-env -iA fortune
+  nix-env -iA fzf
+  nix-env -iA jetbrains-mono
+  nix-env -iA neovim 
+  nix-env -iA lf
+  nix-env -iA ripgrep
+  nix-env -iA sd
+  nix-env -iA shellcheck
+  nix-env -iA starship
+  nix-env -iA tealdeer
+  nix-env -iA zsh
+  nix-env -iA zsh-autosuggestions
+  nix-env -iA zsh-syntax-highlighting
 }
 
 flatpak_installs(){
