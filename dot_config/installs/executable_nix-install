@@ -4,21 +4,22 @@ cd "$(dirname "${0}")" || exit
 clear
 
 echo -ne "
-n) Nix Package Manager Install
+0) Nix Package Manager Install
 g) Gnome Configure
-u) User Software Install
+f) Flatpack Installs
+n) Nix Package Installs
 h) Github Integration
 
 Select Step:  "
     read -r step
     case $step in
+      0) nix_pm_install ;;
       g) gnome_config
          gnome_extensions ;;
       h) github_integration ;;
-      n) nix_pm_install ;;
-      u) flatpak_installs
-         nix_installs;;
-      *)
+      f) flatpak_installs ;;
+      n) nix_installs;;
+      *) 
         echo "Not a valid option"
         exit 1
         ;;
@@ -71,11 +72,59 @@ github_integration(){
 }
 
 nix_pm_install(){
-  sh <(curl -L https://nixos.org/nix/install) --daemon
+  sh <(curl -L https://nixos.org/nix/install) --no-daemon
+
+  # add simplfied commands and flakes to capabilities
   mkdir -p $HOME/.config/nix
   echo "experimental-features = nix-command flakes" > $HOME/.config/nix/nix.conf
+}
 
-  echo "Open a new terminal to use NIX"
+nix_installs(){
+  nix-env -iA alacritty
+  nix-env -iA bat
+  nix-env -iA chezmoi
+  nix-env -iA exa
+  nix-env -iA fd
+  nix-env -iA fortune
+  nix-env -iA fzf
+  nix-env -iA jetbrains-mono
+  nix-env -iA lf
+  nix-env -iA neovim
+  nix-env -iA ripgrep
+  nix-env -iA sd
+  nix-env -iA shellcheck
+  nix-env -iA starship
+  nix-env -iA tealdeer
+  nix-env -iA zsh
+  nix-env -iA zsh-autosuggestions
+  nix-env -iA zsh-syntax-highlighting
+# nix-env -iA entr
+}
+
+flatpak_installs(){
+  # flatpak install -y "io.github.endless_sky.endless_sky"
+  # flatpak install -y "net.sourceforge.Klavaro"                    # typing
+  # flatpak install -y "org.videolan.VLC"
+  flatpak install -y "com.discordapp.Discord"
+  flatpak install -y "com.github.rafostar.Clapper"
+  flatpak install -y "com.github.tchx84.Flatseal"                 # flatpak sec manager
+  flatpak install -y "com.gitlab.davem.ClamTk"                    # virus
+  flatpak install -y "com.gitlab.newsflash"
+  flatpak install -y "com.google.Chrome"
+  flatpak install -y "com.mattjakeman.ExtensionManager"           # improved extension manager
+  flatpak install -y "com.spotify.Client"
+  flatpak install -y "com.valvesoftware.Steam"
+  flatpak install -y "io.gitlab.librewolf-community"
+  flatpak install -y "io.podman_desktop.PodmanDesktop"
+  flatpak install -y "md.obsidian.Obsidian"
+  flatpak install -y "org.chromium.Chromium"
+  flatpak install -y "org.gnome.Evolution"
+  flatpak install -y "org.gnome.Firmware"
+  flatpak install -y "org.gnome.Photos"
+  flatpak install -y "org.gnome.Podcasts"
+  flatpak install -y "org.gnome.seahorse.Application"
+  flatpak install -y "org.gnucash.GnuCash"
+  flatpak install -y "org.zealdocs.Zeal"                          # dev docs
 }
 
 gnome_extensions(){
@@ -95,63 +144,52 @@ gnome_extensions(){
   install_gnome_extension 5090
   # 4812 | Wallpaper Switcher, https://github.com/rishuinfinity/WallpaperSwitcher, src
   install_gnome_extension 4812
-  # 5470 | Weather O'Clock, https://github.com/CleoMenezesJr/weather-oclock, weatheroclock@CleoMenezesJr.github.io
-  #install_gnome_extension 5470
+  #   # 5470 | Weather O'Clock, https://github.com/CleoMenezesJr/weather-oclock, weatheroclock@CleoMenezesJr.github.io
+  #   install_gnome_extension 5470
   # 750 | Open Weather
   install_gnome_extension 750
-}
 
-nix_installs(){
-  nix-env -iA alacritty
-  nix-env -iA bat
-# nix-env -iA entr
-  nix-env -iA exa
-  nix-env -iA fd
-  nix-env -iA fortune
-  nix-env -iA fzf
-  nix-env -iA jetbrains-mono
-  nix-env -iA neovim 
-  nix-env -iA lf
-  nix-env -iA ripgrep
-  nix-env -iA sd
-  nix-env -iA shellcheck
-  nix-env -iA starship
-  nix-env -iA tealdeer
-  nix-env -iA zsh
-  nix-env -iA zsh-autosuggestions
-  nix-env -iA zsh-syntax-highlighting
-}
+  # set enabled extensions, the array represents ALL enabled.  So anything not in the array is disabled
+  dconf write "/org/gnome/shell/enabled-extensions" "['launch-new-instance@gnome-shell-extensions.gcampax.github.com', 'space-bar@luchrioh', 'openweather-extension@jenslody.de', 'just-perfection-desktop@just-perfection', 'forge@jmmaranan.com', 'executor@raujonas.github.io', 'caffeine@patapon.info', 'blur-my-shell@aunetx', 'appindicatorsupport@rgcjonas.gmail.com', 'WallpaperSwitcher@Rishu']"
 
-flatpak_installs(){
-  # flatpak install -y "io.github.endless_sky.endless_sky"
-  # flatpak install -y "net.sourceforge.Klavaro"                    # typing
-  # flatpak install -y "org.videolan.VLC"
-  flatpak install -y "com.discordapp.Discord"
-  flatpak install -y "com.github.rafostar.Clapper"
-  flatpak install -y "com.github.tchx84.Flatseal"                 # flatpak sec manager
-  flatpak install -y "com.gitlab.davem.ClamTk"                    # virus
-  flatpak install -y "com.gitlab.newsflash"
-  flatpak install -y "com.google.Chrome"
-  flatpak install -y "com.mattjakeman.ExtensionManager"           # improved extension manager
-  flatpak install -y "com.spotify.Client"
-  flatpak install -y "com.valvesoftware.Steam"
-  flatpak install -y "io.podman_desktop.PodmanDesktop"
-  flatpak install -y "md.obsidian.Obsidian"
-  flatpak install -y "org.chromium.Chromium"
-  flatpak install -y "org.gnome.Evolution"
-  flatpak install -y "org.gnome.Firmware"
-  flatpak install -y "org.gnome.Photos"
-  flatpak install -y "org.gnome.Podcasts"
-  flatpak install -y "org.gnome.seahorse.Application"
-  flatpak install -y "org.gnucash.GnuCash"
-  flatpak install -y "org.zealdocs.Zeal"                          # dev docs
+  # set extension preferences
+  dconf write "/org/gnome/shell/extensions/executor/center-active" "false"
+  dconf write "/org/gnome/shell/extensions/executor/left-index" "3"
+  dconf write "/org/gnome/shell/extensions/executor/right-active" "false"
+  dconf write "/org/gnome/shell/extensions/forge/frequency/tiling-mode-enabled" "true"
+  dconf write "/org/gnome/shell/extensions/forge/frequency/window-gap-size-increment" "1"
+  dconf write "/org/gnome/shell/extensions/just-perfection/accessibility-menu" "false"
+  dconf write "/org/gnome/shell/extensions/just-perfection/activities-button" "false"
+  dconf write "/org/gnome/shell/extensions/just-perfection/app-menu-label" "false"
+  dconf write "/org/gnome/shell/extensions/just-perfection/startup-status" "0"
+  dconf write "/org/gnome/shell/extensions/openweather/actual-city" "2"
+  dconf write "/org/gnome/shell/extensions/openweather/city" "'30.2711286,-97.7436995>Austin, Travis County, Texas, United States>0 && 39.7392364,-104.984862>Denver, Colorado, United States>0 && 34.2783355,-119.293174>Ventura, Ventura County, CAL Fire Southern Region, California, United States>0'"
+  dconf write "/org/gnome/shell/extensions/openweather/position-index" "1"
+  dconf write "/org/gnome/shell/extensions/openweather/unit" "'fahrenheit'"
+  dconf write "/org/gnome/shell/extensions/openweather/wind-speed-unit" "'mph'"
+  dconf write "/org/gnome/shell/extensions/space-bar/behavior/show-empty-workspaces" "false"
+  dconf write "/org/gnome/shell/extensions/WallpaperSwitcher/frequency" "1200"
+  dconf write "/org/gnome/shell/extensions/WallpaperSwitcher/wallpaper-path" "'/var/home/mid/portable/wallpapers/desktop'"
 }
 
 gnome_configuration(){
+  ###############################################################################
+  # gnome
+  #
+  # to discover the key value pairs to set, run a terminal with `dconf watch/`
+  # then go about setting the values through the GUI and the key-value will be
+  # printed out for you.  Note you will not need all printed out values, since
+  # some are about movement (ie last placed visited) and you will have to build your
+  # line with the following pattern with values exactly as they are printed out
+  # dconf write "key" "value"
+  #
+  # I like to post test the lines I create in antoher terminal, but your milage
+  # may vary
+  #
+  ###############################################################################
   mod="<Super>"
   mod2="<Control>"
 
-  # interface preferences
   dconf write "/org/gnome/desktop/calendar/show-weekdate" "true"
   dconf write "/org/gnome/desktop/datetime/automatic-timezone" "true"
   dconf write "/org/gnome/desktop/interface/clock-format" "'12h'"
@@ -164,38 +202,10 @@ gnome_configuration(){
   dconf write "/org/gnome/desktop/peripherals/touchpad/natural-scroll" "true"
   dconf write "/org/gnome/desktop/peripherals/touchpad/speed" "0.4"
   dconf write "/org/gnome/desktop/peripherals/touchpad/two-finger-scrolling-enabled" "true"
-  dconf write "/org/gnome/desktop/wm/preferences/button-layout" "'close:appmenu'"
-  dconf write "/org/gnome/desktop/wm/preferences/num-workspaces" "10"
-  dconf write "/org/gnome/mutter/dynamic-workspaces" "false"
-  dconf write "/org/gnome/mutter/workspaces-only-on-primary" "true"
-  dconf write "/org/gtk/settings/file-chooser/clock-format" "'12h'"
-
-  # extension preferences
-  dconf write "/org/gnome/shell/extensions/just-perfection/activities-button" "false"
-  dconf write "/org/gnome/shell/extensions/just-perfection/app-menu-label" "false"
-  dconf write "/org/gnome/shell/extensions/just-perfection/startup-status" "0"
-
-  dconf write "/org/gnome/shell/extensions/openweather/actual-city" "2"
-  dconf write "/org/gnome/shell/extensions/openweather/city" "'30.2711286,-97.7436995>Austin, Travis County, Texas, United States>0 && 39.7392364,-104.984862>Denver, Colorado, United States>0 && 34.2783355,-119.293174>Ventura, Ventura County, CAL Fire Southern Region, California, United States>0'"
-
-  dconf write "/org/gnome/shell/extensions/WallpaperSwitcher/frequency" "1200"
-  dconf write "/org/gnome/shell/extensions/WallpaperSwitcher/wallpaper-path" "'/var/home/mid/portable/wallpapers/desktop'"
-
-  dconf write "/org/gnome/shell/extensions/forge/frequency/tiling-mode-enabled" "true"
-  dconf write "/org/gnome/shell/extensions/forge/frequency/window-gap-size-increment" "1"
-
-  # keyboard shortcuts
-  # Launchers
-  #   Settings
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/control-center" "['${mod}comma']"
-  #   Files @ Home Folder
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/home" "['${mod}f']"
-  #   Browser
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/www" "['${mod}b']"
-
-  # Navigation
-  dconf write "/org/gnome/desktop/wm/keybindings/move-to-workspace-10" "['${mod}${mod2}0']"
+  dconf write "/org/gnome/desktop/wm/keybindings/close" "['${mod}q']"
+  dconf write "/org/gnome/desktop/wm/keybindings/minimize" "['${mod}w']"
   dconf write "/org/gnome/desktop/wm/keybindings/move-to-workspace-1" "['${mod}${mod2}1']"
+  dconf write "/org/gnome/desktop/wm/keybindings/move-to-workspace-10" "['${mod}${mod2}0']"
   dconf write "/org/gnome/desktop/wm/keybindings/move-to-workspace-2" "['${mod}${mod2}2']"
   dconf write "/org/gnome/desktop/wm/keybindings/move-to-workspace-3" "['${mod}${mod2}3']"
   dconf write "/org/gnome/desktop/wm/keybindings/move-to-workspace-4" "['${mod}${mod2}4']"
@@ -204,18 +214,11 @@ gnome_configuration(){
   dconf write "/org/gnome/desktop/wm/keybindings/move-to-workspace-7" "['${mod}${mod2}7']"
   dconf write "/org/gnome/desktop/wm/keybindings/move-to-workspace-8" "['${mod}${mod2}8']"
   dconf write "/org/gnome/desktop/wm/keybindings/move-to-workspace-9" "['${mod}${mod2}9']"
-  dconf write "/org/gnome/shell/keybindings/switch-to-application-10" "@as []"
-  dconf write "/org/gnome/shell/keybindings/switch-to-application-9" "@as []"
-  dconf write "/org/gnome/shell/keybindings/switch-to-application-8" "@as []"
-  dconf write "/org/gnome/shell/keybindings/switch-to-application-7" "@as []"
-  dconf write "/org/gnome/shell/keybindings/switch-to-application-6" "@as []"
-  dconf write "/org/gnome/shell/keybindings/switch-to-application-5" "@as []"
-  dconf write "/org/gnome/shell/keybindings/switch-to-application-4" "@as []"
-  dconf write "/org/gnome/shell/keybindings/switch-to-application-3" "@as []"
-  dconf write "/org/gnome/shell/keybindings/switch-to-application-2" "@as []"
-  dconf write "/org/gnome/shell/keybindings/switch-to-application-1" "@as []"
-  dconf write "/org/gnome/desktop/wm/keybindings/switch-to-workspace-10" "['${mod}0']"
+  dconf write "/org/gnome/desktop/wm/keybindings/panel-run-dialog" "['${mod2}space']"
+  dconf write "/org/gnome/desktop/wm/keybindings/switch-input-source" "@as []"
+  dconf write "/org/gnome/desktop/wm/keybindings/switch-input-source-backward" "@as []"
   dconf write "/org/gnome/desktop/wm/keybindings/switch-to-workspace-1" "['${mod}1']"
+  dconf write "/org/gnome/desktop/wm/keybindings/switch-to-workspace-10" "['${mod}0']"
   dconf write "/org/gnome/desktop/wm/keybindings/switch-to-workspace-2" "['${mod}2']"
   dconf write "/org/gnome/desktop/wm/keybindings/switch-to-workspace-3" "['${mod}3']"
   dconf write "/org/gnome/desktop/wm/keybindings/switch-to-workspace-4" "['${mod}4']"
@@ -224,31 +227,36 @@ gnome_configuration(){
   dconf write "/org/gnome/desktop/wm/keybindings/switch-to-workspace-7" "['${mod}7']"
   dconf write "/org/gnome/desktop/wm/keybindings/switch-to-workspace-8" "['${mod}8']"
   dconf write "/org/gnome/desktop/wm/keybindings/switch-to-workspace-9" "['${mod}9']"
-
-  # Screen shots
-  dconf write "/org/gnome/shell/keybindings/show-screenshot-ui" "['<Control>grave']"
-
-  # Sound and Media
+  dconf write "/org/gnome/desktop/wm/keybindings/toggle-fullscreen" "['${mod}${mod2}m']"
+  dconf write "/org/gnome/desktop/wm/preferences/button-layout" "'close:appmenu'"
+  dconf write "/org/gnome/desktop/wm/preferences/num-workspaces" "10"
+  dconf write "/org/gnome/mutter/dynamic-workspaces" "false"
+  dconf write "/org/gnome/mutter/keybindings/toggle-tiled-left" "@as []"
+  dconf write "/org/gnome/mutter/keybindings/toggle-tiled-right" "@as []"
+  dconf write "/org/gnome/mutter/workspaces-only-on-primary" "true"
+  dconf write "/org/gnome/nautilus/preferences/default-folder-viewer" "'list-view'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/control-center" "['${mod}comma']"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/home" "['${mod}f']"
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/next" "['AudioForward']"
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/previous" "['AudioRewind']"
-
-  # System
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/www" "['${mod}b']"
   dconf write "/org/gnome/shell/keybindings/focus-active-notification" "@as []"
+  dconf write "/org/gnome/shell/keybindings/show-screenshot-ui" "['<Control>grave']"
+  dconf write "/org/gnome/shell/keybindings/switch-to-application-1" "@as []"
+  dconf write "/org/gnome/shell/keybindings/switch-to-application-10" "@as []"
+  dconf write "/org/gnome/shell/keybindings/switch-to-application-2" "@as []"
+  dconf write "/org/gnome/shell/keybindings/switch-to-application-3" "@as []"
+  dconf write "/org/gnome/shell/keybindings/switch-to-application-4" "@as []"
+  dconf write "/org/gnome/shell/keybindings/switch-to-application-5" "@as []"
+  dconf write "/org/gnome/shell/keybindings/switch-to-application-6" "@as []"
+  dconf write "/org/gnome/shell/keybindings/switch-to-application-7" "@as []"
+  dconf write "/org/gnome/shell/keybindings/switch-to-application-8" "@as []"
+  dconf write "/org/gnome/shell/keybindings/switch-to-application-9" "@as []"
   dconf write "/org/gnome/shell/keybindings/toggle-message-tray" "@as []"
-  dconf write "/org/gnome/desktop/wm/keybindings/panel-run-dialog" "['${mod2}space']"
+  dconf write "/org/gtk/gtk4/settings/file-chooser/show-hidden" "true"
+  dconf write "/org/gtk/settings/file-chooser/clock-format" "'12h'"
 
-  # Typing
-  dconf write "/org/gnome/desktop/wm/keybindings/switch-input-source" "@as []"
-  dconf write "/org/gnome/desktop/wm/keybindings/switch-input-source-backward" "@as []"
-
-  # Windows
-  dconf write "/org/gnome/desktop/wm/keybindings/close" "['${mod}q']"
-  dconf write "/org/gnome/desktop/wm/keybindings/minimize" "['${mod}w']"
-  dconf write "/org/gnome/desktop/wm/keybindings/toggle-fullscreen" "['${mod}${mod2}m']"
-  dconf write "/org/gnome/mutter/keybindings/toggle-tiled-right" "@as []"
-  dconf write "/org/gnome/mutter/keybindings/toggle-tiled-left" "@as []"
-
-  # Custom
+  # Custom Key Bindings
   custom_keys="/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings"
   custom="${custom_keys}/custom"
 
@@ -273,10 +281,10 @@ gnome_configuration(){
   dconf write "${custom}3/command" "'systemctl suspend'"
   dconf write "${custom}3/name" "'Suspend'"
 
-
-  dconf write "${custom}4/binding" "'${mod}$o'"
-  dconf write "${custom}4/command" "'flatpak run md.obsidian.Obsidian'"
+  dconf write "${custom}4/binding" "'${mod}${mod2}t'"
+  dconf write "${custom}4/command" "'env WINIT_UNIX_BACKEND=x11 alacritty --config-file \"$HOME\"/.config/alacritty/alacritty-ostree.yml -e bash -c \"SHELL=/usr/bin/zsh toolbox enter base\"'"
   dconf write "${custom}4/name" "'Terminal2'"
+
 
   dconf write "${custom}5/binding" "'${mod}e'"
   dconf write "${custom}5/command" "'flatpak run com.mattjakeman.extensionmanager'"
@@ -293,4 +301,5 @@ gnome_configuration(){
   dconf write "${custom}8/binding" "'${mod}t'"
   dconf write "${custom}8/command" "'env WINIT_UNIX_BACKEND=x11 alacritty'"
   dconf write "${custom}8/name" "'Terminal'"
+
 }
