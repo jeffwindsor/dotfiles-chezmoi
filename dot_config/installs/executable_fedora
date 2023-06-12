@@ -64,6 +64,14 @@ sudo dnf -y install sd
 sudo dnf -y install shellcheck
 sudo dnf -y install tealdeer
 sudo dnf -y install vifm
+sudo dnf -y install dust
+sudo dnf -y install bottom
+sudo dnf -y install broot
+sudo dnf -y install fclones
+sudo dnf -y install zellij
+sudo dnf -y install ncspot
+sudo dnf -y install rtx
+
 # neovim
 sudo dnf -y install gcc "gcc-c++" glibc-all-langpacks neovim && git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 # starship prompt
