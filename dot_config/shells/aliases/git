@@ -27,13 +27,9 @@ exec-on-git-repos() {
   [ ! -z "$result" ] && $1 $result
 }
 
-git-all() {
-  ls | xargs -I{} git -C {} $1
-}
+git-all() { ls | xargs -I{} git -C {} $1 }
 
-ghc()  {
-  git clone git@github.com:$1 $SRC/github.com/$1
-}
+ghc()  { git clone git@github.com:$1 $SRC/github.com/$1; }
 
 alias src="cd $SRC"
 alias srcs="exec-on-git-repos cd $SRC"
@@ -58,8 +54,8 @@ alias gd="git diff --ignore-space-at-eol -b -w --ignore-blank-lines"
 alias gl="git-log-graph"
 alias gll="git log"
 alias gph="git push"
-alias gphs="git-all pull"
 alias gpl="git pull"
+alias gpls="git-all pull"
 alias gr="git remote -vv"
 alias gs="git status -sb --ignore-submodules"
 alias gup="git-add-commit-push"
