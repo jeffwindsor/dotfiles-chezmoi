@@ -201,21 +201,20 @@ dconf write "${custom}3/binding" "'${mod}${mod2}s'"
 dconf write "${custom}3/command" "'systemctl suspend'"
 dconf write "${custom}3/name" "'Suspend'"
 
-dconf write "${custom}4/binding" "'${mod}${mod2}t'"
-dconf write "${custom}4/command" "'env WINIT_UNIX_BACKEND=x11 alacritty --config-file \"$HOME\"/.config/alacritty/alacritty-ostree.yml -e bash -c \"SHELL=/usr/bin/zsh toolbox enter base\"'"
-dconf write "${custom}4/name" "'Terminal2'"
-
+dconf write "${custom}4/binding" "'${mod}o'"
+dconf write "${custom}4/command" "'flatpack run md.obsidian.Obsidian'"
+dconf write "${custom}4/name" "'Obsidian'"
 
 dconf write "${custom}5/binding" "'${mod}e'"
-dconf write "${custom}5/command" "'flatpak run com.mattjakeman.extensionmanager'"
+dconf write "${custom}5/command" "'flatpak run com.mattjakeman.ExtensionManager'"
 dconf write "${custom}5/name" "'Extensions'"
 
 dconf write "${custom}6/binding" "'${mod}g'"
-dconf write "${custom}6/command" "'gnucash'"
+dconf write "${custom}6/command" "'flatpak run org.gnucash.GnuCash'"
 dconf write "${custom}6/name" "'GNU Cash'"
 
 dconf write "${custom}7/binding" "'${mod}s'"
-dconf write "${custom}7/command" "'flatpak run com.spotify.client'"
+dconf write "${custom}7/command" "'flatpak run com.spotify.Client'"
 dconf write "${custom}7/name" "'Spotify'"
 
 dconf write "${custom}8/binding" "'${mod}t'"
