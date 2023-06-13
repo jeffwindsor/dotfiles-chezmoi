@@ -244,10 +244,12 @@ gnome_configuration(){
   dconf write "${custom}5/command" "'flatpak run com.mattjakeman.ExtensionManager'"
   dconf write "${custom}5/name" "'Extensions'"
 
+  dconf write "/org/gnome/shell/extensions/forge/keybindings/con-split-layout-toggle" "@as []"
   dconf write "${custom}6/binding" "'${mod}g'"
   dconf write "${custom}6/command" "'flatpak run org.gnucash.GnuCash'"
   dconf write "${custom}6/name" "'GNU Cash'"
 
+  dconf write "/org/gnome/shell/keybindings/toggle-overview" "@as []"
   dconf write "${custom}7/binding" "'${mod}s'"
   dconf write "${custom}7/command" "'flatpak run com.spotify.Client'"
   dconf write "${custom}7/name" "'Spotify'"
@@ -343,3 +345,5 @@ post(){
   echo "========================================================================="
   echo "==> MEGA: https://mega.io/desktop#downloadapps"
 }
+
+menu
