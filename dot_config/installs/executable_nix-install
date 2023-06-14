@@ -4,22 +4,18 @@ cd "$(dirname "${0}")" || exit
 menu(){
 clear
 echo -ne "
-0) Nix Package Manager Install
 g) Gnome Configure
 e) Gnome Extensions
 f) Flatpack Installs
-n) Nix Package Installs
 h) Github Integration
 
 Select Step:  "
   read -r step
   case $step in
-    0) nix_pm_install ;;
     g) gnome_configuration ;;
     e) gnome_extensions ;;
     h) github_integration ;;
     f) flatpak_installs ;;
-    n) nix_installs;;
     *)
       echo "Not a valid option"
       exit 1
@@ -71,32 +67,32 @@ github_integration(){
   echo "==> MEGA: https://mega.io/desktop#downloadapps"
 }
 
-nix_pm_install(){
-  sh <(curl -L https://nixos.org/nix/install) --no-daemon
-  #sh <(curl -L https://nixos.org/nix/install) --daemon
-}
-
-nix_installs(){
-  nix-env -iA nixpkgs.alacritty
-  nix-env -iA nixpkgs.bat
-  nix-env -iA nixpkgs.chezmoi
-  nix-env -iA nixpkgs.exa
-  nix-env -iA nixpkgs.fd
-  nix-env -iA nixpkgs.fortune
-  nix-env -iA nixpkgs.fzf
-  nix-env -iA nixpkgs.jetbrains-mono
-  nix-env -iA nixpkgs.lf
-  nix-env -iA nixpkgs.neovim
-  nix-env -iA nixpkgs.ripgrep
-  nix-env -iA nixpkgs.sd
-  nix-env -iA nixpkgs.shellcheck
-  nix-env -iA nixpkgs.starship
-  nix-env -iA nixpkgs.tealdeer
-  nix-env -iA nixpkgs.zsh
-  nix-env -iA nixpkgs.zsh-autosuggestions
-  nix-env -iA nixpkgs.zsh-syntax-highlighting
-# nix-env -iA entr
-}
+# nix_pm_install(){
+#   sh <(curl -L https://nixos.org/nix/install) --no-daemon
+#   #sh <(curl -L https://nixos.org/nix/install) --daemon
+# }
+#
+# nix_installs(){
+#   nix-env -iA nixpkgs.alacritty
+#   nix-env -iA nixpkgs.bat
+#   nix-env -iA nixpkgs.chezmoi
+#   nix-env -iA nixpkgs.exa
+#   nix-env -iA nixpkgs.fd
+#   nix-env -iA nixpkgs.fortune
+#   nix-env -iA nixpkgs.fzf
+#   nix-env -iA nixpkgs.jetbrains-mono
+#   nix-env -iA nixpkgs.lf
+#   nix-env -iA nixpkgs.neovim
+#   nix-env -iA nixpkgs.ripgrep
+#   nix-env -iA nixpkgs.sd
+#   nix-env -iA nixpkgs.shellcheck
+#   nix-env -iA nixpkgs.starship
+#   nix-env -iA nixpkgs.tealdeer
+#   nix-env -iA nixpkgs.zsh
+#   nix-env -iA nixpkgs.zsh-autosuggestions
+#   nix-env -iA nixpkgs.zsh-syntax-highlighting
+# # nix-env -iA entr
+# }
 
 flatpak_installs(){
   # flatpak install -y "io.github.endless_sky.endless_sky"
