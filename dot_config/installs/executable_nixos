@@ -5,17 +5,13 @@ menu(){
 clear
 echo -ne "
 g) Gnome Configure
-e) Gnome Extensions
-f) Flatpack Installs
 h) Github Integration
 
 Select Step:  "
   read -r step
   case $step in
     g) gnome_configuration ;;
-    e) gnome_extensions ;;
     h) github_integration ;;
-    f) flatpak_installs ;;
     *)
       echo "Not a valid option"
       exit 1
@@ -24,24 +20,6 @@ Select Step:  "
 }
 
 ###############################################################################
-# referenced functions
-###############################################################################
-install_gnome_extension(){
-  # 1. GNOME shell version
-  shell_version=$(gnome-shell --version | cut -d' ' -f3)
-
-  # 2. Fetch extension info (for the given shell version) example input: 307
-  info_json=$(curl -sS "https://extensions.gnome.org/extension-info/?pk=$1&shell_version=$shell_version")
-
-  # 3. Extract download url from the json with jq
-  download_url=$(echo $info_json | jq ".download_url" --raw-output)
-
-  # 4. Install the extension
-  echo "==> installing gnome $shell_version extension $1 from $download_url"
-  gnome-extensions install "https://extensions.gnome.org$download_url"
-}
-###############################################################################
-
 github_integration(){
   ssh-keygen -t ed25519 -C "jeff.windsor@gmail.com"
   eval "$(ssh-agent -s)"
@@ -60,107 +38,6 @@ github_integration(){
   git clone git@github.com:jeffwindsor/financials.git "$HOME"/Source/github.com/jeffwindsor/financials
   git clone git@github.com:jeffwindsor/startpage.git "$HOME"/Source/github.com/jeffwindsor/startpage
 
-  # echo "\n==> Adding Packer to Nvim"
-  # git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
-
-  echo "\nManual Install"
-  echo "==> MEGA: https://mega.io/desktop#downloadapps"
-}
-
-# nix_pm_install(){
-#   sh <(curl -L https://nixos.org/nix/install) --no-daemon
-#   #sh <(curl -L https://nixos.org/nix/install) --daemon
-# }
-#
-# nix_installs(){
-#   nix-env -iA nixpkgs.alacritty
-#   nix-env -iA nixpkgs.bat
-#   nix-env -iA nixpkgs.chezmoi
-#   nix-env -iA nixpkgs.exa
-#   nix-env -iA nixpkgs.fd
-#   nix-env -iA nixpkgs.fortune
-#   nix-env -iA nixpkgs.fzf
-#   nix-env -iA nixpkgs.jetbrains-mono
-#   nix-env -iA nixpkgs.lf
-#   nix-env -iA nixpkgs.neovim
-#   nix-env -iA nixpkgs.ripgrep
-#   nix-env -iA nixpkgs.sd
-#   nix-env -iA nixpkgs.shellcheck
-#   nix-env -iA nixpkgs.starship
-#   nix-env -iA nixpkgs.tealdeer
-#   nix-env -iA nixpkgs.zsh
-#   nix-env -iA nixpkgs.zsh-autosuggestions
-#   nix-env -iA nixpkgs.zsh-syntax-highlighting
-# # nix-env -iA entr
-# }
-
-flatpak_installs(){
-  # flatpak install -y "io.github.endless_sky.endless_sky"
-  # flatpak install -y "net.sourceforge.Klavaro"                    # typing
-  # flatpak install -y "org.videolan.VLC"
-  flatpak install -y "com.discordapp.Discord"
-  flatpak install -y "com.github.rafostar.Clapper"
-  flatpak install -y "com.github.tchx84.Flatseal"                 # flatpak sec manager
-  flatpak install -y "com.gitlab.davem.ClamTk"                    # virus
-  flatpak install -y "com.gitlab.newsflash"
-  flatpak install -y "com.google.Chrome"
-  flatpak install -y "com.mattjakeman.ExtensionManager"           # improved extension manager
-  flatpak install -y "com.spotify.Client"
-  flatpak install -y "com.valvesoftware.Steam"
-  flatpak install -y "io.gitlab.librewolf-community"
-  flatpak install -y "io.podman_desktop.PodmanDesktop"
-  flatpak install -y "md.obsidian.Obsidian"
-  flatpak install -y "org.chromium.Chromium"
-  flatpak install -y "org.gnome.Evolution"
-  flatpak install -y "org.gnome.Firmware"
-  flatpak install -y "org.gnome.Photos"
-  flatpak install -y "org.gnome.Podcasts"
-  flatpak install -y "org.gnome.seahorse.Application"
-  flatpak install -y "org.gnucash.GnuCash"
-  flatpak install -y "org.zealdocs.Zeal"                          # dev docs
-}
-
-gnome_extensions(){
-  # 615  | AppIndicator
-  install_gnome_extension 615
-  # 3193 | Blur My Shell
-  install_gnome_extension 3193
-  # 517  | Caffeine
-  install_gnome_extension 517
-  # 2932 | Executor
-  install_gnome_extension 2932
-  # 4481 | Forge
-  install_gnome_extension 4481
-  # 3843 | Just Perfection
-  install_gnome_extension 3843
-  # 5090 | Space Bar
-  install_gnome_extension 5090
-  # 4812 | Wallpaper Switcher
-  install_gnome_extension 4812
-  # 750 | Open Weather
-  install_gnome_extension 750
-
-  # set enabled extensions, the array represents ALL enabled.  So anything not in the array is disabled
-  dconf write "/org/gnome/shell/enabled-extensions" "['launch-new-instance@gnome-shell-extensions.gcampax.github.com', 'space-bar@luchrioh', 'openweather-extension@jenslody.de', 'just-perfection-desktop@just-perfection', 'forge@jmmaranan.com', 'executor@raujonas.github.io', 'caffeine@patapon.info', 'blur-my-shell@aunetx', 'appindicatorsupport@rgcjonas.gmail.com', 'WallpaperSwitcher@Rishu']"
-
-  # set extension preferences
-  dconf write "/org/gnome/shell/extensions/executor/center-active" "false"
-  dconf write "/org/gnome/shell/extensions/executor/left-index" "3"
-  dconf write "/org/gnome/shell/extensions/executor/right-active" "false"
-  dconf write "/org/gnome/shell/extensions/forge/frequency/tiling-mode-enabled" "true"
-  dconf write "/org/gnome/shell/extensions/forge/frequency/window-gap-size-increment" "1"
-  dconf write "/org/gnome/shell/extensions/just-perfection/accessibility-menu" "false"
-  dconf write "/org/gnome/shell/extensions/just-perfection/activities-button" "false"
-  dconf write "/org/gnome/shell/extensions/just-perfection/app-menu-label" "false"
-  dconf write "/org/gnome/shell/extensions/just-perfection/startup-status" "0"
-  dconf write "/org/gnome/shell/extensions/openweather/actual-city" "2"
-  dconf write "/org/gnome/shell/extensions/openweather/city" "'30.2711286,-97.7436995>Austin, Travis County, Texas, United States>0 && 39.7392364,-104.984862>Denver, Colorado, United States>0 && 34.2783355,-119.293174>Ventura, Ventura County, CAL Fire Southern Region, California, United States>0'"
-  dconf write "/org/gnome/shell/extensions/openweather/position-index" "1"
-  dconf write "/org/gnome/shell/extensions/openweather/unit" "'fahrenheit'"
-  dconf write "/org/gnome/shell/extensions/openweather/wind-speed-unit" "'mph'"
-  dconf write "/org/gnome/shell/extensions/space-bar/behavior/show-empty-workspaces" "false"
-  dconf write "/org/gnome/shell/extensions/WallpaperSwitcher/frequency" "1200"
-  dconf write "/org/gnome/shell/extensions/WallpaperSwitcher/wallpaper-path" "'/var/home/mid/portable/wallpapers/desktop'"
 }
 
 gnome_configuration(){
@@ -293,6 +170,37 @@ gnome_configuration(){
   dconf write "${custom}8/command" "'env WINIT_UNIX_BACKEND=x11 alacritty'"
   dconf write "${custom}8/name" "'Terminal'"
 
+  # 615  | AppIndicator
+  # 3193 | Blur My Shell
+  # 517  | Caffeine
+  # 2932 | Executor
+  # 4481 | Forge
+  # 3843 | Just Perfection
+  # 5090 | Space Bar
+  # 4812 | Wallpaper Switcher
+  # 750 | Open Weather
+
+  # set enabled extensions, the array represents ALL enabled.  So anything not in the array is disabled
+  dconf write "/org/gnome/shell/enabled-extensions" "['launch-new-instance@gnome-shell-extensions.gcampax.github.com', 'space-bar@luchrioh', 'openweather-extension@jenslody.de', 'just-perfection-desktop@just-perfection', 'forge@jmmaranan.com', 'executor@raujonas.github.io', 'caffeine@patapon.info', 'blur-my-shell@aunetx', 'appindicatorsupport@rgcjonas.gmail.com', 'WallpaperSwitcher@Rishu']"
+
+  # set extension preferences
+  dconf write "/org/gnome/shell/extensions/executor/center-active" "false"
+  dconf write "/org/gnome/shell/extensions/executor/left-index" "3"
+  dconf write "/org/gnome/shell/extensions/executor/right-active" "false"
+  dconf write "/org/gnome/shell/extensions/forge/frequency/tiling-mode-enabled" "true"
+  dconf write "/org/gnome/shell/extensions/forge/frequency/window-gap-size-increment" "1"
+  dconf write "/org/gnome/shell/extensions/just-perfection/accessibility-menu" "false"
+  dconf write "/org/gnome/shell/extensions/just-perfection/activities-button" "false"
+  dconf write "/org/gnome/shell/extensions/just-perfection/app-menu-label" "false"
+  dconf write "/org/gnome/shell/extensions/just-perfection/startup-status" "0"
+  dconf write "/org/gnome/shell/extensions/openweather/actual-city" "2"
+  dconf write "/org/gnome/shell/extensions/openweather/city" "'30.2711286,-97.7436995>Austin, Travis County, Texas, United States>0 && 39.7392364,-104.984862>Denver, Colorado, United States>0 && 34.2783355,-119.293174>Ventura, Ventura County, CAL Fire Southern Region, California, United States>0'"
+  dconf write "/org/gnome/shell/extensions/openweather/position-index" "1"
+  dconf write "/org/gnome/shell/extensions/openweather/unit" "'fahrenheit'"
+  dconf write "/org/gnome/shell/extensions/openweather/wind-speed-unit" "'mph'"
+  dconf write "/org/gnome/shell/extensions/space-bar/behavior/show-empty-workspaces" "false"
+  dconf write "/org/gnome/shell/extensions/WallpaperSwitcher/frequency" "1200"
+  dconf write "/org/gnome/shell/extensions/WallpaperSwitcher/wallpaper-path" "'/var/home/mid/portable/wallpapers/desktop'"
 }
 
 menu
