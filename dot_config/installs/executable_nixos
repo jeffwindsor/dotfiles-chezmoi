@@ -6,12 +6,14 @@ clear
 echo -ne "
 g) Gnome Configure
 h) Github Integration
+p) Github Pulls
 
 Select Step:  "
   read -r step
   case $step in
     g) gnome_configuration ;;
     h) github_integration ;;
+    p) github_pulls ;;
     *)
       echo "Not a valid option"
       exit 1
@@ -20,18 +22,6 @@ Select Step:  "
 }
 
 ###############################################################################
-nixos(){
-  # gnomeExtensions.
-  # gnomeExtensions.
-  # gnomeExtensions.
-  # gnomeExtensions.
-  # gnomeExtensions.
-  # gnomeExtensions.
-  # gnomeExtensions.
-  # gnomeExtensions.
-  # gnomeExtensions.
-}
-
 github_integration(){
   ssh-keygen -t ed25519 -C "jeff.windsor@gmail.com"
   eval "$(ssh-agent -s)"
@@ -42,7 +32,9 @@ github_integration(){
   cat $HOME/.ssh/*.pub
   echo "Hit Any key when completed"
   read -r
+}
 
+github_pulls(){
   echo "\n==> Pulling and applying dotfiles"
   chezmoi init --apply "https://github.com/jeffwindsor/dotfiles-chezmoi"
 
