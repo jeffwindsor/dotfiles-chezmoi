@@ -20,6 +20,18 @@ Select Step:  "
 }
 
 ###############################################################################
+nixos(){
+  # gnomeExtensions.
+  # gnomeExtensions.
+  # gnomeExtensions.
+  # gnomeExtensions.
+  # gnomeExtensions.
+  # gnomeExtensions.
+  # gnomeExtensions.
+  # gnomeExtensions.
+  # gnomeExtensions.
+}
+
 github_integration(){
   ssh-keygen -t ed25519 -C "jeff.windsor@gmail.com"
   eval "$(ssh-agent -s)"
