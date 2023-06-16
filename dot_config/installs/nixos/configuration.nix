@@ -57,6 +57,7 @@
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
+  services.printing.browsing = true;
 
   # Enable sound with pipewire.
   sound.enable = true;
@@ -84,28 +85,6 @@
     description = "The Middle Way";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
-	gnomeExtensions.appindicator
-	gnomeExtensions.blur-my-shell
-	gnomeExtensions.caffeine
-	gnomeExtensions.executor
-	gnomeExtensions.forge
-	gnomeExtensions.just-perfection
-	gnomeExtensions.openweather
-	gnomeExtensions.space-bar
-	gnomeExtensions.wallpaper-switcher
-
-	chezmoi
-	clapper
-	gnucash
-	jetbrains-mono
-	#megasync
-	newsflash
-	obsidian
-	spotify
-
-	chromium
-	#google-chrome
-	librewolf
     ];
   };
 
@@ -139,11 +118,35 @@
 	tealdeer
 	tlp
 	zellij
-	
+
+	avahi
 	zsh
 	zsh-autosuggestions
 	zsh-syntax-highlighting
 
+
+	gnomeExtensions.appindicator
+	gnomeExtensions.blur-my-shell
+	gnomeExtensions.caffeine
+	gnomeExtensions.executor
+	gnomeExtensions.forge
+	gnomeExtensions.just-perfection
+	gnomeExtensions.openweather
+	gnomeExtensions.space-bar
+	gnomeExtensions.wallpaper-switcher
+
+	chezmoi
+	clapper
+	gnucash
+	jetbrains-mono
+	megasync
+	newsflash
+	obsidian
+	spotify
+
+	chromium
+	#google-chrome
+	librewolf
 	firefox
   ];
 
@@ -154,11 +157,14 @@
   #   enable = true;
   #   enableSSHSupport = true;
   # };
+  programs.zsh.enable = true;
+  users.defaultUserShell = pkgs.zsh;
+  environment.shells = with pkgs; [ zsh ];
 
   # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
+  services.avahi.enable = true;
+  services.avahi.publish.enable = true;
+  services.avahi.publish.userServices = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
