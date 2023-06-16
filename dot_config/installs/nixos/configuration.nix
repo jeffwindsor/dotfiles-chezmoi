@@ -137,6 +137,7 @@
 	shellcheck
 	starship
 	tealdeer
+	tlp
 	zellij
 	
 	zsh
