@@ -1,0 +1,1 @@
+alias nrs='sudo nixos-rebuild switch'
