@@ -56,11 +56,11 @@
     zsh-autosuggestions
     zsh-syntax-highlighting
 
-    #google-chrome
     chromium
     clapper
     firefox
     gnucash
+    google-chrome
     jetbrains-mono
     librewolf
     megasync
@@ -95,7 +95,7 @@
   boot.loader = {
     systemd-boot.enable = true;
     efi.canTouchEfiVariables = true;
-  }
+  };
 
   # shells
   programs.zsh.enable = true;
@@ -127,8 +127,6 @@
   services.printing = {
     enable = true;
     browsing = true;
-    nssmdns = true;
-    openFirewall = true;
   };
 
   services.pipewire = {
