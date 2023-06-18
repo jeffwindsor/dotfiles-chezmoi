@@ -127,6 +127,8 @@
   services.printing = {
     enable = true;
     browsing = true;
+    nssmdns = true;
+    openFirewall = true;
   };
 
   services.pipewire = {
