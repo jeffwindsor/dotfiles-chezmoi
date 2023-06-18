@@ -1,1 +1,6 @@
-alias nrs='sudo nixos-rebuild switch'
+alias nxrs='sudo nixos-rebuild switch'
+
+alias nxi='nix-env --install'
+alias nxu='nix-env --uninstall'
+
+
