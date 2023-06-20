@@ -11,7 +11,19 @@
     isNormalUser = true;
     description = "The Middle Way";
     extraGroups = [ "networkmanager" "wheel" ];
-    # packages = with pkgs; [];
+    packages = with pkgs; [
+      megasync
+
+      # move to flatpaks ??
+      clapper
+      firefox
+      gnucash
+      google-chrome
+      librewolf
+      newsflash
+      obsidian
+      spotify
+    ];
   };
 
   # system packages
@@ -23,6 +35,7 @@
     bottom
     broot
     chezmoi
+    chromium
     clamav
     direnv
     exa
@@ -43,6 +56,7 @@
     gnomeExtensions.openweather
     gnomeExtensions.space-bar
     gnomeExtensions.wallpaper-switcher
+    jetbrains-mono
     lf
     neovim
     ripgrep
@@ -55,18 +69,6 @@
     zsh
     zsh-autosuggestions
     zsh-syntax-highlighting
-
-    chromium
-    clapper
-    firefox
-    gnucash
-    google-chrome
-    jetbrains-mono
-    librewolf
-    megasync
-    newsflash
-    obsidian
-    spotify
   ];
 
   boot.loader = {
@@ -91,16 +93,14 @@
       nssmdns = true;
       openFirewall = true;
     };
-
+    flatpak.enable = true;
     printing.enable = true;
-
     pipewire = {
       enable = true;
       alsa.enable = true;
       alsa.support32Bit = true;
       pulse.enable = true;
     };
-
     xserver = {
       enable = true;
       displayManager.gdm.enable = true;
