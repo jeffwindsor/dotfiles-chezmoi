@@ -88,18 +88,11 @@
   services = {
     avahi = {
       enable = true;
-      publish = {
-        enable = true;
-        userServices = true;
-      };
-    };
-
-    printing = {
-      enable = true;
-      browsing = true;
       nssmdns = true;
       openFirewall = true;
     };
+
+    printing.enable = true;
 
     pipewire = {
       enable = true;
