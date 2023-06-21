@@ -23,7 +23,7 @@
       newsflash
       obsidian
       spotify
-      transmission
+      transmission-gtk
     ];
   };
 
