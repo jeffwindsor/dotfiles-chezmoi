@@ -27,6 +27,7 @@
       obsidian
       spotify
       transmission-gtk
+      vlc
     ];
   };
 
