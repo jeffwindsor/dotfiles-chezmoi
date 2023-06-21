@@ -15,10 +15,13 @@
       megasync
 
       # move to flatpaks ??
+      audacity
       clapper
       firefox
+      gimp
       gnucash
       google-chrome
+      libreoffice
       librewolf
       newsflash
       obsidian
@@ -32,9 +35,11 @@
   environment.systemPackages = with pkgs; [
     alacritty
     avahi
+    bandwhich
     bat
     bottom
     broot
+    buku
     chezmoi
     chromium
     clamav
