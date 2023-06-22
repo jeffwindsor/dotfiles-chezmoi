@@ -12,17 +12,23 @@
     description = "The Middle Way";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
-      megasync
-
-      # move to flatpaks ??
       audacity
-      clapper
       firefox
       gimp
+      gnomeExtensions.appindicator
+      gnomeExtensions.blur-my-shell
+      gnomeExtensions.caffeine
+      gnomeExtensions.executor
+      gnomeExtensions.forge
+      gnomeExtensions.just-perfection
+      gnomeExtensions.openweather
+      gnomeExtensions.space-bar
+      gnomeExtensions.wallpaper-switcher
       gnucash
       google-chrome
       libreoffice
       librewolf
+      megasync
       newsflash
       obsidian
       spotify
@@ -35,12 +41,11 @@
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
     alacritty
-    avahi
-    bandwhich
+    #bandwhich
     bat
     bottom
     broot
-    buku
+    #buku
     chezmoi
     chromium
     clamav
@@ -52,18 +57,9 @@
     fzf
     gcc
     git
+    gitui
     gnome-extension-manager
     gnome-firmware
-    gnomeExtensions.appindicator
-    gnomeExtensions.blur-my-shell
-    gnomeExtensions.caffeine
-    gnomeExtensions.executor
-    gnomeExtensions.forge
-    gnomeExtensions.just-perfection
-    gnomeExtensions.openweather
-    gnomeExtensions.space-bar
-    gnomeExtensions.wallpaper-switcher
-    jetbrains-mono
     lf
     neovim
     ripgrep
@@ -76,6 +72,15 @@
     zsh
     zsh-autosuggestions
     zsh-syntax-highlighting
+
+    # fonts
+    jetbrains-mono
+
+    # print services
+    avahi
+    
+    # firmware update service
+    fwupd
   ];
 
   boot.loader = {
