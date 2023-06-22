@@ -78,7 +78,7 @@
 
     # print services
     avahi
-    
+
     # firmware update service
     fwupd
   ];
