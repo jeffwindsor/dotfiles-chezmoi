@@ -50,7 +50,8 @@ wk.register({
   },
   f = {
     name = 'files',
-    b = { ':Ranger<CR>', 'via file browser'},
+    b = { ':Broot<CR>', 'via file browser'},
+    l = { ':Lf<CR>', 'LF'},
     c = { ':Telescope find_files find_command=chezmoi,list<CR>','in config directory'},
     d = { ':Telescope find_files find_command=chezmoi,list<CR>','in config directory'},
     f = { ':Telescope find_files<CR>','in current directory'},
@@ -64,10 +65,10 @@ wk.register({
     name = 'git',
     b = { ':Telescope git_branches<CR>','branches'},
     c = { ':Telescope git_commits<CR>','commits'},
-    g = { ':Gitui','git ui'},
-    l = { ':Lazygit','lazy git'},
     f = { ':Telescope git_files<CR>','files'},
     s = { ':Telescope git_status<CR>','status'},
+    u = { ':Gitui','git ui'},
+    --l = { ':Lazygit','lazy git'},
   },
   h = {
     name = 'help',
