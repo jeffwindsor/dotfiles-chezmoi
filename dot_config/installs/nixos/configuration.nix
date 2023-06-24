@@ -95,7 +95,7 @@
   environment.shells = with pkgs; [ zsh ];
   programs.zsh.enable = true;
   programs.zsh.autosuggestions.enable = true;
-  programs.zsh.enableSyntaxHighlighting = true;
+  programs.zsh.syntaxHighlighting.enable = true;
 
   # sound
   sound.enable = true;
