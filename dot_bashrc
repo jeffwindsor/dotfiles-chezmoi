@@ -1,43 +1,30 @@
 #!/usr/bin/env bash
 
+#===========================================================
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
       *) return;;
 esac
 
+#===========================================================
+shopt -s nullglob
+shopt -s histappend
+shopt -s checkwinsize
+HISTCONTROL=ignoreboth
+HISTSIZE=1000
+HISTFILESIZE=2000
+
+#== ENV ====================================================
 export XDG_STATE_HOME=$HOME/.local/state
 export XDG_DATA_HOME=$HOME/.local/share
 export XDG_CACHE_HOME=$HOME/.cache
 export XDG_CONFIG_HOME=$HOME/.config
 
-shopt -s nullglob
-for rc in $XDG_CONFIG_HOME/shells/env/*
-do 
-    source $rc
-done
+#===========================================================
+alias l='ls'
+alias la='ls -a'
+alias ll='ls -l'
+alias lla='ls -la'
 
-for rc in $XDG_CONFIG_HOME/shells/autoloads/*.bash
-do
-    source $rc
-done
-
-for rc in $XDG_CONFIG_HOME/shells/aliases/*
-do
-    source $rc
-done
-
-# don't put duplicate lines or lines starting with space in the history.
-# See bash(1) for more options
-HISTCONTROL=ignoreboth
-
-# append to the history file, don't overwrite it
-shopt -s histappend
-
-# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
-
-# check the window size after each command and, if necessary,
-# update the values of LINES and COLUMNS.
-shopt -s checkwinsize
+eval "$(starship init bash)"
