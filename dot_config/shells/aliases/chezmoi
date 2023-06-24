@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-
-alias c2t='chezmoi chattr +template'
-alias c='chezmoi'
-alias ca='chezmoi add'
-alias ce='chezmoi edit'
-alias cph='chezmoi git push'
-alias cs='chezmoi status'

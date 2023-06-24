@@ -1,5 +1,0 @@
-
-alias dis='docker images'
-alias dup='docker images --format "{{.Repository}}:{{.Tag}}" | xargs -L1 docker pull'
-alias d-h='docker run -it --rm haskell'
-alias d-c='docker run -it --rm clojure'

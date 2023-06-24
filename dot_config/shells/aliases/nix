@@ -1,6 +1,0 @@
-alias rebuild='sudo cp $HOME/.config/installs/nixos/configuration.nix /etc/nixos && sudo nixos-rebuild switch'
-
-alias nxi='nix-env --install'
-alias nxu='nix-env --uninstall'
-
-

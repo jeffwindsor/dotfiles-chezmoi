@@ -1,6 +1,0 @@
-#eval "$(rtx activate zsh)"
-
-alias ri="rtx install"
-alias rl="rtx list"
-alias ru="rtx use"
-
