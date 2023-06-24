@@ -111,6 +111,11 @@ else
   alias lla='ls -la'
 fi
 
+if [ -n "${commands[fzf-share]}" ]; then
+  source "$(fzf-share)/key-bindings.zsh"
+  source "$(fzf-share)/completion.zsh"
+fi
+
 if command -v git &>/dev/null; then
     alias git-to-main="git branch -m master main && git push -u origin main"
     alias ga="git add"
@@ -186,8 +191,6 @@ if [[ $(uname) == "Darwin" ]]; then
 
     # macos inits
     [[ ! "$PATH" == */usr/local/opt/fzf/bin* ]] && export PATH="${PATH:+${PATH}:}/usr/local/opt/fzf/bin"
-    [[ $- == *i* ]] && source "/usr/local/opt/fzf/shell/completion.zsh" 2> /dev/null
-    [ -d /usr/local/opt/fzf ] && source "/usr/local/opt/fzf/shell/key-bindings.zsh"
     [ -d /usr/local/share/zsh-syntax-highlighting ] && source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
     [ -d /usr/local/share/zsh-autosuggestions ] && source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
     FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
@@ -205,7 +208,6 @@ elif command dnf &>/dev/null; then
     alias dls='dnf history --userinstalled'
 
     # fedora inits
-    [ -d /usr/share/fzf/ ] && source "/usr/share/fzf/shell/key-bindings.zsh"
     [ -d /usr/share/zsh-autosuggestions ] && source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
     [ -d /usr/share/zsh-syntax-highlighting ] && source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
@@ -213,6 +215,8 @@ elif [ -d "/etc/nixos" ]; then
     alias rebuild='sudo cp $HOME/.config/installs/nixos/configuration.nix /etc/nixos && sudo nixos-rebuild switch'
     alias ni='nix-env --install'
     alias nu='nix-env --uninstall'
+
+    # zsh plugins are set up in configuraiton.nix
 fi
 
 
