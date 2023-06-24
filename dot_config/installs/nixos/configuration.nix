@@ -49,7 +49,7 @@
     chezmoi
     chromium
     clamav
-    direnv
+    nix-direnv
     exa
     fclones
     fd
