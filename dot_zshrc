@@ -55,11 +55,11 @@ exec-on-git-repos() {
   [ ! -z "$result" ] && $1 $result
 }
 
-git-all() { 
-  ls | xargs -I{} git -C {} $1 
+git-all() {
+  ls | xargs -I{} git -C {} $1
 }
 
-ghc(){ 
+ghc(){
   git clone git@github.com:$1 $SRC/github.com/$1
 }
 
@@ -132,23 +132,23 @@ if command -v git &>/dev/null; then
     alias gsync="git checkout master && git pull --rebase && git checkout - && git rebase master"
 fi
 
-if command -v gitui &>/dev/null; then 
+if command -v gitui &>/dev/null; then
     alias gu=gitui
 fi
 
-if command -v hx &>/dev/null; then 
+if command -v hx &>/dev/null; then
     alias h='hx'
     alias exo='hx ~/portable/exocortex'
 fi
 
-if command -v lazygit &>/dev/null; then 
+if command -v lazygit &>/dev/null; then
     alias lg=lazygit
 fi
 
-if command -v nvim &>/dev/null; then 
+if command -v nvim &>/dev/null; then
     alias v='nvim'
 
-    # open folder in nvim with telescope 
+    # open folder in nvim with telescope
     topen="nvim -c \":Telescope find_files cwd="
     alias fins="$topen$HOME/portable/financials\""
     alias configs="$topen$XDG_CONFIG_HOME\""
@@ -156,7 +156,7 @@ if command -v nvim &>/dev/null; then
     alias ins="$topen$INSTALLS\""
 fi
 
-if command -v rtx &>/dev/null; then 
+if command -v rtx &>/dev/null; then
     eval "$(rtx activate zsh)"
     alias ri="rtx install"
     alias rl="rtx list"
@@ -195,7 +195,8 @@ if [[ $(uname) == "Darwin" ]]; then
     compinit
     [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
-elif command dnf > /dev/null; then
+elif command dnf &>/dev/null; then
+    # dnf package manager
     alias up='sudo dnf upgrade'
     alias di='sudo dnf install'
     alias dit='sudo dnf --enablerepo=updates-testing,updates-testing-modular --best install'
