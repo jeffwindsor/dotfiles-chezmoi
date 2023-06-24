@@ -90,10 +90,12 @@
   networking.networkmanager.enable = true;
   security.rtkit.enable = true;
 
-  # zsh
-  programs.zsh.enable = true;
+  # zsh and addons
   users.defaultUserShell = pkgs.zsh;
   environment.shells = with pkgs; [ zsh ];
+  programs.zsh.enable = true;
+  programs.zsh.autosuggestions.enable = true;
+  programs.zsh.enableSyntaxHighlighting = true;
 
   # sound
   sound.enable = true;
