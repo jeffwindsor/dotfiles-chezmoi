@@ -1,8 +1,10 @@
 #!/usr/bin/env zsh
 
+#===========================================================
 # use to profile startup time
 # zmodload zsh/zprof
 
+#===========================================================
 # zsh config
 export CLICOLOR=1
 setopt LOCAL_OPTIONS EXTENDED_GLOB
@@ -24,32 +26,196 @@ HISTSIZE=50000
 SAVEHIST=10000
 
 #===========================================================
-for file in $XDG_CONFIG_HOME/shells/aliases/*
-do
-    source $file
-done
+git-commit() {
+  git commit -m ${1:-'Refactor'}
+}
+
+git-add-commit() {
+  git add --all
+  git commit -m ${1:-'Refactor'}
+}
+
+git-add-commit-push() {
+  git add --all
+  git commit -m ${1:-'Refactor'}
+  git push
+}
+
+git-log-graph(){
+  git log --graph --pretty=format:${GIT_LOG_PRETTY_FORMAT} --abbrev-commit --max-count=${1:-10}
+}
+
+git-find-dirs() {
+  # find all directories ending in .git (including hidden and ignored listings)
+  fd '^.git$' $1 -HItd --max-depth 4 | sed 's/.git\/$//'
+}
+
+exec-on-git-repos() {
+  local result=$(git-find-dirs $2 | fzf --reverse)
+  [ ! -z "$result" ] && $1 $result
+}
+
+git-all() { 
+  ls | xargs -I{} git -C {} $1 
+}
+
+ghc(){ 
+  git clone git@github.com:$1 $SRC/github.com/$1
+}
 
 #===========================================================
-# zsh-completions 
-if type brew &>/dev/null; then
-    FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
+alias ..='cd ..'
+alias ...='cd ../../'
+alias ....='cd ../../../'
+alias dot="cd $DOTFILES"
+alias hub="cd $SRC/github.com"
+alias hubs="exec-on-git-repos cd $SRC/github.com/"
+alias in="cd $INSTALLS"
+alias jeff="cd $SRC/github.com/jeffwindsor/"
+alias src="cd $SRC"
+alias srcs="exec-on-git-repos cd $SRC"
+alias md="$HOME/portable/exocortex/markdown"
+alias theme="$XDG_CONFIG_HOME/alacritty/change_theme"
 
-    autoload -Uz compinit
-    compinit
+if command -v bat &>/dev/null; then
+    alias cat='bat'
 fi
 
-# MACOS
-[[ ! "$PATH" == */usr/local/opt/fzf/bin* ]] && export PATH="${PATH:+${PATH}:}/usr/local/opt/fzf/bin"
-[[ $- == *i* ]] && source "/usr/local/opt/fzf/shell/completion.zsh" 2> /dev/null
-[ -d /usr/local/opt/fzf ] && source "/usr/local/opt/fzf/shell/key-bindings.zsh"
-[ -d /usr/local/share/zsh-syntax-highlighting ] && source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-#[ -d /usr/local/share/zsh-history-substring-search ] && source /usr/local/share/zsh-history-substring-search/zsh-history-substring-search.zsh
-[ -d /usr/local/share/zsh-autosuggestions ] && source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+if command -v chezmoi &>/dev/null; then
+    #alias c2t='chezmoi chattr +template'
+    alias c='chezmoi'
+    alias ca='chezmoi add'
+    alias ce='chezmoi edit'
+    alias cph='chezmoi git push'
+    alias cs='chezmoi status'
 
-# FEDORA
-[ -d /usr/share/fzf/ ] && source "/usr/share/fzf/shell/key-bindings.zsh"
-[ -d /usr/share/zsh-autosuggestions ] && source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-[ -d /usr/share/zsh-syntax-highlighting ] && source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+    # chezmoi has a config for editor to use, defaults to $EDITOR
+    # clist='chezmoi list -i files -p absolute'
+    # cpick='fzf --preview="bat --color=always --style=numbers {}"'
+    # cedit='xargs chezmoi edit --apply'
+    # alias configsc="$clist | $cpick | $cedit"
+    # alias dotsc="$clist | $cpick | $cedit"
+    # alias insc="$clist | rg installs | $cpick | $cedit"
+fi
 
+if command -v exa &>/dev/null; then
+  alias l='exa -F --group-directories-first'
+  alias la='exa -F --group-directories-first --git --all'
+  alias ll='exa -lF --group-directories-first'
+  alias lla='exa -lF --group-directories-first --git --all'
+  alias tree='exa -lF --tree --git --all'
+else
+  alias l='ls'
+  alias la='ls -a'
+  alias ll='ls -l'
+  alias lla='ls -la'
+fi
+
+if command -v git &>/dev/null; then
+    alias git-to-main="git branch -m master main && git push -u origin main"
+    alias ga="git add"
+    alias gaa="git add --all"
+    alias gb="git branch -v"
+    alias gc="git clone"
+    alias gcm="git-commit"
+    alias gcma="git add --all && git-commit"
+    alias gco="git checkout"
+    alias gd="git diff --ignore-space-at-eol -b -w --ignore-blank-lines"
+    alias gl="git-log-graph"
+    alias gll="git log"
+    alias gph="git push"
+    alias gpl="git pull"
+    alias gpls="git-all pull"
+    alias gr="git remote -vv"
+    alias gs="git status -sb --ignore-submodules"
+    alias gup="git-add-commit-push"
+    alias gsync="git checkout master && git pull --rebase && git checkout - && git rebase master"
+fi
+
+if command -v gitui &>/dev/null; then 
+    alias gu=gitui
+fi
+
+if command -v hx &>/dev/null; then 
+    alias h='hx'
+    alias exo='hx ~/portable/exocortex'
+fi
+
+if command -v lazygit &>/dev/null; then 
+    alias lg=lazygit
+fi
+
+if command -v nvim &>/dev/null; then 
+    alias v='nvim'
+
+    # open folder in nvim with telescope 
+    topen="nvim -c \":Telescope find_files cwd="
+    alias fins="$topen$HOME/portable/financials\""
+    alias configs="$topen$XDG_CONFIG_HOME\""
+    alias dots="$topen$DOTFILES\""
+    alias ins="$topen$INSTALLS\""
+fi
+
+if command -v rtx &>/dev/null; then 
+    eval "$(rtx activate zsh)"
+    alias ri="rtx install"
+    alias rl="rtx list"
+    alias ru="rtx use"
+fi
+
+#===========================================================
+if [[ $(uname) == "Darwin" ]]; then
+    # cj
+    alias lab="cd $SRC/gitlab.cj.dev"
+    alias labs="exec-on-git-repos cd $SRC/gitlab.cj.dev"
+    alias emp="cd $SRC/gitlab.cj.dev/empire"
+    alias emps="exec-on-git-repos cd $SRC/gitlab.cj.dev/empire"
+    alias cj="hx $HOME/portable/exocortex/cj"
+    alias shopcart='rlwrap sqlplus jwindsor@shopcart.db.cj.com:1531/shopcart'
+    alias t1='rlwrap sqlplus cj@tcjoweb1.db.cj.com:1521/tcjoweb1'
+    alias t5='rlwrap sqlplus cj@tcjoweb5.db.cj.com:1521/tcjoweb5'
+    alias tns='v ~/.local/cjdev/ci/tns-admin/tnsnames.ora'
+    alias shuttle-init="$HOME/.local/scripts/cj/shuttle-init"
+    alias sdk-start="source $HOME/.sdkman/bin/sdkman-init.sh"
+    alias dbstart="nohup VBoxHeadless --startvm 'Oracle11g32' &> /dev/null &"
+    alias dbstop="VBoxManage controlvm Oracle11g32 poweroff"
+    alias java8='sdk use java 8.302.08.1-amzn'
+    alias qb='java8 && mvn clean install -T 1C -Ddelta.skip=true -Dcleanup.skip=true -Dqunit.numThreads=8 -DskipTests -Dtablespaces.skip=true -Dgulp.task=min && java11'
+    alias qqb='java8 && mvn install -T 1C -Ddelta.skip=true -Dcleanup.skip=true -Dqunit.numThreads=8 -DskipTests -Dtablespaces.skip=true -Dgulp.task=min && java11'
+    alias test-schemas='java -jar ./target/schemas-main-SNAPSHOT.one-jar.jar locator=T5 tnsnames=/USers/jwindsor/.local/cjdev/ci/tns-admin/tnsnames.ora'
+
+    # macos inits
+    [[ ! "$PATH" == */usr/local/opt/fzf/bin* ]] && export PATH="${PATH:+${PATH}:}/usr/local/opt/fzf/bin"
+    [[ $- == *i* ]] && source "/usr/local/opt/fzf/shell/completion.zsh" 2> /dev/null
+    [ -d /usr/local/opt/fzf ] && source "/usr/local/opt/fzf/shell/key-bindings.zsh"
+    [ -d /usr/local/share/zsh-syntax-highlighting ] && source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+    [ -d /usr/local/share/zsh-autosuggestions ] && source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+    if type brew &>/dev/null; then
+        FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
+        autoload -Uz compinit
+        compinit
+    fi
+    [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+elif command dnf > /dev/null; then
+    alias up='sudo dnf upgrade'
+    alias di='sudo dnf install'
+    alias dit='sudo dnf --enablerepo=updates-testing,updates-testing-modular --best install'
+    alias da='sudo dnf autoremove'
+    alias df='sudo dnf info'
+    alias dls='dnf history --userinstalled'
+
+    # fedora inits
+    [ -d /usr/share/fzf/ ] && source "/usr/share/fzf/shell/key-bindings.zsh"
+    [ -d /usr/share/zsh-autosuggestions ] && source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+    [ -d /usr/share/zsh-syntax-highlighting ] && source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+elif [ -d "/etc/nixos" ]
+    alias rebuild='sudo cp $HOME/.config/installs/nixos/configuration.nix /etc/nixos && sudo nixos-rebuild switch'
+    alias ni='nix-env --install'
+    alias nu='nix-env --uninstall'
+fi
+
+
+# starship prompt
 eval "$(starship init zsh)"
