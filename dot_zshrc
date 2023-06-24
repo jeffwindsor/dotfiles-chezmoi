@@ -190,11 +190,9 @@ if [[ $(uname) == "Darwin" ]]; then
     [ -d /usr/local/opt/fzf ] && source "/usr/local/opt/fzf/shell/key-bindings.zsh"
     [ -d /usr/local/share/zsh-syntax-highlighting ] && source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
     [ -d /usr/local/share/zsh-autosuggestions ] && source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-    if type brew &>/dev/null; then
-        FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
-        autoload -Uz compinit
-        compinit
-    fi
+    FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
+    autoload -Uz compinit
+    compinit
     [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
 elif command dnf > /dev/null; then
@@ -210,7 +208,7 @@ elif command dnf > /dev/null; then
     [ -d /usr/share/zsh-autosuggestions ] && source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
     [ -d /usr/share/zsh-syntax-highlighting ] && source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-elif [ -d "/etc/nixos" ]
+elif [ -d "/etc/nixos" ]; then
     alias rebuild='sudo cp $HOME/.config/installs/nixos/configuration.nix /etc/nixos && sudo nixos-rebuild switch'
     alias ni='nix-env --install'
     alias nu='nix-env --uninstall'
