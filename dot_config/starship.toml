@@ -1,5 +1,5 @@
 format = """
-[┌ ](blue)$directory$git_branch$git_status$jobs$container
+[┌ ](blue)$directory$git_branch$git_status$jobs$nix_shell$container
 [└ ](blue)$shell$time$cmd_duration$character"""
 
 [character]
