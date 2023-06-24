@@ -1,4 +1,0 @@
-export NNN_PLUG=''
-#export NNN_FCOLORS=''
-export NNN_FIFO='/tmp/nnn.fifo'
-
