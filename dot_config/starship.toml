@@ -2,8 +2,6 @@ format = """
 [┌ ](blue)$directory$git_branch$git_status$jobs$container
 [└ ](blue)$shell$time$cmd_duration$character"""
 
-#right_format = "(purple)$shell"
-
 [character]
 error_symbol   = "[:](red)"
 success_symbol = "[:](green)"
