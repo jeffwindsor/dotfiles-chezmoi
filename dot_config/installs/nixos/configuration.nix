@@ -46,6 +46,7 @@
       gnomeExtensions.wallpaper-switcher
       gnucash
       google-chrome
+      hx
       lf
       libreoffice
       librewolf
