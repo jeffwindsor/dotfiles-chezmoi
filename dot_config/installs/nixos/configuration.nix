@@ -12,9 +12,29 @@
     description = "The Middle Way";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
+      #bandwhich
+      #buku
+
+      alacritty
       audacity
+      bat
+      bottom
+      broot
+      chezmoi
+      chromium
+      clamav
+      exa
+      fclones
+      fd
       firefox
+      fortune
+      fzf
+      gcc
       gimp
+      git
+      gitui
+      gnome-extension-manager
+      gnome-firmware
       gnomeExtensions.appindicator
       gnomeExtensions.blur-my-shell
       gnomeExtensions.caffeine
@@ -26,61 +46,39 @@
       gnomeExtensions.wallpaper-switcher
       gnucash
       google-chrome
+      lf
       libreoffice
       librewolf
       megasync
+      neovim
       newsflash
+      nix-direnv
       obsidian
+      ripgrep
+      sd
+      shellcheck
       spotify
+      starship
+      tealdeer
+      tlp
       transmission-gtk
       vlc
+      zellij
+      zsh
+      zsh-autosuggestions
+      zsh-syntax-highlighting
+
+      # fonts
+      jetbrains-mono
+      #font-awesome
+
     ];
   };
 
-  # system packages
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
-    alacritty
-    #bandwhich
-    bat
-    bottom
-    broot
-    #buku
-    chezmoi
-    chromium
-    clamav
-    nix-direnv
-    exa
-    fclones
-    fd
-    fortune
-    fzf
-    gcc
-    git
-    gitui
-    gnome-extension-manager
-    gnome-firmware
-    lf
-    neovim
-    ripgrep
-    sd
-    shellcheck
-    starship
-    tealdeer
-    tlp
-    zellij
-    zsh
-    zsh-autosuggestions
-    zsh-syntax-highlighting
-
-    # fonts
-    jetbrains-mono
-
-    # print services
-    avahi
-
-    # firmware update service
-    fwupd
+    avahi   # print services
+    fwupd   # firmware update service
   ];
 
   boot.loader = {
@@ -101,20 +99,25 @@
   sound.enable = true;
   hardware.pulseaudio.enable = false;
 
+  # services
   services = {
     avahi = {
       enable = true;
       nssmdns = true;
       openFirewall = true;
     };
+    
     flatpak.enable = true;
+    
     printing.enable = true;
+    
     pipewire = {
       enable = true;
       alsa.enable = true;
       alsa.support32Bit = true;
       pulse.enable = true;
     };
+
     xserver = {
       enable = true;
       displayManager.gdm.enable = true;
