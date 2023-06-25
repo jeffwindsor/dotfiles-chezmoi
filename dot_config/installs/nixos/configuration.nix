@@ -106,11 +106,11 @@
       nssmdns = true;
       openFirewall = true;
     };
-    
+
     flatpak.enable = true;
-    
+
     printing.enable = true;
-    
+
     pipewire = {
       enable = true;
       alsa.enable = true;
