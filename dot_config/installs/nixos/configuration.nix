@@ -12,9 +12,6 @@
     description = "The Middle Way";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
-      #bandwhich
-      #buku
-
       alacritty
       audacity
       bat
@@ -65,19 +62,20 @@
       transmission-gtk
       vlc
       zellij
-      zsh
-      zsh-autosuggestions
-      zsh-syntax-highlighting
-
-      # fonts
-      jetbrains-mono
-      #font-awesome
-
     ];
   };
 
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
+    # shells
+    zsh
+    zsh-autosuggestions
+    zsh-syntax-highlighting
+
+    # fonts
+    jetbrains-mono
+
+    # services
     avahi   # print services
     fwupd   # firmware update service
   ];
