@@ -27,4 +27,6 @@ alias la='ls -a'
 alias ll='ls -l'
 alias lla='ls -la'
 
+[[ -d "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
+
 eval "$(starship init bash)"
