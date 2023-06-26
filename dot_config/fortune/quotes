@@ -80,51 +80,51 @@ The truth is incontrovertible. Malice may attack it, ignorance may deride it, bu
 %
 Success consists of going from failure to failure without loss of enthusiasm -- Winston Churchill
 %
-IF YOU TELL THE TRUTH, YOU DON'T HAVE TO REMEMBER ANYTHING -- MARK TWAIN
+if you tell the truth, you don't have to remember anything -- mark twain
 %
-PATRIOTISM IS SUPPORTING YOUR COUNTRY ALL THE TIME, AND YOUR GOVERNMENT WHEN IT DESERVES IT -- MARK TWAIN
+patriotism is supporting your country all the time, and your government when it deserves it -- mark twain
 %
-KINDNESS IS THE LANGUAGE WHICH THE DEAF CAN HEAR AND THE BLIND CAN SEE -- MARK TWAIN
+kindness is the language which the deaf can hear and the blind can see -- mark twain
 %
-BE CARELESS IN YOUR DRESS IF YOU MUST, BUT KEEP A TIDY SOUL -- MARK TWAIN
+be careless in your dress if you must, but keep a tidy soul -- mark twain
 %
-A FOOL THINKS HIMSELF TO BE WISE, BUT A WISE MAN KNOWS HIMSELF TO BE A FOOL -- WILLIAM SHAKESPEARE
+a fool thinks himself to be wise, but a wise man knows himself to be a fool -- william shakespeare
 %
-GIVE ME SIX HOURS TO CHOP DOWN A TREE AND I WILL SPEND THE FIRST FOUR SHARPENING THE AXE -- ABRAHAM LINCOLN
+give me six hours to chop down a tree and i will spend the first four sharpening the axe -- abraham lincoln
 %
-DISCIPLINE IS DOING WHAT YOU HATE TO DO, BUT NONETHELESS DOING IT LIKE YOU LOVE IT. -- MIKE TYSON
+discipline is doing what you hate to do, but nonetheless doing it like you love it. -- mike tyson
 %
-LOVE IS THE MOST IMPORTANT THING IN THE WORLD, BUT BASEBALL IS PRETTY GOOD, TOO -- YOGI BERRA
+love is the most important thing in the world, but baseball is pretty good, too -- yogi berra
 %
-IT AIN'T OVER TILL IT'S OVER -- YOGI BERRA
+it ain't over till it's over -- yogi berra
 %
-WHEN YOU COME TO A FORK IN THE ROAD, TAKE IT -- YOGI BERRA
+when you come to a fork in the road, take it -- yogi berra
 %
-IF YOU DON'T KNOW WHERE YOU ARE GOING, YOU'LL END UP SOMEPLACE ELSE -- YOGI BERRA
+if you don't know where you are going, you'll end up someplace else -- yogi berra
 %
-YOU CAN OBSERVE A LOT BY JUST WATCHING -- YOGI BERRA
+you can observe a lot by just watching -- yogi berra
 %
-IN THEORY THERE IS NO DIFFERENCE BETWEEN THEORY AND PRACTICE. IN PRACTICE THERE IS -- YOGI BERRA
+in theory there is no difference between theory and practice. in practice there is -- yogi berra
 %
-IT'S TOUGH TO MAKE PREDICTIONS, ESPECIALLY ABOUT THE FUTURE -- YOGI BERRA
+it's tough to make predictions, especially about the future -- yogi berra
 %
-CERTAIN THINGS CATCH YOUR EYE, BUT PURSUE ONLY THOSE THAT CAPTURE THE HEART. -- ANCIENT INDIAN PROVERB
+certain things catch your eye, but pursue only those that capture the heart. -- ancient indian proverb
 %
-EVERYTHING HAS BEAUTY, BUT NOT EVERYONE CAN SEE. -- CONFUCIUS
+everything has beauty, but not everyone can see. -- confucius
 %
-IF YOU'RE OFFERED A SEAT ON A ROCKET SHIP, DON'T ASK WHAT SEAT! JUST GET ON. -- SHERYL SANDBERG
+if you're offered a seat on a rocket ship, don't ask what seat! just get on. -- sheryl sandberg
 %
-EDUCATION COSTS MONEY.  BUT THEN SO DOES IGNORANCE. -- SIR CLAUS MOSER
+education costs money.  but then so does ignorance. -- sir claus moser
 %
-IT DOES NOT MATTER HOW SLOWLY YOU GO AS LONG AS YOU DO NOT STOP. -- CONFUCIUS
+it does not matter how slowly you go as long as you do not stop. -- confucius
 %
-REMEMBER THAT NOT GETTING WHAT YOU WANT IS SOMETIMES A WONDERFUL STROKE OF LUCK. -- DALAI LAMA
+remember that not getting what you want is sometimes a wonderful stroke of luck. -- dalai lama
 %
-OUR LIVES BEGIN TO END THE DAY WE BECOME SILENT ABOUT THINGS THAT MATTER. -- MARTIN LUTHER KING JR.
+our lives begin to end the day we become silent about things that matter. -- martin luther king jr.
 %
-DO WHAT YOU CAN, WHERE YOU ARE, WITH WHAT YOU HAVE. -- TEDDY ROOSEVELT
+do what you can, where you are, with what you have. -- teddy roosevelt
 %
-LIFE IS WHAT WE MAKE IT, ALWAYS HAS BEEN, ALWAYS WILL BE. -- GRANDMA MOSES
+life is what we make it, always has been, always will be. -- grandma moses
 %
 If you can't handle me at my worst, then you sure as hell don't deserve me at my best. -- marilyn monroe
 %
@@ -140,12 +140,9 @@ Don’t worry what others are doing. Do you! --Russell Simmons
 %
 You will meet two kinds of people in life: ones who build you up and ones who tear you down. But in the end, you’ll thank them both.
 %
-First shalt thou take out the Holy Pin, then shalt thou count to three, no more, no less. Three shall be the number thou shalt count, and the number of the counting shall be three. Four shalt thou not count, neither count thou two, excepting that thou then proceed to three. Five is right out.
--- Saint Attila, Holy Hand Grenade of Antioch
+First shalt thou take out the Holy Pin, then shalt thou count to three, no more, no less. Three shall be the number thou shalt count, and the number of the counting shall be three. Four shalt thou not count, neither count thou two, excepting that thou then proceed to three. Five is right out. -- Saint Attila, Holy Hand Grenade of Antioch
 %
 Everybody wants to go to heaven, nobody wants to die.
-%
-You win the first hour of the day, you win the day.
 %
 Discipline or Regret. Suffer the pain of discipline or you will suffer the pain of regret.
 %
@@ -694,7 +691,7 @@ Beware of bugs in the above code; I have only proved it correct, not tried it. -
 %
 Science is knowledge which we understand so well that we can teach it to a computer; and if we don't fully understand something, it is an art to deal with it. -- Donald E. Knuth
 %
-In fact, my main conclusion after spending ten years of my life working on the TEX project is that software is hard. It’s harder than anything else I’ve ever had to do. -- Donald E. Knuth
+Software is hard. It’s harder than anything else I’ve ever had to do. -- Donald E. Knuth
 %
 Let us change our traditional attitude to the construction of programs: Instead of imagining that our main task is to instruct a computer what to do, let us concentrate rather on explaining to human beings what we want a computer to do. -- Donald E. Knuth
 %
@@ -755,6 +752,7 @@ There are only two kinds of languages: the ones people complain about and the on
 OOP makes code understandable by encapsulating moving parts.  FP makes code understandable by minimizing moving parts. --  Micheal Feathers
 %
 Some people, when confronted with a problem, think ‘I know, I’ll use regular expressions.’ Now they have two problems. -- Jamie Zawinski
+%
 Waste no more time arguing what a good man should be. Be One. -- Marcus Aurelius
 %
 Think of the life you have lived until now as over and, as a dead man, see what’s left as a bonus and live it according to Nature. Love the hand that fate deals you and play it as your own, for what could be more fitting? -- Marcus Aurelius
@@ -965,3 +963,4 @@ BRAVE. Face difficult situations even when you feel afraid. Do what you think is
 CLEAN. Keep your body and mind fit. Help keep your home and community clean.
 %
 REVERENT. Be reverent toward God. Be faithful in your religious duties. Respect the beliefs of others.
+%
