@@ -69,6 +69,7 @@ alias ...='cd ../../'
 alias ....='cd ../../../'
 alias dot="cd $DOTFILES"
 alias home="cd $SRC/github.com/jeffwindsor/financials/gnucash/home/imports"
+alias business="cd $SRC/github.com/jeffwindsor/financials/gnucash/business/imports"
 alias hub="cd $SRC/github.com"
 alias hubs="exec-on-git-repos cd $SRC/github.com/"
 alias in="cd $INSTALLS"
