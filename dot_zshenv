@@ -7,6 +7,7 @@ export XDG_CACHE_HOME=$HOME/.cache
 export XDG_CONFIG_HOME=$HOME/.config
 
 # personal
+export EDITOR="$(which nvim)"
 export SRC=$HOME/Source
 export DOTFILES=$HOME/.config/
 export INSTALLS=$HOME/.config/installs
