@@ -12,26 +12,9 @@
     description = "The Middle Way";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
-      alacritty
-      audacity
-      bat
-      bottom
-      broot
-      chezmoi
-      chromium
-      clamav
-      exa
-      fclones
-      fd
-      firefox
-      fortune
-      fzf
-      gcc
-      gimp
-      git
-      gitui
+
+      # gnome de
       gnome-extension-manager
-      gnome-firmware
       gnomeExtensions.appindicator
       gnomeExtensions.blur-my-shell
       gnomeExtensions.caffeine
@@ -41,43 +24,65 @@
       gnomeExtensions.openweather
       gnomeExtensions.space-bar
       gnomeExtensions.wallpaper-switcher
+
+      # applications
+      alacritty
+      audacity
+      chromium
+      clamav
+      firefox
+      gimp
+      gnome-firmware
       gnucash
       google-chrome
-      helix
-      lf
       libreoffice
       librewolf
       megasync
-      neovim
       newsflash
       nix-direnv
       obsidian
+      spotify
+      transmission-gtk
+      vlc
+
+      # terminal
+      bat
+      bottom
+      broot
+      chezmoi
+      exa
+      fclones
+      fd
+      fortune
+      fzf
+      gcc
+      git
+      gitui
+      helix
+      lf
+      neovim
       ripgrep
       sd
       shellcheck
-      spotify
       starship
       tealdeer
       tlp
-      transmission-gtk
-      vlc
       zellij
+
+      # fonts
+      jetbrains-mono
+
     ];
   };
 
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
-    # shells
+    avahi   # print services
+    fwupd   # firmware update service
+
     zsh
     zsh-autosuggestions
     zsh-syntax-highlighting
-
-    # fonts
-    jetbrains-mono
-
-    # services
-    avahi   # print services
-    fwupd   # firmware update service
   ];
 
   boot = {
