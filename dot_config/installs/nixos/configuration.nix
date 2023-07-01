@@ -3,15 +3,28 @@
 {
   imports = [ ./hardware-configuration.nix ];
 
-  time.timeZone = "America/Los_Angeles";
-  networking.hostName = "frame";
+  boot = {
+    supportedFilesystems = [ "ntfs" ];
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+    };
+  };
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.mid = {
-    isNormalUser = true;
-    description = "The Middle Way";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
+  environment = {
+    shells = with pkgs; [ zsh ];
+    systemPackages = with pkgs; [
+      # services
+      avahi   # print services
+      fwupd   # firmware update service
+
+      # fonts
+      jetbrains-mono
+
+      # shells
+      zsh
+      zsh-autosuggestions
+      zsh-syntax-highlighting
 
       # gnome de
       gnome-extension-manager
@@ -68,47 +81,50 @@
       tealdeer
       tlp
       zellij
-
-      # fonts
-      jetbrains-mono
-
     ];
   };
 
-  nixpkgs.config.allowUnfree = true;
-  environment.systemPackages = with pkgs; [
-    avahi   # print services
-    fwupd   # firmware update service
+  hardware.pulseaudio.enable = false;
 
-    zsh
-    zsh-autosuggestions
-    zsh-syntax-highlighting
-  ];
-
-  boot = {
-    supportedFilesystems = [ "ntfs" ];
-    loader = {
-      systemd-boot.enable = true;
-      efi.canTouchEfiVariables = true;
+  # Select internationalisation properties.
+  i18n ={
+    defaultLocale = "en_US.UTF-8";
+    extraLocaleSettings = {
+      LC_ADDRESS = "en_US.UTF-8";
+      LC_IDENTIFICATION = "en_US.UTF-8";
+      LC_MEASUREMENT = "en_US.UTF-8";
+      LC_MONETARY = "en_US.UTF-8";
+      LC_NAME = "en_US.UTF-8";
+      LC_NUMERIC = "en_US.UTF-8";
+      LC_PAPER = "en_US.UTF-8";
+      LC_TELEPHONE = "en_US.UTF-8";
+      LC_TIME = "en_US.UTF-8";
     };
   };
-  networking.networkmanager.enable = true;
-  security.rtkit.enable = true;
 
-  # zsh and addons
-  users.defaultUserShell = pkgs.zsh;
-  environment.shells = with pkgs; [ zsh ];
+  networking = {
+    hostName = "frame";
+    networkmanager.enable = true;
+  };
+
+  nixpkgs.config.allowUnfree = true;
+  nix = {
+    settings.auto-optimise-store = true;
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 30d";
+    };
+  };
+
   programs.zsh = {
     enable = true;
     autosuggestions.enable = true;
     syntaxHighlighting.enable = true;
   };
 
-  # sound
-  sound.enable = true;
-  hardware.pulseaudio.enable = false;
+  security.rtkit.enable = true;
 
-  # services
   services = {
     avahi = {
       enable = true;
@@ -136,24 +152,23 @@
     };
   };
 
-  # Select internationalisation properties.
-  i18n ={
-    defaultLocale = "en_US.UTF-8";
-    extraLocaleSettings = {
-      LC_ADDRESS = "en_US.UTF-8";
-      LC_IDENTIFICATION = "en_US.UTF-8";
-      LC_MEASUREMENT = "en_US.UTF-8";
-      LC_MONETARY = "en_US.UTF-8";
-      LC_NAME = "en_US.UTF-8";
-      LC_NUMERIC = "en_US.UTF-8";
-      LC_PAPER = "en_US.UTF-8";
-      LC_TELEPHONE = "en_US.UTF-8";
-      LC_TIME = "en_US.UTF-8";
-    };
-  };
+  sound.enable = true;
 
   system ={
     autoUpgrade.enable = true;
     stateVersion = "23.05";
   };
+
+  time.timeZone = "America/Los_Angeles";
+
+  users = {
+    defaultUserShell = pkgs.zsh;
+    users.mid = {
+      isNormalUser = true;
+      description = "The Middle Way";
+      extraGroups = [ "networkmanager" "wheel" ];
+      #packages = with pkgs; [];
+    };
+  };
+
 }
