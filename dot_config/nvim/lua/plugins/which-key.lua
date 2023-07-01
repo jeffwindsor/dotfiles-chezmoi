@@ -13,6 +13,7 @@ wk.register({
     [","] = { ':Telescope commands<CR>','search commands'},
     a = { ':Telescope autocommands<CR>', 'search auto commands' },
     h = { ':Telescope command_history<CR>','search command history'},
+    l = { ':Lazy', 'Plugin Manager (Lazy)'},
     p = { ':Telescope builtin<CR>','pickers'},
   },
   b = {

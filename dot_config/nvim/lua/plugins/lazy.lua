@@ -74,11 +74,17 @@ require('lazy').setup({
   -- --------------------------------------------------------------------------
   -- color schemes
   -- --------------------------------------------------------------------------
-  {'folke/tokyonight.nvim', lazy = true},
-  {'joshdick/onedark.vim', lazy = true},
-  {'marko-cerovac/material.nvim', lazy = true},
-  {'rebelot/kanagawa.nvim', lazy = true},
-  {'shaunsingh/nord.nvim', lazy = true},
+  {'folke/tokyonight.nvim'},
+  {'joshdick/onedark.vim'},
+  {'marko-cerovac/material.nvim'},
+  {'rebelot/kanagawa.nvim'},
+  {'shaunsingh/nord.nvim'},
+  {'tomasr/molokai'},
+  {'catppuccin/nvim'},
+  {'NLKNguyen/papercolor-theme'},
+  {'jacoborus/tender.vim'},
+  {'cocopon/iceberg.vim'},
+  {'romainl/Apprentice'},
 })
 
 require('plugins.auto-save')
