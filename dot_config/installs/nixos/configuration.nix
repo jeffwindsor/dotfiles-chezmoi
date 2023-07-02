@@ -1,7 +1,13 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ ./hardware-configuration.nix ];
+  imports = [
+    ./hardware-configuration.nix
+    ./gnome.nix
+    ./terminal-dev.nix
+    ./zsh.nix
+    ./user-mid.nix
+  ];
 
   boot = {
     supportedFilesystems = [ "ntfs" ];
@@ -12,75 +18,10 @@
   };
 
   environment = {
-    shells = with pkgs; [ zsh ];
     systemPackages = with pkgs; [
-      # services
       avahi   # print services
       fwupd   # firmware update service
-
-      # fonts
-      jetbrains-mono
-
-      # shells
-      zsh
-      zsh-autosuggestions
-      zsh-syntax-highlighting
-
-      # gnome de
-      gnome-extension-manager
-      gnomeExtensions.appindicator
-      gnomeExtensions.blur-my-shell
-      gnomeExtensions.caffeine
-      gnomeExtensions.executor
-      gnomeExtensions.forge
-      gnomeExtensions.just-perfection
-      gnomeExtensions.openweather
-      gnomeExtensions.space-bar
-      gnomeExtensions.wallpaper-switcher
-
-      # applications
-      alacritty
-      audacity
-      chromium
-      clamav
-      firefox
-      gimp
-      gnome-firmware
-      gnucash
-      google-chrome
-      libreoffice
-      librewolf
-      megasync
-      newsflash
-      nix-direnv
-      obsidian
-      spotify
-      transmission-gtk
-      vlc
-
-      # terminal
-      bat
-      bottom
-      broot
-      chezmoi
-      exa
-      fclones
-      fd
-      fortune
-      fzf
-      gcc
-      git
-      gitui
-      helix
-      lf
-      neovim
-      ripgrep
-      sd
-      shellcheck
-      starship
-      tealdeer
-      tlp
-      zellij
+      tlp     # laptop power mgmt service
     ];
   };
 
@@ -109,7 +50,9 @@
 
   nixpkgs.config.allowUnfree = true;
   nix = {
+    # auto optimize links
     settings.auto-optimise-store = true;
+    # garbage collection on the regular
     gc = {
       automatic = true;
       dates = "weekly";
@@ -117,38 +60,25 @@
     };
   };
 
-  programs.zsh = {
-    enable = true;
-    autosuggestions.enable = true;
-    syntaxHighlighting.enable = true;
-  };
-
   security.rtkit.enable = true;
 
   services = {
+    # printing
     avahi = {
       enable = true;
       nssmdns = true;
       openFirewall = true;
     };
+    printing.enable = true;
 
     flatpak.enable = true;
 
-    printing.enable = true;
-
+    # audio
     pipewire = {
       enable = true;
       alsa.enable = true;
       alsa.support32Bit = true;
       pulse.enable = true;
-    };
-
-    xserver = {
-      enable = true;
-      displayManager.gdm.enable = true;
-      desktopManager.gnome.enable = true;
-      layout = "us";
-      xkbVariant = "";
     };
   };
 
@@ -160,15 +90,4 @@
   };
 
   time.timeZone = "America/Los_Angeles";
-
-  users = {
-    defaultUserShell = pkgs.zsh;
-    users.mid = {
-      isNormalUser = true;
-      description = "The Middle Way";
-      extraGroups = [ "networkmanager" "wheel" ];
-      #packages = with pkgs; [];
-    };
-  };
-
 }
