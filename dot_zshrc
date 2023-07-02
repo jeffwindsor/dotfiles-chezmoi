@@ -214,8 +214,8 @@ elif command dnf &>/dev/null; then
     [ -d /usr/share/zsh-syntax-highlighting ] && source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 elif [ -d "/etc/nixos" ]; then
-    alias rebuild='sudo cp $HOME/.config/installs/nixos/configuration.nix /etc/nixos && sudo nixos-rebuild switch'
-    alias change='nvim $HOME/.config/installs/nixos/configuration.nix'
+    alias rebuild='sudo cp $HOME/.config/installs/nixos/*.nix /etc/nixos/ && sudo nixos-rebuild switch'
+    alias change='nvim $HOME/.config/installs/nixos/*.nix'
     alias ni='nix-env --install'
     alias nu='nix-env --uninstall'
 
