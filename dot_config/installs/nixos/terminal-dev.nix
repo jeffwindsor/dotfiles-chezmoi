@@ -14,6 +14,7 @@
       fclones
       fd
       fortune
+      freshfetch
       fzf
       gcc
       git

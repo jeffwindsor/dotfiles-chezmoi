@@ -216,6 +216,11 @@ elif command dnf &>/dev/null; then
 elif [ -d "/etc/nixos" ]; then
     alias rebuild='sudo cp $HOME/.config/installs/nixos/*.nix /etc/nixos/ && sudo nixos-rebuild switch'
     alias change='nvim $HOME/.config/installs/nixos/*.nix'
+    alias list='nix-env --list-generations'
+    alias up='sudo nixos-rebuild switch --upgrade'
+    alias clean='nix-env --delete-generations +3 && nix-collect-garbage'
+    alias optimize='nix optimise-store'
+
     alias ni='nix-env --install'
     alias nu='nix-env --uninstall'
 
