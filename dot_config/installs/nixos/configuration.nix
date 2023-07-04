@@ -71,7 +71,7 @@
     };
     printing.enable = true;
 
-    flatpak.enable = true;
+    # flatpak.enable = true;
 
     # audio
     pipewire = {
