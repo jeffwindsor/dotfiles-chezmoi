@@ -86,7 +86,7 @@ wk.register({
     t = { ':Telescope lsp_type_definitions<CR>','type'},
   },
   p = { ':Lazy<CR>', 'package manager'},
-  q = { ':q<CR>','quit'},
+  q = { ':qa<CR>','quit'},
   r = { ':Telescope registers<CR>','registers'},
   t = {
     name = 'tabs',
@@ -112,7 +112,7 @@ wk.register({
       l = { ':vertical resize +5<CR>','right'},
     },
   },
-  x = { ':q!<CR>', 'force quit'},
+  x = { ':qa!<CR>', 'force quit'},
 },
 { prefix = '<leader>'}
 );

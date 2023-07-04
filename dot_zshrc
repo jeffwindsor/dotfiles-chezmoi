@@ -153,14 +153,14 @@ if command -v lazygit &>/dev/null; then
 fi
 
 if command -v nvim &>/dev/null; then
-    alias v='nvim'
-
     # open folder in nvim with telescope
-    topen="nvim -c \":Telescope find_files cwd="
-    alias fins="$topen$HOME/portable/financials\""
-    alias configs="$topen$XDG_CONFIG_HOME\""
-    alias dots="$topen$DOTFILES\""
-    alias ins="$topen$INSTALLS\""
+    tscope="nvim -c \":Telescope find_files"
+
+    alias v='nvim'
+    alias fins="$tscope cwd=$HOME/portable/financials\""
+    alias configs="$tscope cwd=$XDG_CONFIG_HOME\""
+    alias dots="$tscope find_command=chezmoi,list,-i,files,-p,absolute\""
+    alias ins="$tscope cwd=$INSTALLS\""
 fi
 
 if command -v rtx &>/dev/null; then

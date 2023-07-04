@@ -12,6 +12,7 @@
       gnomeExtensions.just-perfection
       gnomeExtensions.openweather
       gnomeExtensions.space-bar
+      gnomeExtensions.system-monitor
       gnomeExtensions.wallpaper-switcher
 
       # applications
