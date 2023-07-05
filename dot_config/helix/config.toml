@@ -1,12 +1,15 @@
-# appearance and behavior ########################################################
-theme = "kanagawa2"
+###################################################################
+# appearance and behavior 
+###################################################################
+
+theme = "dracula"
 
 [editor]
 auto-save   = true
 bufferline  = "always"
 line-number = "relative" #"absolute"
 mouse       = true
-shell       = ["fish", "-c"]
+# shell       = ["zsh", "-c"]
 
 [editor.cursor-shape]
 insert = "bar"
@@ -30,7 +33,10 @@ normal = "NORMAL"
 insert = "INSERT"
 select = "SELECT"
 
-# key maps ##################################################################
+###################################################################
+# key maps
+###################################################################
+
 [keys.normal]
 C-u = ["kill_to_line_start"]
 C-k = ["kill_to_line_end"] 
