@@ -159,11 +159,16 @@ if command -v nvim &>/dev/null; then
   alias ins="$tscope cwd=$INSTALLS\""
 fi
 
-if command -v rtx &>/dev/null; then
-  eval "$(rtx activate zsh)"
-  alias ri="rtx install"
-  alias rl="rtx list"
-  alias ru="rtx use"
+# if command -v rtx &>/dev/null; then
+#   eval "$(rtx activate zsh)"
+#   alias ri="rtx install"
+#   alias rl="rtx list"
+#   alias ru="rtx use"
+# fi
+
+# fast node manager - replace nvm
+if command -v fnm &>/dev/null; then
+  eval "$(fnm env --use-on-cd)"
 fi
 
 #
