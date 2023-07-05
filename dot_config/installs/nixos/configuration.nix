@@ -50,8 +50,11 @@
 
   nixpkgs.config.allowUnfree = true;
   nix = {
-    # auto optimize links
-    settings.auto-optimise-store = true;
+    settings = {
+      auto-optimise-store = true;                 #https://nixos.wiki/wiki/Storage_optimization
+      # enable flakes
+      experimiental-features = ["nix-command" "flakes"];
+    }
     # garbage collection on the regular
     gc = {
       automatic = true;
