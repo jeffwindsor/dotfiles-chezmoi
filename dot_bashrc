@@ -36,6 +36,6 @@ alias lla='ls -la'  # both
 [[ -d "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
 
 # initialize starship prompt (if installed)
-if command -v starship; then
+if command -v starship &>/dev/null; then
   eval "$(starship init bash)"
 fi
