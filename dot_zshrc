@@ -193,6 +193,7 @@ if [[ $(uname) == "Darwin" ]]; then
   alias t5="rlwrap sqlplus cj@tcjoweb5.db.cj.com:1521/tcjoweb5"
   alias test-schemas="java -jar ./target/schemas-main-SNAPSHOT.one-jar.jar locator=T5 tnsnames=/USers/jwindsor/.local/cjdev/ci/tns-admin/tnsnames.ora"
   alias tns="v ~/.local/cjdev/ci/tns-admin/tnsnames.ora"
+  alias nvm=fnm
 
   # fzf
   [[ ! "$PATH" == */usr/local/opt/fzf/bin* ]] && export PATH="${PATH:+${PATH}:}/usr/local/opt/fzf/bin"
