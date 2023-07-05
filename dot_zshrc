@@ -56,19 +56,21 @@ function ghc(){ git clone git@github.com:$1 $SRC/github.com/$1 }
 
 # Aliases
 #   https://zsh.sourceforge.io/Intro/intro_8.html#SEC8
-alias ..='cd ..'
-alias ...='cd ../../'
 alias ....='cd ../../../'
+alias ...='cd ../../'
+alias ..='cd ..'
+alias business="cd $SRC/github.com/jeffwindsor/financials/gnucash/business/imports"
 alias dot="cd $DOTFILES"
 alias home="cd $SRC/github.com/jeffwindsor/financials/gnucash/home/imports"
-alias business="cd $SRC/github.com/jeffwindsor/financials/gnucash/business/imports"
 alias hub="cd $SRC/github.com"
-alias hubs="exec-on-git-repos cd $SRC/github.com/"
 alias in="cd $INSTALLS"
 alias jeff="cd $SRC/github.com/jeffwindsor/"
+alias md="cd $HOME/portable/exocortex/markdown"
 alias src="cd $SRC"
+
+alias change="$EDITOR $HOME/.config/installs/nixos/*.nix"
+alias hubs="exec-on-git-repos cd $SRC/github.com/"
 alias srcs="exec-on-git-repos cd $SRC"
-alias md="$HOME/portable/exocortex/markdown"
 alias theme="$XDG_CONFIG_HOME/alacritty/change_theme"
 
 if command -v bat &>/dev/null; then
@@ -76,20 +78,22 @@ if command -v bat &>/dev/null; then
 fi
 
 if command -v chezmoi &>/dev/null; then
-    #alias c2t='chezmoi chattr +template'
-    alias c='chezmoi'
-    alias ca='chezmoi add'
-    alias ce='chezmoi edit'
-    alias cph='chezmoi git push'
-    alias cs='chezmoi status'
+  #alias c2t='chezmoi chattr +template'
+  alias c='chezmoi'
+  alias ca='chezmoi add'
+  alias ce='chezmoi edit'
+  alias cph='chezmoi git push'
+  alias cs='chezmoi status'
 
-    # chezmoi has a config for editor to use, defaults to $EDITOR
-    # clist='chezmoi list -i files -p absolute'
-    # cpick='fzf --preview="bat --color=always --style=numbers {}"'
-    # cedit='xargs chezmoi edit --apply'
-    # alias configsc="$clist | $cpick | $cedit"
-    # alias dotsc="$clist | $cpick | $cedit"
-    # alias insc="$clist | rg installs | $cpick | $cedit"
+  alias stow="chezmoi add $HOME/.config/installs/nixos/*.nix"
+
+  # chezmoi has a config for editor to use, defaults to $EDITOR
+  # clist='chezmoi list -i files -p absolute'
+  # cpick='fzf --preview="bat --color=always --style=numbers {}"'
+  # cedit='xargs chezmoi edit --apply'
+  # alias configsc="$clist | $cpick | $cedit"
+  # alias dotsc="$clist | $cpick | $cedit"
+  # alias insc="$clist | rg installs | $cpick | $cedit"
 fi
 
 if command -v exa &>/dev/null; then
@@ -111,55 +115,55 @@ if [ -n "${commands[fzf-share]}" ]; then
 fi
 
 if command -v git &>/dev/null; then
-    alias git-to-main="git branch -m master main && git push -u origin main"
-    alias ga="git add"
-    alias gaa="git add --all"
-    alias gb="git branch -v"
-    alias gc="git clone"
-    alias gcm="git-commit"
-    alias gcma="git add --all && git-commit"
-    alias gco="git checkout"
-    alias gd="git diff --ignore-space-at-eol -b -w --ignore-blank-lines"
-    alias gl="git-log-graph"
-    alias gll="git log"
-    alias gph="git push"
-    alias gpl="git pull"
-    alias gpls="git-all pull"
-    alias gr="git remote -vv"
-    alias gs="git status -sb --ignore-submodules"
-    alias gup="git-add-commit-push"
-    alias gsync="git checkout master && git pull --rebase && git checkout - && git rebase master"
+  alias git-to-main="git branch -m master main && git push -u origin main"
+  alias ga="git add"
+  alias gaa="git add --all"
+  alias gb="git branch -v"
+  alias gc="git clone"
+  alias gcm="git-commit"
+  alias gcma="git add --all && git-commit"
+  alias gco="git checkout"
+  alias gd="git diff --ignore-space-at-eol -b -w --ignore-blank-lines"
+  alias gl="git-log-graph"
+  alias gll="git log"
+  alias gph="git push"
+  alias gpl="git pull"
+  alias gpls="git-all pull"
+  alias gr="git remote -vv"
+  alias gs="git status -sb --ignore-submodules"
+  alias gup="git-add-commit-push"
+  alias gsync="git checkout master && git pull --rebase && git checkout - && git rebase master"
 fi
 
 if command -v gitui &>/dev/null; then
-    alias gu=gitui
+  alias gu=gitui
 fi
 
 if command -v hx &>/dev/null; then
-    alias h='hx'
-    alias exo='hx ~/portable/exocortex'
+  alias h='hx'
+  alias exo='hx ~/portable/exocortex'
 fi
 
 if command -v lazygit &>/dev/null; then
-    alias lg=lazygit
+  alias lg=lazygit
 fi
 
 if command -v nvim &>/dev/null; then
-    # open folder in nvim with telescope
-    tscope="nvim -c \":Telescope find_files"
+  # open folder in nvim with telescope
+  tscope="nvim -c \":Telescope find_files"
 
-    alias v='nvim'
-    alias fins="$tscope cwd=$HOME/portable/financials\""
-    alias configs="$tscope cwd=$XDG_CONFIG_HOME\""
-    alias dots="$tscope find_command=chezmoi,list,-i,files,-p,absolute\""
-    alias ins="$tscope cwd=$INSTALLS\""
+  alias v='nvim'
+  alias fins="$tscope cwd=$HOME/portable/financials\""
+  alias configs="$tscope cwd=$XDG_CONFIG_HOME\""
+  alias dots="$tscope find_command=chezmoi,list,-i,files,-p,absolute\""
+  alias ins="$tscope cwd=$INSTALLS\""
 fi
 
 if command -v rtx &>/dev/null; then
-    eval "$(rtx activate zsh)"
-    alias ri="rtx install"
-    alias rl="rtx list"
-    alias ru="rtx use"
+  eval "$(rtx activate zsh)"
+  alias ri="rtx install"
+  alias rl="rtx list"
+  alias ru="rtx use"
 fi
 
 #
@@ -218,12 +222,10 @@ elif command dnf &>/dev/null; then
 
 # NIXOS
 elif [ -d "/etc/nixos" ]; then
-  alias change="$EDITOR $HOME/.config/installs/nixos/*.nix"
   alias clean="nix-env --delete-generations +3 && nix-collect-garbage"
   alias list="nix-env --list-generations"
   alias optimize="nix optimise-store"
   alias rebuild="sudo cp $HOME/.config/installs/nixos/*.nix /etc/nixos/ && sudo nixos-rebuild switch"
-  alias stow="chezmoi add $HOME/.config/installs/nixos/*.nix"
   alias up="sudo nixos-rebuild switch --upgrade"
 
   alias ni="nix-env --install"
