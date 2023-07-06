@@ -1,6 +1,5 @@
-{ config, pkgs, ... }:
+{ config, pkgs, ... }:{
 
-{
   imports = [
     ./hardware-configuration.nix
     ./desktop_gnome.nix
