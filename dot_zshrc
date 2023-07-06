@@ -193,7 +193,7 @@ if [[ $(uname) == "Darwin" ]]; then
   alias qb="java8 && mvn clean install -T 1C -Ddelta.skip=true -Dcleanup.skip=true -Dqunit.numThreads=8 -DskipTests -Dtablespaces.skip=true -Dgulp.task=min && java11"
   alias qqb="java8 && mvn install -T 1C -Ddelta.skip=true -Dcleanup.skip=true -Dqunit.numThreads=8 -DskipTests -Dtablespaces.skip=true -Dgulp.task=min && java11"
   alias sdk-start="source $HOME/.sdkman/bin/sdkman-init.sh"
-  alias shopcart="rlwrap sqlplus jwindsor@shopcart.db.cj.com:1531/shopcart"
+  alias shopcart="rlwrap sqlplus jwindsor@shopcart.db.cj.com:1531/shopcart"
   alias shuttle-init="$HOME/.local/scripts/cj/shuttle-init"
   alias t1="rlwrap sqlplus cj@tcjoweb1.db.cj.com:1521/tcjoweb1"
   alias t5="rlwrap sqlplus cj@tcjoweb5.db.cj.com:1521/tcjoweb5"
