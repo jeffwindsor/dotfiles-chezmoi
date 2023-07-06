@@ -3,7 +3,8 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ./desktop.nix
+    ./desktop_gnome.nix
+    ./desktop_hyprland.nix
     ./terminal-dev.nix
     ./zsh.nix
     ./user-mid.nix
