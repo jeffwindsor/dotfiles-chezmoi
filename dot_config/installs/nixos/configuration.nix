@@ -3,7 +3,7 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ./gnome.nix
+    ./desktop.nix
     ./terminal-dev.nix
     ./zsh.nix
     ./user-mid.nix
@@ -53,8 +53,8 @@
     settings = {
       auto-optimise-store = true;                 #https://nixos.wiki/wiki/Storage_optimization
       # enable flakes
-      experimiental-features = ["nix-command" "flakes"];
-    }
+      experimental-features = ["nix-command" "flakes"];
+    };
     # garbage collection on the regular
     gc = {
       automatic = true;
