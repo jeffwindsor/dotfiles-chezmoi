@@ -68,7 +68,7 @@ alias jeff="cd $SRC/github.com/jeffwindsor/"
 alias md="cd $HOME/portable/exocortex/markdown"
 alias src="cd $SRC"
 
-alias change="$EDITOR $HOME/.config/installs/nixos/*.nix"
+alias change="$EDITOR -c \":args **/*.nix\""
 alias hubs="exec-on-git-repos cd $SRC/github.com/"
 alias srcs="exec-on-git-repos cd $SRC"
 alias theme="$XDG_CONFIG_HOME/alacritty/change_theme"
