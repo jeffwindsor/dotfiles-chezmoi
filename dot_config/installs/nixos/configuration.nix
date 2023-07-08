@@ -3,7 +3,7 @@
   imports = [
     ./desktop/gnome.nix
     ./service/audio.nix
-    ./service/en-us-internationization.nix
+    ./service/en-us-internationalization.nix
     ./service/laptop.nix
     ./service/nixos.nix
     ./service/ntfs.nix
