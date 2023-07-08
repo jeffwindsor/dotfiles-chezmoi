@@ -6,24 +6,50 @@
   time.timeZone = "America/Los_Angeles";
   system.stateVersion = "23.05";
 
-  # system packages
+  # package manager config
+  nix = {
+    # optimize space << https://nixos.wiki/wiki/Storage_optimization#Optimising_the_store
+    settings.auto-optimise-store = true;
+
+    # enable flakes << https://nixos.wiki/wiki/Storage_optimization#Automation
+    settings.experimental-features = ["nix-command" "flakes"];
+
+    # garbage collection on the regular << https://nixos.wiki/wiki/Storage_optimization#Automation
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 30d";
+    };
+  };
+  nixpkgs.config.allowUnfree = true;    # allow more packages
+  system.autoUpgrade.enable = true;     # auto update nixos and nix packages
+
+  # helpful laptop packages
   environment.systemPackages = with pkgs; [
     fwupd   # firmware update service
     tlp     # laptop power mgmt service
   ];
 
   # printing services
-  printing.enable = true;
+  services.printing.enable = true;
+  #   IPP capable printing << https://nixos.wiki/wiki/Printing#IPP_everywhere_capable_printer
+  services.avahi = {
+    enable = true;
+    nssmdns = true;
+    # for a WiFi printer
+    openFirewall = true;
+  };
 
-  # sound services via pipewire
-  sound.enable = true;
-  hardware.pulseaudio.enable = false;
+  # sound services
+  security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
   };
+  #sound.enable = true;
+  hardware.pulseaudio.enable = false;
 
   # internationalization to be safe
   i18n ={
@@ -41,12 +67,13 @@
     };
   };
 
-  # Extras
+  # NTFS
   boot.supportedFilesystems = [ "ntfs" ];
+
+  # defaults
   boot.loader = {
     systemd-boot.enable = true;
     efi.canTouchEfiVariables = true;
   };
   networking.networkmanager.enable = true;
-  security.rtkit.enable = true;
 }
