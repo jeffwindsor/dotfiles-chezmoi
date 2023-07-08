@@ -1,61 +1,87 @@
 { config, pkgs, ... }:{
 
   imports = [
-    ./hardware-configuration.nix
-    ./desktop_gnome.nix
-    ./desktop_hyprland.nix
-    ./terminal-dev.nix
+    ./gnome.nix
+    #./hyprland.nix
     ./zsh.nix
-    ./user-mid.nix
+    ./framework-laptop.nix
   ];
 
-  boot = {
-    supportedFilesystems = [ "ntfs" ];
-    loader = {
-      systemd-boot.enable = true;
-      efi.canTouchEfiVariables = true;
+  # users with user only packages
+  users.users = [
+    mid = {
+      isNormalUser = true;
+      description = "The Middle Way";
+      extraGroups = [ "networkmanager" "wheel" ];
+      packages = with pkgs; [
+        # applications
+        audacity
+        gimp
+        gnucash
+        libreoffice
+        megasync
+        newsflash
+        obsidian
+        spotify
+        transmission-gtk
+        vlc
+
+        # web browsers
+        google-chrome
+      ];
     };
-  };
+  ];
 
-  environment = {
-    systemPackages = with pkgs; [
-      avahi   # print services
-      fwupd   # firmware update service
-      tlp     # laptop power mgmt service
-    ];
-  };
+  # system wide packages
+  environment.systemPackages = with pkgs; [
+    # applications
+    alacritty
+    clamav
 
-  hardware.pulseaudio.enable = false;
+    # web browsers
+    chromium
+    firefox
 
-  # Select internationalisation properties.
-  i18n ={
-    defaultLocale = "en_US.UTF-8";
-    extraLocaleSettings = {
-      LC_ADDRESS = "en_US.UTF-8";
-      LC_IDENTIFICATION = "en_US.UTF-8";
-      LC_MEASUREMENT = "en_US.UTF-8";
-      LC_MONETARY = "en_US.UTF-8";
-      LC_NAME = "en_US.UTF-8";
-      LC_NUMERIC = "en_US.UTF-8";
-      LC_PAPER = "en_US.UTF-8";
-      LC_TELEPHONE = "en_US.UTF-8";
-      LC_TIME = "en_US.UTF-8";
-    };
-  };
+    # fonts
+    jetbrains-mono
 
-  networking = {
-    hostName = "frame";
-    networkmanager.enable = true;
-  };
+    # command line utils
+    bat
+    bottom
+    broot
+    chezmoi
+    exa
+    fclones
+    fd
+    fortune
+    freshfetch
+    fzf
+    gcc
+    git
+    gitui
+    gnupg
+    helix
+    lf
+    neovim
+    nix-direnv
+    ripgrep
+    sd
+    shellcheck
+    starship
+    tealdeer
+    zellij
+  ];
 
-  nixpkgs.config.allowUnfree = true;
+#
+
   nix = {
-    settings = {
-      auto-optimise-store = true;                 #https://nixos.wiki/wiki/Storage_optimization
-      # enable flakes
-      experimental-features = ["nix-command" "flakes"];
-    };
-    # garbage collection on the regular
+    # optimize space << https://nixos.wiki/wiki/Storage_optimization#Optimising_the_store
+    settings.auto-optimise-store = true;
+
+    # enable flakes << https://nixos.wiki/wiki/Storage_optimization#Automation
+    settings.experimental-features = ["nix-command" "flakes"];
+
+    # garbage collection on the regular << https://nixos.wiki/wiki/Storage_optimization#Automation
     gc = {
       automatic = true;
       dates = "weekly";
@@ -63,34 +89,9 @@
     };
   };
 
-  security.rtkit.enable = true;
+  # allow more packages
+  nixpkgs.config.allowUnfree = true;
 
-  services = {
-    # printing
-    avahi = {
-      enable = true;
-      nssmdns = true;
-      openFirewall = true;
-    };
-    printing.enable = true;
-
-    # flatpak.enable = true;
-
-    # audio
-    pipewire = {
-      enable = true;
-      alsa.enable = true;
-      alsa.support32Bit = true;
-      pulse.enable = true;
-    };
-  };
-
-  sound.enable = true;
-
-  system ={
-    autoUpgrade.enable = true;
-    stateVersion = "23.05";
-  };
-
-  time.timeZone = "America/Los_Angeles";
+  # auto update nixos and nix pacakges
+  system.autoUpgrade.enable = true;
 }
