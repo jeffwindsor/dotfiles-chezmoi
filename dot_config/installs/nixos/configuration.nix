@@ -2,13 +2,13 @@
 
   imports = [
     ./desktop/gnome.nix
-    ./service/audio.nix
-    ./service/en-us-internationalization.nix
+    ./component/zsh.nix
+    ./component/nixos.nix
     ./service/laptop.nix
-    ./service/nixos.nix
     ./service/ntfs.nix
+    ./service/audio.nix
     ./service/printing.nix
-    ./service/zsh.nix
+    ./hardware-configuration.nix
   ];
 
   networking.hostName = "frame";
