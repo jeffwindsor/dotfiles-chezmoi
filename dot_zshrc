@@ -67,7 +67,7 @@ alias jeff="cd $SRC/github.com/jeffwindsor/"
 alias md="cd $HOME/portable/exocortex/markdown"
 alias src="cd $SRC"
 
-alias change="$EDITOR -c \":args **/*.nix\""
+alias change="$EDITOR -c \":args $HOME/.config/installs/nixos/**/*.nix\""
 alias hubs="exec-on-git-repos cd $SRC/github.com/"
 alias srcs="exec-on-git-repos cd $SRC"
 alias theme="$XDG_CONFIG_HOME/alacritty/change_theme"
@@ -221,6 +221,7 @@ elif command dnf &>/dev/null; then
   alias dit="sudo dnf --enablerepo=updates-testing,updates-testing-modular --best install"
   alias dls="dnf history --userinstalled"
   alias up="sudo dnf upgrade"
+  alias change="$EDITOR $HOME/.config/installs/fedora"
 
   # fedora inits
   [ -d /usr/share/zsh-autosuggestions ] && source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
