@@ -1,53 +1,56 @@
 { config, pkgs, ... }:{
 
   imports = [
-    ./gnome.nix
-    #./hyprland.nix
-    ./zsh.nix
-    ./framework-laptop.nix
+    ./desktop/gnome.nix
+    ./service/audio.nix
+    ./service/en-us-internationization.nix
+    ./service/laptop.nix
+    ./service/nixos.nix
+    ./service/ntfs.nix
+    ./service/printing.nix
+    ./service/zsh.nix
   ];
 
-  # users with user only packages
-  users.users.mid = {
-    isNormalUser = true;
-    description = "The Middle Way";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-      # applications
-      audacity
-      gimp
-      gnucash
-      libreoffice
-      megasync
-      newsflash
-      obsidian
-      spotify
-      transmission-gtk
-      vlc
+  networking.hostName = "frame";
+  time.timeZone       = "America/Los_Angeles";
+  system.stateVersion = "23.05";
 
-      # web browsers
-      google-chrome
-      chromium
-      firefox
-    ];
+  # users
+  users.users.mid = {
+    isNormalUser  = true;
+    description   = "The Middle Way";
+    extraGroups   = [ "networkmanager" "wheel" ];
   };
 
   # system wide packages
   environment.systemPackages = with pkgs; [
     # applications
     alacritty
+    audacity
     clamav
+    gimp
+    gnucash
+    libreoffice
+    megasync
+    newsflash
+    obsidian
+    spotify
+    transmission-gtk
+    vlc
+
+    # web browsers
+    chromium
+    firefox
+    google-chrome
 
     # fonts
     jetbrains-mono
 
     # command line utils
     bat
-    bottom
     broot
     chezmoi
     exa
-    fclones
     fd
     fortune
     freshfetch
@@ -55,16 +58,14 @@
     gcc
     git
     gitui
-    gnupg
     helix
-    lf
     neovim
-    nix-direnv
     ripgrep
     sd
-    shellcheck
     starship
     tealdeer
+    xplr
+    xclip
     zellij
   ];
 
