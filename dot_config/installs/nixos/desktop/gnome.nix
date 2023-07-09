@@ -1,20 +1,46 @@
 { config, pkgs, ... }:{
 
   environment.systemPackages = with pkgs; [
-    gnome-extension-manager
+
+    # shows old-school icons in tray (some programs need this, like mega sync)
     gnomeExtensions.appindicator
+
+    # add some modern blurrrr to the de
     gnomeExtensions.blur-my-shell
+
+    # stay awake
     gnomeExtensions.caffeine
+
+    # taskbar quotes
     gnomeExtensions.executor
+    fortune
+
+    # tiling window manager
     gnomeExtensions.forge
+
+    # tweaks to gnome visuals
     gnomeExtensions.just-perfection
+
+    # weather in the taskbar
     gnomeExtensions.openweather
+
+    # display of workspaces (like i3)
     gnomeExtensions.space-bar
-    gnomeExtensions.system-monitor
+
+    # display system informatio in the taskbar
+    #gnomeExtensions.system-monitor
+
+    # auto switch wallpapers
     gnomeExtensions.wallpaper-switcher
 
-    # applications
+    # improved extension manager
+    gnome-extension-manager
+
+    # firmware application
     gnome-firmware
+
+    # terminal to clipboard manager
+    xclip
   ];
 
   services.xserver = {

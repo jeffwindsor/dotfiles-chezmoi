@@ -24,19 +24,9 @@
 
   # system wide packages
   environment.systemPackages = with pkgs; [
-    # applications
+
+    # terminals
     alacritty
-    audacity
-    clamav
-    gimp
-    gnucash
-    libreoffice
-    megasync
-    newsflash
-    obsidian
-    spotify
-    transmission-gtk
-    vlc
 
     # web browsers
     chromium
@@ -46,27 +36,44 @@
     # fonts
     jetbrains-mono
 
-    # command line utils
-    bat
-    broot
+    # dotfile management
     chezmoi
-    exa
-    fd
-    fortune
-    freshfetch
-    fzf
-    gcc
-    git
-    gitui
+
+    # editors
     helix
     neovim
-    ripgrep
-    sd
-    starship
-    tealdeer
-    xplr
-    xclip
-    zellij
+
+    # source control
+    git
+    gitui
+
+    # new hotness command line utils
+    bat           # cat
+    exa           # ls
+    fd            # find
+    freshfetch    # neofetch replacement
+    fzf           # fuzzy finder
+    gcc           # c compiler
+    ripgrep       # grep
+    sd            # sed
+    starship      # prompt
+    tealdeer      # tldr
+    xplr          # tui file explorer
+    zellij        # tmux
+
+    # applications
+    audacity      # sound engineering
+    clamav        # virus
+    gimp          # image manipulation
+    gnucash       # double entry accounting
+    libreoffice   # office suite
+    megasync      # cloud storage
+    newsflash     # rss
+    obsidian      # markdown editor
+    spotify       # music service
+    transmission-gtk
+    vlc           # media player
+
   ];
 
 }
