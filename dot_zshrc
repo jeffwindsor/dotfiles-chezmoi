@@ -67,8 +67,8 @@ alias jeff="cd $SRC/github.com/jeffwindsor/"
 alias md="cd $HOME/portable/exocortex/markdown"
 alias src="cd $SRC"
 
-alias change="$EDITOR -c \":args $HOME/.config/installs/nixos/**/*.nix\""
 alias hubs="exec-on-git-repos cd $SRC/github.com/"
+alias nxchange="$EDITOR -c \":args $HOME/.config/installs/nixos/**/*.nix\""
 alias srcs="exec-on-git-repos cd $SRC"
 alias theme="$XDG_CONFIG_HOME/alacritty/change_theme"
 
@@ -84,7 +84,7 @@ if command -v chezmoi &>/dev/null; then
   alias cph='chezmoi git push'
   alias cs='chezmoi status'
 
-  alias stow="chezmoi add $HOME/.config/installs/nixos/*.nix"
+  alias nxstow="chezmoi add $HOME/.config/installs/nixos/*.nix"
 
   # chezmoi has a config for editor to use, defaults to $EDITOR
   # clist='chezmoi list -i files -p absolute'
