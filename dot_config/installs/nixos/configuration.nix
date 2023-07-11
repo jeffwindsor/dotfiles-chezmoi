@@ -63,7 +63,6 @@
 
     # applications
     audacity      # sound engineering
-    clamav        # virus
     gimp          # image manipulation
     gnucash       # double entry accounting
     libreoffice   # office suite
